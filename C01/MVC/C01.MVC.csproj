@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <!-- <RootNamespace>C01.MVC</RootNamespace> -->
   </PropertyGroup>
 
   <ItemGroup>
