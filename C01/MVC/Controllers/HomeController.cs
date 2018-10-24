@@ -11,12 +11,20 @@ namespace C01.MVC.Controllers
             var youCanSetABreakpointHere = "";
         }
 
-        public IActionResult ActionWithSomeInput(int id) => View(id);
-
-        public IActionResult ActionWithSomeInputAndAModel(int id) => View(new SomeModel
+        public IActionResult ActionWithSomeInput(int id)
         {
-            SelectedId = id,
-            Title = "This title was set in HomeController!"
-        });
+            var model = id;
+            return View(model);
+        }
+
+        public IActionResult ActionWithSomeInputAndAModel(int id)
+        {
+            var model = new SomeModel
+            {
+                SelectedId = id,
+                Title = "This title was set in HomeController!"
+            };
+            return View(model);
+        }
     }
 }
