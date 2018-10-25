@@ -13,7 +13,7 @@ namespace C01.ViewModels.Controllers
     {
         private readonly StudentService _studentService = new StudentService();
 
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> Index()
         {
             // Get data from the data store
             var students = await _studentService.ReadAllAsync();

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C01.ViewModels", "C01.ViewModels\C01.ViewModels.csproj", "{14CEDCB9-E8F3-4B65-B5D9-11D80D3B7207}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Use Case 1", "UC1\Use Case 1.csproj", "{14CEDCB9-E8F3-4B65-B5D9-11D80D3B7207}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
