@@ -54,7 +54,10 @@ namespace C01.ViewModels.Controllers
             var viewModel = new EditStudentViewModel
             {
                 Id = student.Id,
-                Name = student.Name,
+                Form = new StudentFormViewModel
+                {
+                    Name = student.Name,
+                },
                 Classes = student.Classes.Select(x => x.Name)
             };
             return View(viewModel);
@@ -64,7 +67,7 @@ namespace C01.ViewModels.Controllers
         public async Task<IActionResult> Edit(EditStudentViewModel model)
         {
             // Update the student
-            await _studentService.UpdateAsync(model.Id, model.Name);
+            await _studentService.UpdateAsync(model.Id, model.Form.Name);
 
             // Redirect back to the list
             return RedirectToAction(nameof(Index));

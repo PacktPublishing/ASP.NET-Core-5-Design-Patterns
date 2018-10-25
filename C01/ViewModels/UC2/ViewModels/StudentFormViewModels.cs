@@ -11,10 +11,11 @@ namespace C01.ViewModels.ViewModels
 
     }
 
-    public class EditStudentViewModel : StudentFormViewModel
+    public class EditStudentViewModel
     {
         public int Id { get; set; }
         public IEnumerable<string> Classes { get; set; }
+        public StudentFormViewModel Form { get; set; }
     }
 
     public class StudentFormViewModel
