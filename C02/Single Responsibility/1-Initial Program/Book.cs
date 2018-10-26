@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,23 @@ namespace C02.SRP
         public int Id { get; set; }
         public string Title { get; set; }
 
+        private static int _lastId = 0;
+
+        public static List<Book> Books { get; }
+        public static int NextId => ++_lastId;
+
+        static Book()
+        {
+            Books = new List<Book>
+            {
+                new Book
+                {
+                    Id = NextId,
+                    Title = "Some cool computer book"
+                }
+            };
+        }
+
         public Book(int? id = null)
         {
             Id = id ?? default(int);
@@ -20,14 +38,14 @@ namespace C02.SRP
             // Create the book is it does not exist, 
             // otherwise, find its index and replace it 
             // by the current object.
-            if (BookStore.Books.Any(x => x.Id == Id))
+            if (Books.Any(x => x.Id == Id))
             {
-                var index = BookStore.Books.FindIndex(x => x.Id == Id);
-                BookStore.Books[index] = this;
+                var index = Books.FindIndex(x => x.Id == Id);
+                Books[index] = this;
             }
             else
             {
-                BookStore.Books.Add(this);
+                Books.Add(this);
             }
         }
 
@@ -40,12 +58,12 @@ namespace C02.SRP
             }
 
             // Get the book
-            var book = BookStore.Books.FirstOrDefault(x => x.Id == Id);
+            var book = Books.FirstOrDefault(x => x.Id == Id);
 
             // Make sure it exist
             if (book == null)
             {
-                throw new Exception("This book does not exist in the bookstore.");
+                throw new Exception("This book does not exist in the ");
             }
 
             // Copy the book properties to the current object
