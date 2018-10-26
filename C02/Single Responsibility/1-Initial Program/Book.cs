@@ -35,7 +35,7 @@ namespace C02.SRP
 
         public void Save()
         {
-            // Create the book is it does not exist, 
+            // Create the book when it does not exist, 
             // otherwise, find its index and replace it 
             // by the current object.
             if (Books.Any(x => x.Id == Id))
