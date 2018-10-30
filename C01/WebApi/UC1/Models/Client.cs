@@ -51,7 +51,19 @@ namespace C01.WebApi.Models
         public string Email { get; set; }
     }
 
-    public class ClientDto
+    public class ClientSummaryDto
+    {
+        [JsonProperty("id")]
+        public int Id { get; set; }
+        [JsonProperty("name")]
+        public string Name { get; set; }
+        [JsonProperty("totalNumberOfContracts")]
+        public int TotalNumberOfContracts { get; set; }
+        [JsonProperty("numberOfOpenContracts")]
+        public int NumberOfOpenContracts { get; set; }
+    }
+
+    public class ClientDetailsDto
     {
         [JsonProperty("id")]
         public int Id { get; set; }
@@ -59,10 +71,10 @@ namespace C01.WebApi.Models
         public string Name { get; set; }
 
         [JsonProperty("contracts")]
-        public IEnumerable<ContractDto> Contracts { get; set; }
+        public IEnumerable<ContractDetailsDto> Contracts { get; set; }
     }
 
-    public class ContractDto
+    public class ContractDetailsDto
     {
         [JsonProperty("id")]
         public int Id { get; set; }

@@ -14,15 +14,16 @@ namespace C01.WebApi.Controllers
     {
         private readonly ClientService _clientService = new ClientService();
 
-        // GET api/values
+        // GET api/clients
         [HttpGet]
-        public ActionResult<IEnumerable<ClientDto>> Get()
+        public ActionResult<IEnumerable<ClientSummaryDto>> Get()
         {
             var clients = _clientService.ReadAll();
-            return clients.Select(client => Convert(client)).ToArray();
+            var dto = clients.Select(client => ConvertToSummary(client)).ToArray();
+            return dto;
         }
 
-        // GET api/values/5
+        // GET api/clients/1
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -31,32 +32,51 @@ namespace C01.WebApi.Controllers
             {
                 return NotFound();
             }
-            var dto = Convert(client);
+            var dto = ConvertToDetails(client);
             return Ok(dto);
         }
 
-        private ClientDto Convert(Client client)
+        //
+        // Model to DTO conversion
+        //
+        private ClientSummaryDto ConvertToSummary(Client client)
         {
-            return new ClientDto
+            return new ClientSummaryDto
             {
                 Id = client.Id,
                 Name = client.Name,
-                Contracts = client.Contracts.Select(contract => new ContractDto
-                {
-                    Id = contract.Id,
-                    Name = contract.Name,
-                    Description = contract.Description,
+                TotalNumberOfContracts = client.Contracts.Count,
+                NumberOfOpenContracts = client.Contracts.Count(x => x.Work.State != WorkState.Completed)
+            };
+        }
 
-                    // Flattening PrimaryContact
-                    PrimaryContactEmail = contract.PrimaryContact.Email,
-                    PrimaryContactFirstname = contract.PrimaryContact.Firstname,
-                    PrimaryContactLastname = contract.PrimaryContact.Lastname,
+        private ClientDetailsDto ConvertToDetails(Client client)
+        {
+            return new ClientDetailsDto
+            {
+                Id = client.Id,
+                Name = client.Name,
+                Contracts = client.Contracts.Select(contract => ConvertToDetails(contract))
+            };
+        }
 
-                    // Flattening Work
-                    WorkDone = contract.Work.Done,
-                    WorkState = contract.Work.State,
-                    WorkTotal = contract.Work.Total
-                })
+        private static ContractDetailsDto ConvertToDetails(Contract contract)
+        {
+            return new ContractDetailsDto
+            {
+                Id = contract.Id,
+                Name = contract.Name,
+                Description = contract.Description,
+
+                // Flattening PrimaryContact
+                PrimaryContactEmail = contract.PrimaryContact.Email,
+                PrimaryContactFirstname = contract.PrimaryContact.Firstname,
+                PrimaryContactLastname = contract.PrimaryContact.Lastname,
+
+                // Flattening Work
+                WorkDone = contract.Work.Done,
+                WorkState = contract.Work.State,
+                WorkTotal = contract.Work.Total
             };
         }
     }
