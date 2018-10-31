@@ -33,21 +33,24 @@ namespace C02.SRP
 
         public IEnumerable<Book> Books => _books;
 
-        public void Save(Book book)
+        public void Create(Book book)
         {
-            // Create the book when it does not exist, 
-            // otherwise, find its index and replace it 
-            // by the specified book.
+            if (book.Id != default(int))
+            {
+                throw new Exception("A new book cannot be created with an id.");
+            }
+            book.Id = NextId;
+            _books.Add(book);
+        }
+
+        public void Replace(Book book)
+        {
             if (_books.Any(x => x.Id == book.Id))
             {
-                var index = _books.FindIndex(x => x.Id == book.Id);
-                _books[index] = book;
+                throw new Exception($"Book {book.Id} does not exist!");
             }
-            else
-            {
-                book.Id = NextId;
-                _books.Add(book);
-            }
+            var index = _books.FindIndex(x => x.Id == book.Id);
+            _books[index] = book;
         }
 
         public Book Load(int bookId)
