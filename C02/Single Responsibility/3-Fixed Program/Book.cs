@@ -17,7 +17,7 @@ namespace C02.SRP
         private static int _lastId = 0;
 
         private static List<Book> _books;
-        public static int NextId => ++_lastId;
+        private static int NextId => ++_lastId;
 
         static BookStore()
         {
@@ -45,6 +45,7 @@ namespace C02.SRP
             }
             else
             {
+                book.Id = NextId;
                 _books.Add(book);
             }
         }
