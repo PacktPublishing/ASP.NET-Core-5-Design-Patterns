@@ -22,13 +22,13 @@ namespace C02.SRP
         static BookStore()
         {
             _books = new List<Book>
+            {
+                new Book
                 {
-                    new Book
-                    {
-                        Id = NextId,
-                        Title = "Some cool computer book"
-                    }
-                };
+                    Id = NextId,
+                    Title = "Some cool computer book"
+                }
+            };
         }
 
         public IEnumerable<Book> Books => _books;
