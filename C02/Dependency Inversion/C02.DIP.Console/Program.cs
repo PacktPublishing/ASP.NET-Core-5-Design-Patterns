@@ -17,7 +17,7 @@ namespace C02.DIP.App
             Console.WriteLine($"isPublic: {isPublic}");
             if (isPublic)
             {
-                await PublicApp();
+                await PublicAppAsync();
             }
             else
             {
@@ -26,7 +26,7 @@ namespace C02.DIP.App
             Console.ReadLine();
         }
 
-        private static async Task PublicApp()
+        private static async Task PublicAppAsync()
         {
             var publicService = Composer.CreatePublicService();
             var books = await publicService.FindAllAsync();
