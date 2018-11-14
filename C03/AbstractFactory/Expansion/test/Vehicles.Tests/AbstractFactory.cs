@@ -9,14 +9,17 @@ namespace Vehicles.Tests
         // Arrange
         public static IVehicleFactory LowGradeVehicleFactory => new LowGradeVehicleFactory();
         public static IVehicleFactory HighGradeVehicleFactory => new HighGradeVehicleFactory();
+        public static IVehicleFactory MiddleEndVehicleFactory => new MiddleEndVehicleFactory();
 
         public static TheoryData<IVehicleFactory, Type> CarData => new TheoryData<IVehicleFactory, Type>{
             { LowGradeVehicleFactory, typeof(LowGradeCar) },
             { HighGradeVehicleFactory, typeof(HighGradeCar) },
+            { MiddleEndVehicleFactory, typeof(MiddleGradeCar) },
         };
         public static TheoryData<IVehicleFactory, Type> BikeData => new TheoryData<IVehicleFactory, Type>{
             { LowGradeVehicleFactory, typeof(LowGradeBike) },
             { HighGradeVehicleFactory, typeof(HighGradeBike) },
+            { MiddleEndVehicleFactory, typeof(MiddleGradeBike) },
         };
 
         [Theory]
