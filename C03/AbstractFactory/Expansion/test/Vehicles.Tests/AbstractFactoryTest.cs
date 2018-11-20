@@ -2,7 +2,7 @@ using System;
 using Vehicles.Models;
 using Xunit;
 
-namespace Vehicles.Tests
+namespace Vehicles
 {
     // Arrange
     public class AbstractFactoryTestCars : AbstractFactoryBaseTestData
@@ -26,14 +26,14 @@ namespace Vehicles.Tests
     }
 
     // Tests
-    public class AbstractFactory
+    public class AbstractFactoryTest
     {
         [Theory]
         [ClassData(typeof(AbstractFactoryTestCars))]
         public void Should_create_a_Car_of_the_specified_type(IVehicleFactory vehicleFactory, Type expectedCarType)
         {
             // Act
-            var result = vehicleFactory.CreateCar();
+            ICar result = vehicleFactory.CreateCar();
 
             // Assert
             Assert.IsType(expectedCarType, result);
@@ -44,7 +44,7 @@ namespace Vehicles.Tests
         public void Should_create_a_Bike_of_the_specified_type(IVehicleFactory vehicleFactory, Type expectedBikeType)
         {
             // Act
-            var result = vehicleFactory.CreateBike();
+            IBike result = vehicleFactory.CreateBike();
 
             // Assert
             Assert.IsType(expectedBikeType, result);

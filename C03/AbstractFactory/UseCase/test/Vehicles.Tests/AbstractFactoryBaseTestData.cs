@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Vehicles.Tests
+namespace Vehicles
 {
     public abstract class AbstractFactoryBaseTestData : IEnumerable<object[]>
     {
