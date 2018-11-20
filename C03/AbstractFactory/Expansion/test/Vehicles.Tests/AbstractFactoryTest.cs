@@ -7,20 +7,22 @@ namespace Vehicles.Tests
     // Arrange
     public class AbstractFactoryTestCars : AbstractFactoryBaseTestData
     {
-        protected override TheoryData<IVehicleFactory, Type> Data => new TheoryData<IVehicleFactory, Type>{
-            { LowGradeVehicleFactory, typeof(LowGradeCar) },
-            { HighGradeVehicleFactory, typeof(HighGradeCar) },
-            { MiddleEndVehicleFactory, typeof(MiddleGradeCar) },
-        };
+        public AbstractFactoryTestCars()
+        {
+            AddTestData<LowGradeVehicleFactory, LowGradeCar>();
+            AddTestData<HighGradeVehicleFactory, HighGradeCar>();
+            AddTestData<MiddleEndVehicleFactory, MiddleGradeCar>();
+        }
     }
 
     public class AbstractFactoryTestBikes : AbstractFactoryBaseTestData
     {
-        protected override TheoryData<IVehicleFactory, Type> Data => new TheoryData<IVehicleFactory, Type>{
-            { LowGradeVehicleFactory, typeof(LowGradeBike) },
-            { HighGradeVehicleFactory, typeof(HighGradeBike) },
-            { MiddleEndVehicleFactory, typeof(MiddleGradeBike) },
-        };
+        public AbstractFactoryTestBikes()
+        {
+            AddTestData<LowGradeVehicleFactory, LowGradeBike>();
+            AddTestData<HighGradeVehicleFactory, HighGradeBike>();
+            AddTestData<MiddleEndVehicleFactory, MiddleGradeBike>();
+        }
     }
 
     // Tests

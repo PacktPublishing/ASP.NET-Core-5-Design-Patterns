@@ -7,14 +7,17 @@ namespace Vehicles.Tests
 {
     public abstract class AbstractFactoryBaseTestData : IEnumerable<object[]>
     {
-        public static IVehicleFactory LowGradeVehicleFactory => new LowGradeVehicleFactory();
-        public static IVehicleFactory HighGradeVehicleFactory => new HighGradeVehicleFactory();
+        private readonly TheoryData<IVehicleFactory, Type> _data = new TheoryData<IVehicleFactory, Type>();
 
-        protected abstract TheoryData<IVehicleFactory, Type> Data { get; }
+        protected void AddTestData<TConcreteFactory, TExpectedVehicle>()
+            where TConcreteFactory : IVehicleFactory, new()
+        {
+            _data.Add(new TConcreteFactory(), typeof(TExpectedVehicle));
+        }
 
         public IEnumerator<object[]> GetEnumerator()
         {
-            return Data.GetEnumerator();
+            return _data.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
