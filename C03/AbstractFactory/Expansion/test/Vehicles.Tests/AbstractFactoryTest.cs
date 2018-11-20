@@ -4,26 +4,30 @@ using Xunit;
 
 namespace Vehicles.Tests
 {
-    public class AbstractFactory
+    // Arrange
+    public class AbstractFactoryTestCars : AbstractFactoryBaseTestData
     {
-        // Arrange
-        public static IVehicleFactory LowGradeVehicleFactory => new LowGradeVehicleFactory();
-        public static IVehicleFactory HighGradeVehicleFactory => new HighGradeVehicleFactory();
-        public static IVehicleFactory MiddleEndVehicleFactory => new MiddleEndVehicleFactory();
-
-        public static TheoryData<IVehicleFactory, Type> CarData => new TheoryData<IVehicleFactory, Type>{
+        protected override TheoryData<IVehicleFactory, Type> Data => new TheoryData<IVehicleFactory, Type>{
             { LowGradeVehicleFactory, typeof(LowGradeCar) },
             { HighGradeVehicleFactory, typeof(HighGradeCar) },
             { MiddleEndVehicleFactory, typeof(MiddleGradeCar) },
         };
-        public static TheoryData<IVehicleFactory, Type> BikeData => new TheoryData<IVehicleFactory, Type>{
+    }
+
+    public class AbstractFactoryTestBikes : AbstractFactoryBaseTestData
+    {
+        protected override TheoryData<IVehicleFactory, Type> Data => new TheoryData<IVehicleFactory, Type>{
             { LowGradeVehicleFactory, typeof(LowGradeBike) },
             { HighGradeVehicleFactory, typeof(HighGradeBike) },
             { MiddleEndVehicleFactory, typeof(MiddleGradeBike) },
         };
+    }
 
+    // Tests
+    public class AbstractFactory
+    {
         [Theory]
-        [MemberData(nameof(CarData))]
+        [ClassData(typeof(AbstractFactoryTestCars))]
         public void Should_create_a_Car_of_the_specified_type(IVehicleFactory vehicleFactory, Type expectedCarType)
         {
             // Act
@@ -34,7 +38,7 @@ namespace Vehicles.Tests
         }
 
         [Theory]
-        [MemberData(nameof(BikeData))]
+        [ClassData(typeof(AbstractFactoryTestBikes))]
         public void Should_create_a_Bike_of_the_specified_type(IVehicleFactory vehicleFactory, Type expectedBikeType)
         {
             // Act
