@@ -5,14 +5,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Strategy.Models;
+using Strategy.Services;
 
 namespace Strategy.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IHomeService _homeService;
+        public HomeController(IHomeService homeService)
+        {
+            _homeService = homeService ?? throw new ArgumentNullException(nameof(homeService));
+        }
+
+        //public IActionResult Index([FromServices]HomePageViewModel viewModel)
         public IActionResult Index()
         {
-            return View();
+            var data = _homeService.GetHomePageData();
+            var viewModel = new HomePageViewModel(data);
+            return View(viewModel);
         }
 
         public IActionResult Privacy()
