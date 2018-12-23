@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,9 +17,11 @@ namespace ServiceLocator
         [Route("/")]
         public IActionResult Get()
         {
-            var myService = _serviceProvider.GetService<IMyService>();
-            myService.Execute();
-            return Ok();
+            using (var myService = _serviceProvider.GetService<IMyService>())
+            {
+                myService.Execute();
+                return Ok();
+            }
         }
     }
 }

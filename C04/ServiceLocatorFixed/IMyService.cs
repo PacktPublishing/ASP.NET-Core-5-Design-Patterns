@@ -1,10 +1,9 @@
-﻿namespace ServiceLocatorFixed
+﻿using System;
+
+namespace ServiceLocatorFixed
 {
-    public interface IMyService
+    public interface IMyService : IDisposable
     {
         void Execute();
     }
-
-
-
 }
