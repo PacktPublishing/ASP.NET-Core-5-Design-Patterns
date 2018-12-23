@@ -11,17 +11,8 @@ namespace Factory.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IHomeService _homeService;
-        public HomeController(IHomeService homeService)
+        public IActionResult Index([FromServices]HomePageViewModel viewModel)
         {
-            _homeService = homeService ?? throw new ArgumentNullException(nameof(homeService));
-        }
-
-        //public IActionResult Index([FromServices]HomePageViewModel viewModel)
-        public IActionResult Index()
-        {
-            var data = _homeService.GetHomePageData();
-            var viewModel = new HomePageViewModel(data);
             return View(viewModel);
         }
 

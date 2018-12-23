@@ -17,7 +17,6 @@ namespace Strategy.Controllers
             _homeService = homeService ?? throw new ArgumentNullException(nameof(homeService));
         }
 
-        //public IActionResult Index([FromServices]HomePageViewModel viewModel)
         public IActionResult Index()
         {
             var data = _homeService.GetHomePageData();

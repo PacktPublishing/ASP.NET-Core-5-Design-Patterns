@@ -27,11 +27,6 @@ namespace Strategy
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IHomeService, HomeService>();
-            //services.AddTransient(serviceProvider => {
-            //    var homeService = serviceProvider.GetService<IHomeService>();
-            //    var data = homeService.GetHomePageData();
-            //    return new HomePageViewModel(data);
-            //});
 
             services.Configure<CookiePolicyOptions>(options =>
             {
