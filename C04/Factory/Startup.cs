@@ -33,6 +33,7 @@ namespace Factory
                 var data = homeService.GetHomePageData();
                 return new HomePageViewModel(data);
             });
+            services.AddSingleton<IHomeViewModelFactory, HomeViewModelFactory>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
