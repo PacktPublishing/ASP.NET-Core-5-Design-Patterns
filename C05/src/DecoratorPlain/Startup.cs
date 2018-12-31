@@ -17,7 +17,9 @@ namespace DecoratorPlain
         {
             services
                 .AddSingleton<Client>()
-                .AddSingleton<IComponent, ComponentA>()
+                //.AddSingleton<IComponent, ComponentA>()
+                //.AddSingleton<IComponent>(serviceProvider => new DecoratorA(new ComponentA()))
+                .AddSingleton<IComponent>(serviceProvider => new DecoratorB(new DecoratorA(new ComponentA())))
                 ;
         }
 
