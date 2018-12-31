@@ -8,7 +8,7 @@ namespace DecoratorPlain
         public class Operation : DecoratorBTest
         {
             [Fact]
-            public void Should_wrap_the_decorated_result()
+            public void Should_wrap_the_decorated_result_in_a_DecoratorB_tag()
             {
                 // Arrange
                 var componentMock = new Mock<IComponent>();
