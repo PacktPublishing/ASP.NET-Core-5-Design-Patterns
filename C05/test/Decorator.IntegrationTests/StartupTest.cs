@@ -33,21 +33,4 @@ namespace Decorator.IntegrationTests
             );
         }
     }
-
-    public class DecoratorPlainStartupTest : StartupTest<DecoratorPlain.Startup>
-    {
-        public DecoratorPlainStartupTest(WebApplicationFactory<DecoratorPlain.Startup> webApplicationFactory)
-            : base(webApplicationFactory)
-        {
-        }
-    }
-
-    public class DecoratorScrutorStartupTest : StartupTest<DecoratorScrutor.Startup>
-    {
-        public DecoratorScrutorStartupTest(WebApplicationFactory<DecoratorScrutor.Startup> webApplicationFactory)
-            : base(webApplicationFactory)
-        {
-        }
-    }
-
 }
