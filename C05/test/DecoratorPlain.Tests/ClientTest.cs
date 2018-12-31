@@ -29,7 +29,7 @@ namespace DecoratorPlain
                 await sut.ExecuteAsync(httpContextHelper.HttpContextMock.Object);
 
                 // Assert
-                httpContextHelper.HttpResponse.BodyEqual("Operation: Test Value");
+                httpContextHelper.HttpResponse.BodyShouldEqual("Operation: Test Value");
             }
         }
     }
