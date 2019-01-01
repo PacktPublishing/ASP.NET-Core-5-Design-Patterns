@@ -9,5 +9,4 @@ namespace Decorator.IntegrationTests
         {
         }
     }
-
 }
