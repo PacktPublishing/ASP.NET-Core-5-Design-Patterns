@@ -10,4 +10,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OpaqueFacadeSubSystem\OpaqueFacadeSubSystem.csproj" />
+    <ProjectReference Include="..\TransparentFacadeSubSystem\TransparentFacadeSubSystem.csproj" />
+  </ItemGroup>
+
 </Project>
