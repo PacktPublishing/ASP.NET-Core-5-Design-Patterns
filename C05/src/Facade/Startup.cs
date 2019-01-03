@@ -20,6 +20,7 @@ namespace Facade
                 .AddRouting()
                 .AddOpaqueFacadeSubSystem()
                 .AddTransparentFacadeSubSystem()
+                .AddSingleton<IComponentB, UpdatedComponentB>()
                 ;
         }
 
