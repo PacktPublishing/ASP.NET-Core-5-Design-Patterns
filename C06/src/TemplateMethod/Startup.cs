@@ -89,16 +89,13 @@ namespace TemplateMethod
 
         public override int Find(int value)
         {
-            var index = -1;
+            var index = 0;
             foreach (var item in Values)
             {
+                if (item == value) { return index; }
                 index++;
-                if (item == value)
-                {
-                    break;
-                }
             }
-            return index;
+            return -1;
         }
     }
 
