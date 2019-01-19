@@ -11,15 +11,12 @@ namespace TemplateMethod
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<SearchMachine>(x => new LinearSearchMachine(1, 10, 5, 2, 123, 333, 4));
             services.AddSingleton<SearchMachine>(x => new BinarySearchMachine(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IEnumerable<SearchMachine> searchMachines)
         {
             if (env.IsDevelopment())
