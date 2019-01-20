@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace TemplateMethod
@@ -50,59 +47,6 @@ namespace TemplateMethod
                 }
                 await context.WriteLineAsync("</pre>");
             });
-        }
-    }
-
-    internal static class HttpContextExtensions
-    {
-        public static async Task WriteLineAsync(this HttpContext context, string text)
-        {
-            await context.Response.WriteAsync(text);
-            await context.Response.WriteAsync(Environment.NewLine);
-        }
-    }
-
-    public abstract class SearchMachine
-    {
-        protected int[] Values { get; }
-
-        protected SearchMachine(params int[] values)
-        {
-            Values = values ?? throw new ArgumentNullException(nameof(values));
-        }
-
-        public int? IndexOf(int value)
-        {
-            var result = Find(value);
-            if (result < 0) { return null; }
-            return result;
-        }
-        public abstract int Find(int value);
-    }
-
-    public class LinearSearchMachine : SearchMachine
-    {
-        public LinearSearchMachine(params int[] values) : base(values) { }
-
-        public override int Find(int value)
-        {
-            var index = 0;
-            foreach (var item in Values)
-            {
-                if (item == value) { return index; }
-                index++;
-            }
-            return -1;
-        }
-    }
-
-    public class BinarySearchMachine : SearchMachine
-    {
-        public BinarySearchMachine(params int[] values) : base(values) { }
-
-        public override int Find(int value)
-        {
-            return Array.BinarySearch(Values, value);
         }
     }
 }
