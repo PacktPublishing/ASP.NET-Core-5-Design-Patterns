@@ -1,23 +1,14 @@
 ﻿namespace ImprovedChainOfResponsibility
 {
-    public class AlarmTriggeredHandler : IMessageHandler
+    public class AlarmTriggeredHandler : MessageHandlerBase
     {
-        private readonly IMessageHandler _next;
-        public AlarmTriggeredHandler(IMessageHandler next = null)
-        {
-            _next = next;
-        }
+        protected override string HandledMessageName => "AlarmTriggered";
 
-        public void Handle(Message message)
+        public AlarmTriggeredHandler(IMessageHandler next = null) : base(next) { }
+
+        protected override void Treat(Message message)
         {
-            if (message.Name == "AlarmTriggered")
-            {
-                // Do something cleaver with the Payload
-            }
-            else if (_next != null)
-            {
-                _next.Handle(message);
-            }
+            // Do something cleaver with the Payload
         }
     }
 }
