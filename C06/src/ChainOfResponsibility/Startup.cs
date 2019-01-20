@@ -15,10 +15,11 @@ namespace ChainOfResponsibility
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IMessageHandler>(new AlarmTriggeredHandler(new AlarmPausedHandler(new AlarmStoppedHandler(new DefaultHandler()))));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IMessageHandler messageHandler)
         {
             if (env.IsDevelopment())
             {
@@ -27,7 +28,20 @@ namespace ChainOfResponsibility
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                var message = new Message
+                {
+                    Name = context.Request.Query["name"],
+                    Payload = context.Request.Query["payload"]
+                };
+                try
+                {
+                    messageHandler.Handle(message);
+                    await context.Response.WriteAsync($"Message '{message.Name}' handled successfully.");
+                }
+                catch (NotSupportedException ex)
+                {
+                    await context.Response.WriteAsync(ex.Message);
+                }
             });
         }
     }
@@ -46,7 +60,7 @@ namespace ChainOfResponsibility
     public class AlarmTriggeredHandler : IMessageHandler
     {
         private readonly IMessageHandler _next;
-        public AlarmTriggeredHandler(IMessageHandler next)
+        public AlarmTriggeredHandler(IMessageHandler next = null)
         {
             _next = next;
         }
@@ -67,7 +81,7 @@ namespace ChainOfResponsibility
     public class AlarmPausedHandler : IMessageHandler
     {
         private readonly IMessageHandler _next;
-        public AlarmPausedHandler(IMessageHandler next)
+        public AlarmPausedHandler(IMessageHandler next = null)
         {
             _next = next;
         }
@@ -88,7 +102,7 @@ namespace ChainOfResponsibility
     public class AlarmStoppedHandler : IMessageHandler
     {
         private readonly IMessageHandler _next;
-        public AlarmStoppedHandler(IMessageHandler next)
+        public AlarmStoppedHandler(IMessageHandler next = null)
         {
             _next = next;
         }
@@ -103,6 +117,14 @@ namespace ChainOfResponsibility
             {
                 _next.Handle(message);
             }
+        }
+    }
+
+    public class DefaultHandler : IMessageHandler
+    {
+        public void Handle(Message message)
+        {
+            throw new NotSupportedException($"Message named '{message.Name}' are not supported.");
         }
     }
 }
