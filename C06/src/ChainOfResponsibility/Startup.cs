@@ -31,4 +31,78 @@ namespace ChainOfResponsibility
             });
         }
     }
+
+    public interface IMessageHandler
+    {
+        void Handle(Message message);
+    }
+
+    public class Message
+    {
+        public string Name { get; set; }
+        public string Payload { get; set; }
+    }
+
+    public class AlarmTriggeredHandler : IMessageHandler
+    {
+        private readonly IMessageHandler _next;
+        public AlarmTriggeredHandler(IMessageHandler next)
+        {
+            _next = next;
+        }
+
+        public void Handle(Message message)
+        {
+            if (message.Name == "AlarmTriggered")
+            {
+                // Do something cleaver with the Payload
+            }
+            else if (_next != null)
+            {
+                _next.Handle(message);
+            }
+        }
+    }
+
+    public class AlarmPausedHandler : IMessageHandler
+    {
+        private readonly IMessageHandler _next;
+        public AlarmPausedHandler(IMessageHandler next)
+        {
+            _next = next;
+        }
+
+        public void Handle(Message message)
+        {
+            if (message.Name == "AlarmPaused")
+            {
+                // Do something cleaver with the Payload
+            }
+            else if (_next != null)
+            {
+                _next.Handle(message);
+            }
+        }
+    }
+
+    public class AlarmStoppedHandler : IMessageHandler
+    {
+        private readonly IMessageHandler _next;
+        public AlarmStoppedHandler(IMessageHandler next)
+        {
+            _next = next;
+        }
+
+        public void Handle(Message message)
+        {
+            if (message.Name == "AlarmStopped")
+            {
+                // Do something cleaver with the Payload
+            }
+            else if (_next != null)
+            {
+                _next.Handle(message);
+            }
+        }
+    }
 }
