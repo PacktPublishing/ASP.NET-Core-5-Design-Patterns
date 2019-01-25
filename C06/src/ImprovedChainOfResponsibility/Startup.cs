@@ -13,6 +13,10 @@ namespace ImprovedChainOfResponsibility
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            // Create the chain of responsibility, 
+            // ordered by the most called handler (or the one that most be executed the faster)
+            // to the less called handler (or the one that can take more time to be executed), 
+            // followed by the DefaultHandler.
             services.AddSingleton<IMessageHandler>(new AlarmTriggeredHandler(new AlarmPausedHandler(new AlarmStoppedHandler(new DefaultHandler()))));
         }
 
@@ -32,6 +36,7 @@ namespace ImprovedChainOfResponsibility
                 };
                 try
                 {
+                    // Send the message into the chain of responsibility
                     messageHandler.Handle(message);
                     await context.Response.WriteAsync($"Message '{message.Name}' handled successfully.");
                 }
