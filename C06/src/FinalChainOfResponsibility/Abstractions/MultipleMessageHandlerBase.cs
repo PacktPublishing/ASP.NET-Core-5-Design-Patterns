@@ -1,4 +1,6 @@
-﻿namespace FinalChainOfResponsibility
+﻿using System.Linq;
+
+namespace FinalChainOfResponsibility
 {
     public abstract class MultipleMessageHandlerBase : MessageHandlerBase
     {
