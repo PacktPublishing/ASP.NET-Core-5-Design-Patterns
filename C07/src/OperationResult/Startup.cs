@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 
 namespace OperationResult
 {
@@ -32,6 +33,7 @@ namespace OperationResult
                 builder.MapGet("/simplest-form", SimplestFormHandler);
                 builder.MapGet("/single-error", SingleErrorHandler);
                 builder.MapGet("/single-error-with-value", SingleErrorWithValueHandler);
+                builder.MapGet("/multiple-errors-with-value", MultipleErrorsWithValueHandler);
             });
         }
 
@@ -89,6 +91,27 @@ namespace OperationResult
             {
                 // Handle the failure
                 await response.WriteAsync(result.ErrorMessage);
+            }
+        }
+
+        private async Task MultipleErrorsWithValueHandler(HttpRequest request, HttpResponse response, RouteData data)
+        {
+            // Create an instance of the class that contains the operation
+            var executor = new MultipleErrorsWithValue.Executor();
+
+            // Execute the operation and handle its result
+            var result = executor.Operation();
+            if (result.Succeeded)
+            {
+                // Handle the success
+                await response.WriteAsync($"Operation succeeded with a value of '{result.Value}'.");
+            }
+            else
+            {
+                // Handle the failure
+                var json = JsonConvert.SerializeObject(result.Errors);
+                response.Headers["ContentType"] = "application/json";
+                await response.WriteAsync(json);
             }
         }
     }
