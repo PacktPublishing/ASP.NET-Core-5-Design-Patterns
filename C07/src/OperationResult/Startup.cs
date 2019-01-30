@@ -30,6 +30,7 @@ namespace OperationResult
             app.UseRouter(builder =>
             {
                 builder.MapGet("/simplest-form", SimplestFormHandler);
+                builder.MapGet("/single-error", SingleErrorHandler);
             });
         }
 
@@ -49,6 +50,24 @@ namespace OperationResult
             {
                 // Handle the failure
                 await response.WriteAsync("Operation failed");
+            }
+        }
+        private async Task SingleErrorHandler(HttpRequest request, HttpResponse response, RouteData data)
+        {
+            // Create an instance of the class that contains the operation
+            var executor = new SingleError.Executor();
+
+            // Execute the operation and handle its result
+            var result = executor.Operation();
+            if (result.Succeeded)
+            {
+                // Handle the success
+                await response.WriteAsync("Operation succeeded");
+            }
+            else
+            {
+                // Handle the failure
+                await response.WriteAsync(result.ErrorMessage);
             }
         }
     }
