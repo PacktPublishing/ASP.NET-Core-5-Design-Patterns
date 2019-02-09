@@ -35,6 +35,7 @@ namespace OperationResult
                 builder.MapGet("/single-error-with-value", SingleErrorWithValueHandler);
                 builder.MapGet("/multiple-errors-with-value", MultipleErrorsWithValueHandler);
                 builder.MapGet("/multiple-errors-with-value-and-severity", MultipleErrorsWithValueAndSeverityHandler);
+                builder.MapGet("/static-factory-methods", StaticFactoryMethodHandler);
             });
         }
 
@@ -120,6 +121,26 @@ namespace OperationResult
         {
             // Create an instance of the class that contains the operation
             var executor = new WithSeverity.Executor();
+
+            // Execute the operation and handle its result
+            var result = executor.Operation();
+            if (result.Succeeded)
+            {
+                // Handle the success
+            }
+            else
+            {
+                // Handle the failure
+            }
+            var json = JsonConvert.SerializeObject(result);
+            response.Headers["ContentType"] = "application/json";
+            await response.WriteAsync(json);
+        }
+
+        private async Task StaticFactoryMethodHandler(HttpRequest request, HttpResponse response, RouteData data)
+        {
+            // Create an instance of the class that contains the operation
+            var executor = new StaticFactoryMethod.Executor();
 
             // Execute the operation and handle its result
             var result = executor.Operation();
