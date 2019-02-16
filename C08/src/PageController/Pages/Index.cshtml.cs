@@ -9,11 +9,8 @@ namespace PageController.Pages
 {
     public class IndexModel : PageModel
     {
-        public string Toto { get; set; }
-
-        public void OnGet(string toto)
+        public void OnGet()
         {
-            Toto = toto;
         }
     }
 }
