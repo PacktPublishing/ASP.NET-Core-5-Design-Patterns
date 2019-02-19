@@ -10,20 +10,7 @@
 <div>
     <h4>Employee</h4>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.FirstName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.FirstName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.LastName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.LastName)
-        </dd>
-    </dl>
+    @Html.DisplayFor(x => x.Employee)
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Employee.Id">Edit</a> |
