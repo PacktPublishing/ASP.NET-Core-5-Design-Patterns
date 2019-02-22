@@ -10,12 +10,4 @@ namespace TransformView.Models
         int Count();
         string Type { get; }
     }
-
-    public abstract class ComponentBase : IComponent
-    {
-        public abstract void Add(IComponent bookComponent);
-        public abstract void Remove(IComponent bookComponent);
-        public abstract int Count();
-        public abstract string Type { get; }
-    }
 }
