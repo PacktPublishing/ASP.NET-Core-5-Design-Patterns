@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TransformView.Data;
+using TransformView.Services;
 
 namespace TransformView
 {
@@ -32,6 +33,8 @@ namespace TransformView
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            services.AddSingleton<ICorporationFactory, DefaultCorporationFactory>();
             services.AddDbContext<EmployeeDbContext>(
                 options => options.UseInMemoryDatabase(nameof(EmployeeDbContext))
             );
