@@ -5,10 +5,7 @@
         public Set(string name, params IComponent[] books)
             : base(name)
         {
-            foreach (var book in books)
-            {
-                Add(book);
-            }
+            AddRange(books);
         }
     }
 }
