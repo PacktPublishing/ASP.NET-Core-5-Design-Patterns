@@ -3,10 +3,10 @@
 
 <li class="list-group-item">
     <section class="card">
-        @OpenHeading()
-        @Model.Name
-        <span class="badge badge-secondary float-right">@Model.Count()</span>
-        @CloseHeading()
+        <h5 class="card-header">
+            @Model.Name
+            <span class="badge badge-secondary float-right">@Model.Count()</span>
+        </h5>
 
         <ul class="list-group list-group-flush">
             @Html.DisplayFor(x => x.Components)
@@ -17,8 +17,3 @@
         </div>
     </section>
 </li>
-
-@functions{
-    HtmlString OpenHeading() => new HtmlString($"<{Model.HeadingTagName} class=\"card-header\">");
-    HtmlString CloseHeading() => new HtmlString($"</{Model.HeadingTagName}>");
-}

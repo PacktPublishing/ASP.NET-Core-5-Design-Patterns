@@ -10,7 +10,5 @@
                 Add(book);
             }
         }
-
-        public override string HeadingTagName => "h5";
     }
 }

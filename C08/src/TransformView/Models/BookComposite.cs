@@ -15,8 +15,6 @@ namespace TransformView.Models
             children = new List<IComponent>();
         }
 
-        public abstract string HeadingTagName { get; }
-
         public virtual ReadOnlyCollection<IComponent> Components => new ReadOnlyCollection<IComponent>(children);
 
         public string Name { get; }
