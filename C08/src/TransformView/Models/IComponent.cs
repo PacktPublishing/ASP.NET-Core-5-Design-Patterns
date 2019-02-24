@@ -8,6 +8,5 @@ namespace TransformView.Models
         void Add(IComponent bookComponent);
         void Remove(IComponent bookComponent);
         int Count();
-        string Type { get; }
     }
 }

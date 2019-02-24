@@ -12,7 +12,6 @@ namespace TransformView.Models
         }
 
         public string Title { get; set; }
-        public string Type => "Book";
 
         public int Count() => 1;
 
