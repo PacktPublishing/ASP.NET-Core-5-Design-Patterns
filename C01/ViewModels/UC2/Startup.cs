@@ -29,7 +29,6 @@ namespace C01.ViewModels
         {
             if (env.IsDevelopment())
             {
-                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
             }
             else
