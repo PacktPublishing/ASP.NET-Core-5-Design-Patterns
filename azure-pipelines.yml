@@ -14,7 +14,7 @@ steps:
   displayName: Install .Net Core SDK
   inputs:
     packageType: 'sdk'
-    version: '2.2.104' 
+    version: '2.2.204' 
 
 - task: DotNetCoreCLI@2
   displayName: Build
@@ -28,7 +28,7 @@ steps:
   inputs:
     command: test
     projects: '**/*.Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --collect "Code coverage" --logger trx --results-directory $(Agent.TempDirectory)'
+    arguments: '--configuration $(BuildConfiguration) --collect "Code coverage" --logger trx --results-directory $(Agent.TempDirectory)'
 
 - task: PublishTestResults@2
   displayName: Publish test results
