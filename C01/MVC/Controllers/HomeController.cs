@@ -1,5 +1,7 @@
 using C01.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.IO;
 
 namespace C01.MVC.Controllers
 {
@@ -10,6 +12,31 @@ namespace C01.MVC.Controllers
         public void ActionWithoutResult()
         {
             var youCanSetABreakpointHere = "";
+        }
+
+        public void ActionWithoutResultV2()
+        {
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "netcore-logo.png");
+            var bytes = System.IO.File.ReadAllBytes(filePath);
+            //
+            // Do some processing here
+            //
+            Response.ContentLength = bytes.Length;
+            Response.ContentType = "image/png";
+            Response.Body.Write(bytes, 0, bytes.Length);
+        }
+
+        public void DownloadTheImage()
+        {
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "netcore-logo.png");
+            var bytes = System.IO.File.ReadAllBytes(filePath);
+            //
+            // Do some processing here
+            //
+            Response.ContentLength = bytes.Length;
+            Response.ContentType = "image/png";
+            Response.Headers.Add("Content-Disposition", "attachment; filename=\"netcore.png\"");
+            Response.Body.Write(bytes, 0, bytes.Length);
         }
 
         public IActionResult ActionWithSomeInput(int id)
