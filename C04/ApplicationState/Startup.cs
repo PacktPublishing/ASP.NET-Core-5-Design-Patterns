@@ -31,10 +31,14 @@ namespace ApplicationState
             {
                 if (context.Request.Method == "GET")
                 {
+                    // GET /?key=SomeAppStateKey
                     await HandleGetRequestAsync(myAppState, context);
                 }
                 else
                 {
+                    // POST /
+                    // Request body: 
+                    //   key=SomeAppStateKey&value=Some value
                     await HandlePostRequestAsync(myAppState, context);
                 }
             });
