@@ -21,5 +21,10 @@ namespace ApplicationState
         {
             return _memoryCache.TryGetValue<TItem>(key, out _);
         }
+
+        public TItem Set<TItem>(string key, TItem value)
+        {
+            return _memoryCache.Set(key, value);
+        }
     }
 }
