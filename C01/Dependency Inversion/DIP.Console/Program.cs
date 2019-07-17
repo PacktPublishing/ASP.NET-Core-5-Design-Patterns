@@ -1,11 +1,11 @@
-﻿using C02.DIP.Core;
-using C02.DIP.Data;
-using C02.DIP.Data.InMemory;
+﻿using DIP.Core;
+using DIP.Data;
+using DIP.Data.InMemory;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace C02.DIP.App
+namespace DIP.App
 {
     class Program
     {

@@ -1,4 +1,4 @@
-﻿namespace C02.DIP.Data
+﻿namespace DIP.Data
 {
     public class Book
     {

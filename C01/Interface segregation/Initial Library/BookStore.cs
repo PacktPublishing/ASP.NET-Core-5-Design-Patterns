@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C02.ISP
+namespace ISP
 {
     public interface IBookStore
     {

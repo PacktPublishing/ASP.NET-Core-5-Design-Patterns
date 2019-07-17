@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace C02.DIP.Data
+namespace DIP.Data
 {
     public interface IBookReader
     {

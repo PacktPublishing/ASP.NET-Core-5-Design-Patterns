@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace C02.ISP
+namespace ISP
 {
     public class BookPresenter
     {

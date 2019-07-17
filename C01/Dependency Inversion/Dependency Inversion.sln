@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C02.DIP.Data", "C02.DIP.Data\C02.DIP.Data.csproj", "{3B652A87-3314-4A42-8F6E-672314496CE3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DIP.Data", "DIP.Data\DIP.Data.csproj", "{3B652A87-3314-4A42-8F6E-672314496CE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C02.DIP.Data.InMemory", "C02.DIP.Data.InMemory\C02.DIP.Data.InMemory.csproj", "{62B13E08-6A69-4B70-9626-90A896B5BDF8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DIP.Data.InMemory", "DIP.Data.InMemory\DIP.Data.InMemory.csproj", "{62B13E08-6A69-4B70-9626-90A896B5BDF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C02.DIP.Console", "C02.DIP.Console\C02.DIP.Console.csproj", "{75427F41-FFA9-4907-9E80-2B877E21C867}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DIP.Console", "DIP.Console\DIP.Console.csproj", "{75427F41-FFA9-4907-9E80-2B877E21C867}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{769CA2F0-1C91-40C2-B472-98E3D8F9ED67}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Use Case 1", "Use Case 1", "{BAFA461B-6FEF-48EF-9404-C0DA5A156661}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C02.DIP.Core", "C02.DIP.Core\C02.DIP.Core.csproj", "{45E0BADB-4CC1-42AA-90F9-03E8904C7516}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DIP.Core", "DIP.Core\DIP.Core.csproj", "{45E0BADB-4CC1-42AA-90F9-03E8904C7516}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C02.DIP.Data.InMemory
+namespace DIP.Data.InMemory
 {
     public class BookStore : IBookReader, IBookWriter
     {

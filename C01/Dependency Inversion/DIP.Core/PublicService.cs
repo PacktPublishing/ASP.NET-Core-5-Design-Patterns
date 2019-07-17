@@ -1,8 +1,8 @@
-﻿using C02.DIP.Data;
+﻿using DIP.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace C02.DIP.Core
+namespace DIP.Core
 {
     public class PublicService
     {

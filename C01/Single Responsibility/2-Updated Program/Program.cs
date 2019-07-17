@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace C02.SRP
+namespace SRP
 {
     class Program
     {
