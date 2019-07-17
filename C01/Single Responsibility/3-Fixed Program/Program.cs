@@ -63,7 +63,7 @@ namespace SRP
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("The following exception occured, press enter to continue:");
+                    Console.WriteLine("The following exception occurred, press enter to continue:");
                     Console.WriteLine(ex);
                     Console.ReadLine();
                 }    
@@ -94,10 +94,10 @@ namespace SRP
         {
             var book = new Book
             {
-                Id = 4, // this value is not enforced by anything and will be overriden at some point.
+                Id = 4, // this value is not enforced by anything and will be overridden at some point.
                 Title = "Some out of order book"
             };
-            _bookStore.Save(book);
+            _bookStore.Create(book);
             _bookPresenter.Display(book);
         } 
 
@@ -112,8 +112,8 @@ namespace SRP
             Console.Clear();
             Console.WriteLine("Please enter the book title: ");
             var title = Console.ReadLine();
-            var book = new Book { Id = BookStore.NextId, Title = title };
-            _bookStore.Save(book);
+            var book = new Book { Title = title };
+            _bookStore.Create(book);
         }
 
         private static void ListAllBooks()
