@@ -1,9 +1,9 @@
-using C01.MVC.Models;
+using MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
 
-namespace C01.MVC.Controllers
+namespace MVC.Controllers
 {
     public class HomeController : Controller
     {
