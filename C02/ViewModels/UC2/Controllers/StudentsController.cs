@@ -1,5 +1,4 @@
 ﻿using ViewModels.Services;
-using ViewModels.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-ViewModels.Controllers
+namespace ViewModels.Controllers
 {
     public class StudentsController : Controller
     {

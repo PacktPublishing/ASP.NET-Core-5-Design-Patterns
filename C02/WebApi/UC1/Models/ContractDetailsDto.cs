@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-WebApi.Models
+namespace WebApi.Models
 {
     public class ContractDetailsDto
     {

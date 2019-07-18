@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-WebApi.Models
+namespace WebApi.Models
 {
     public class ClientDetailsDto
     {

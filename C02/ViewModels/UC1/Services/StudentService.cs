@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-ViewModels.Services
+namespace ViewModels.Services
 {
     public class StudentService
     {

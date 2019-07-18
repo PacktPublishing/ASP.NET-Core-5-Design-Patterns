@@ -6,7 +6,7 @@ using WebApi.Models;
 using WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
-WebApi.Controllers
+namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
