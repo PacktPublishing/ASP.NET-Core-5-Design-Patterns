@@ -1,4 +1,4 @@
-﻿namespace C01.WebApi.Models
+﻿WebApi.Models
 {
     public class ContactInformation
     {

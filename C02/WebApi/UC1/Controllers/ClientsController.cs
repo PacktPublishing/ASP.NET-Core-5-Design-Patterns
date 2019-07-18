@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using C01.WebApi.Models;
-using C01.WebApi.Services;
+using WebApi.Models;
+using WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace C01.WebApi.Controllers
+WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

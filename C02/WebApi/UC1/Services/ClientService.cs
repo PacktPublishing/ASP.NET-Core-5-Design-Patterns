@@ -1,11 +1,11 @@
-﻿using C01.WebApi.Models;
+﻿using WebApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C01.WebApi.Services
+WebApi.Services
 {
     public class ClientService
     {
