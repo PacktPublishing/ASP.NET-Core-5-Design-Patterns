@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using C01.ViewModels.ViewModels;
+using ViewModels.ViewModels;
 
-namespace C01.ViewModels.Controllers
+ViewModels.Controllers
 {
     public class HomeController : Controller
     {

@@ -1,11 +1,11 @@
-﻿using C01.ViewModels.Models;
+﻿using ViewModels.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C01.ViewModels.Services
+ViewModels.Services
 {
     public class StudentService
     {

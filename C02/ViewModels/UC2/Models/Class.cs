@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C01.ViewModels.Models
+ViewModels.Models
 {
     public class Class
     {
