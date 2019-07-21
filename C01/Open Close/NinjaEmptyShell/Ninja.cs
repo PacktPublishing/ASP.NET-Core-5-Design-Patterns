@@ -8,7 +8,7 @@ namespace NinjaEmptyShell
 
     public class Ninja : Human
     {
-        private readonly Weapon _equipedWeapon;
+        private readonly Weapon _equippedWeapon;
 
         public AttackResult Attack(Human target)
         {
