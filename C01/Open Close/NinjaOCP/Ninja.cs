@@ -7,13 +7,19 @@ namespace NinjaOCP
     public class Ninja : IAttackable
     {
         public Weapon EquippedWeapon { get; set; }
+        public string Name { get; }
 
+        public Ninja(string name)
+        {
+            Name = name;
+        }
+        
         public AttackResult Attack(IAttackable target)
         {
             return new AttackResult(EquippedWeapon, this, target);
         }
 
-        public override string ToString() => this.GetType().Name;
+        public override string ToString() => Name;
     }
 
     public class Weapon

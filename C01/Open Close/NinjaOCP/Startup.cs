@@ -31,8 +31,8 @@ namespace NinjaOCP
                 context.Response.ContentType = "text/html";
 
                 // Create actors
-                var target = new Ninja();
-                var ninja = new Ninja();
+                var target = new Ninja("The Unseen Mirage");
+                var ninja = new Ninja("The Blue Phantom");
 
                 // First attack (Sword)
                 ninja.EquippedWeapon = new Sword();
@@ -44,9 +44,10 @@ namespace NinjaOCP
                 var result2 = ninja.Attack(target);
                 await PrintAttackResult(result2);
 
+                // Write the outcome of an AttackResult to response stream
                 async Task PrintAttackResult(AttackResult attackResult)
                 {
-                    await context.Response.WriteAsync($"{attackResult.Attacker} attacked {attackResult.Target} using {attackResult.Weapon}!<br>");
+                    await context.Response.WriteAsync($"'{attackResult.Attacker}' attacked '{attackResult.Target}' using '{attackResult.Weapon}'!<br>");
                 }
             });
         }
