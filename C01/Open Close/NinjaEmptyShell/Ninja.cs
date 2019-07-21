@@ -18,6 +18,8 @@ namespace NinjaEmptyShell
         {
             throw new NotImplementedException();
         }
+
+        public override string ToString() => Name;
     }
 
     public class Weapon { }
