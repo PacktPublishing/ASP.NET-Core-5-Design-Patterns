@@ -2,37 +2,15 @@
 
 namespace NinjaOCP
 {
-    public interface IAttackable
-    {
-
-    }
+    public interface IAttackable { }
 
     public class Ninja : IAttackable
     {
-        private readonly Sword _sword;
-        private readonly Shuriken _shuriken;
-        public Weapon EquippedWeapon { get; private set; }
-
-        public Ninja()
-        {
-            _sword = new Sword();
-            _shuriken = new Shuriken();
-            EquippedWeapon = _sword;
-        }
+        public Weapon EquippedWeapon { get; set; }
 
         public AttackResult Attack(IAttackable target)
         {
             return new AttackResult(EquippedWeapon, this, target);
-        }
-
-        public void UseShuriken()
-        {
-            EquippedWeapon = _shuriken;
-        }
-
-        public void UseSword()
-        {
-            EquippedWeapon = _sword;
         }
 
         public override string ToString() => this.GetType().Name;
@@ -40,10 +18,7 @@ namespace NinjaOCP
 
     public class Weapon
     {
-        public override string ToString()
-        {
-            return $"Weapon: {this.GetType().Name}";
-        }
+        public override string ToString() => this.GetType().Name;
     }
 
     public class Sword : Weapon { }
@@ -71,12 +46,13 @@ namespace NinjaOCP
             var target = new Ninja();
             var ninja = new Ninja();
 
-            // First attack (default: Sword)
+            // First attack (Sword)
+            ninja.EquippedWeapon = new Sword();
             var result = ninja.Attack(target);
             PrintAttackResult(result);
 
             // Second attack (Shuriken)
-            ninja.UseShuriken();
+            ninja.EquippedWeapon = new Shuriken();
             var result2 = ninja.Attack(target);
             PrintAttackResult(result2);
         }
