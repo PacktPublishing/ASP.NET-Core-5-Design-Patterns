@@ -2,15 +2,13 @@
 
 namespace NinjaEmptyShell
 {
-    public class Human
-    {
-    }
+    public interface IAttackable { }
 
-    public class Ninja : Human
+    public class Ninja : IAttackable
     {
         private readonly Weapon _equippedWeapon;
 
-        public AttackResult Attack(Human target)
+        public AttackResult Attack(IAttackable target)
         {
             throw new NotImplementedException();
         }
