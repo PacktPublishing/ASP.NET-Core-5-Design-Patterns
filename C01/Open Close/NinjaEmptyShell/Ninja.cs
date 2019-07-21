@@ -6,7 +6,13 @@ namespace NinjaEmptyShell
 
     public class Ninja : IAttackable
     {
-        private readonly Weapon _equippedWeapon;
+        public Weapon EquippedWeapon { get; set; }
+        public string Name { get; }
+
+        public Ninja(string name)
+        {
+            Name = name;
+        }
 
         public AttackResult Attack(IAttackable target)
         {
