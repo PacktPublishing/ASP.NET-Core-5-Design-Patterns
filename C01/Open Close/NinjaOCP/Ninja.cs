@@ -37,29 +37,4 @@ namespace NinjaOCP
             Target = target;
         }
     }
-
-    public class Client
-    {
-        public void Main()
-        {
-            // Arrange
-            var target = new Ninja();
-            var ninja = new Ninja();
-
-            // First attack (Sword)
-            ninja.EquippedWeapon = new Sword();
-            var result = ninja.Attack(target);
-            PrintAttackResult(result);
-
-            // Second attack (Shuriken)
-            ninja.EquippedWeapon = new Shuriken();
-            var result2 = ninja.Attack(target);
-            PrintAttackResult(result2);
-        }
-
-        private static void PrintAttackResult(AttackResult result)
-        {
-            Console.WriteLine($"{result.Attacker} attacked {result.Target} using {result.Weapon}!");
-        }
-    }
 }

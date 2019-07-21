@@ -27,7 +27,27 @@ namespace NinjaOCP
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                // Setup the response
+                context.Response.ContentType = "text/html";
+
+                // Create actors
+                var target = new Ninja();
+                var ninja = new Ninja();
+
+                // First attack (Sword)
+                ninja.EquippedWeapon = new Sword();
+                var result = ninja.Attack(target);
+                await PrintAttackResult(result);
+
+                // Second attack (Shuriken)
+                ninja.EquippedWeapon = new Shuriken();
+                var result2 = ninja.Attack(target);
+                await PrintAttackResult(result2);
+
+                async Task PrintAttackResult(AttackResult attackResult)
+                {
+                    await context.Response.WriteAsync($"{attackResult.Attacker} attacked {attackResult.Target} using {attackResult.Weapon}!<br>");
+                }
             });
         }
     }
