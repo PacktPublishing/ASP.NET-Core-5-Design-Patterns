@@ -28,5 +28,17 @@ namespace NinjaEmptyShell
 
     public class Shuriken : Weapon { }
 
-    public class AttackResult { }
+    public class AttackResult
+    {
+        public Weapon Weapon { get; }
+        public IAttackable Attacker { get; }
+        public IAttackable Target { get; }
+
+        public AttackResult(Weapon weapon, IAttackable attacker, IAttackable target)
+        {
+            Weapon = weapon;
+            Attacker = attacker;
+            Target = target;
+        }
+    }
 }
