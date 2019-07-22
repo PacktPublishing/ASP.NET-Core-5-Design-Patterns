@@ -1,8 +1,14 @@
-﻿namespace LSP.Models
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+
+namespace LSP.Models
 {
-    public class HallOfHeroes : HallOfFame
+    public class HallOfHeroes
     {
-        public override void Add(Ninja ninja)
+        protected List<Ninja> InternalMembers { get; } = new List<Ninja>();
+
+        public virtual void Add(Ninja ninja)
         {
             if (InternalMembers.Contains(ninja))
             {
@@ -10,5 +16,12 @@
             }
             InternalMembers.Add(ninja);
         }
+
+        public virtual IEnumerable<Ninja> Members
+            => new ReadOnlyCollection<Ninja>(
+                InternalMembers
+                    .OrderByDescending(x => x.Kills)
+                    .ToArray()
+            );
     }
 }

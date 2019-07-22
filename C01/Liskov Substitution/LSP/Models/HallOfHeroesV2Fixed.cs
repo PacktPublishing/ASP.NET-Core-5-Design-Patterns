@@ -2,7 +2,7 @@
 
 namespace LSP.Models
 {
-    public class HallOfHeroesV2Fixed : HallOfFame
+    public class HallOfHeroesV2Fixed : HallOfHeroes
     {
         public event EventHandler<NinjaAddedEventArgs> NinjaAdded;
 

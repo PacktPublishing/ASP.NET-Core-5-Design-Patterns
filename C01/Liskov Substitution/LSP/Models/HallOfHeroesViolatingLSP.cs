@@ -1,12 +1,12 @@
 ﻿namespace LSP.Models
 {
-    public class HallOfHeroesV2 : HallOfHeroes
+    public class HallOfHeroesViolatingLSP : HallOfFame
     {
         public override void Add(Ninja ninja)
         {
             if (InternalMembers.Contains(ninja))
             {
-                throw new DuplicateNinjaException();
+                return;
             }
             InternalMembers.Add(ninja);
         }
