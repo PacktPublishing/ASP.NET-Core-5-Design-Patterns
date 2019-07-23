@@ -1,13 +1,18 @@
-﻿// #define HALL_OF_HEROES
-// #define HALL_OF_HEROES_2
-// #define HALL_OF_HEROES_2_FIXED
+﻿using LSP.Models;
 using Xunit;
 
-namespace LSP.Models
+namespace LSP.Examples
 {
-    public abstract class BaseHallOfHeroesTest
+    public abstract class BaseLSPTest
     {
-        protected abstract HallOfHeroes sut { get; }
+        protected abstract HallOfFame sut { get; }
+
+        public static TheoryData<Ninja> NinjaWithAtLeast100Kills => new TheoryData<Ninja>
+        {
+            new Ninja { Kills = 100 },
+            new Ninja { Kills = 101 },
+            new Ninja { Kills = 200 },
+        };
 
         [Fact]
         public void Add_should_not_add_existing_ninja()
@@ -24,13 +29,6 @@ namespace LSP.Models
                 ninja => Assert.Same(expectedNinja, ninja)
             );
         }
-
-        public static TheoryData<Ninja> NinjaWithAtLeast100Kills => new TheoryData<Ninja>
-            {
-                new Ninja { Kills = 100 },
-                new Ninja { Kills = 101 },
-                new Ninja { Kills = 200 },
-            };
 
         [Theory]
         [MemberData(nameof(NinjaWithAtLeast100Kills))]

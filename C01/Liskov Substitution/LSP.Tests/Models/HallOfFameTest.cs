@@ -1,11 +1,24 @@
-﻿// #define HALL_OF_HEROES
-// #define HALL_OF_HEROES_2
-// #define HALL_OF_HEROES_2_FIXED
+﻿using LSP.Models;
+using Xunit;
 
-namespace LSP.Models
+namespace LSP.Examples
 {
-    public class HallOfFameTest : BaseHallOfFameTest
+    public class HallOfFameTest : BaseLSPTest
     {
         protected override HallOfFame sut { get; } = new HallOfFame();
+
+
+        [Fact]
+        public void Add_should_not_add_ninja_with_less_than_100_kills()
+        {
+            // Arrange
+            var ninja = new Ninja { Kills = 99 };
+
+            // Act
+            sut.Add(ninja);
+
+            // Assert
+            Assert.Empty(sut.Members);
+        }
     }
 }

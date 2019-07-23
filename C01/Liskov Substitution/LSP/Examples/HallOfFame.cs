@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using LSP.Models;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 
-namespace LSP.Models
+namespace LSP.Examples
 {
     public class HallOfFame
     {
