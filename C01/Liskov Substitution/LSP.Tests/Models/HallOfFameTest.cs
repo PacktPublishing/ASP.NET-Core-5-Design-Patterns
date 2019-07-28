@@ -7,7 +7,6 @@ namespace LSP.Examples
     {
         protected override HallOfFame sut { get; } = new HallOfFame();
 
-
         [Fact]
         public void Add_should_not_add_ninja_with_less_than_100_kills()
         {
