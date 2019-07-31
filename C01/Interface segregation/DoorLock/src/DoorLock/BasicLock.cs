@@ -45,21 +45,6 @@ namespace DoorLock
         }
 
         public string Signature { get; }
-
-        public bool InsertInto(ILock @lock)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void TurnToLock(ILock @lock)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void TurnToUnlock(ILock @lock)
-        {
-            throw new NotImplementedException();
-        }
     }
 
     public interface ILock
@@ -103,27 +88,6 @@ namespace DoorLock
         /// Gets the key's signature that will open matching locks.
         /// </summary>
         string Signature { get; }
-
-        /// <summary>
-        /// Insert the key into the specified <see cref="ILock"/>.
-        /// </summary>
-        /// <param name="lock">The <see cref="ILock"/> to insert the key into.</param>
-        /// <returns><c>true</c> if the key was inserted; otherwise <c>false</c>.</returns>
-        bool InsertInto(ILock @lock);
-
-        /// <summary>
-        /// Lock the specified <see cref="ILock"/>.
-        /// </summary>
-        /// <param name="lock">The <see cref="ILock"/> to lock.</param>
-        /// <exception cref="KeyDoesNotMatchException">Thrown when the key's <see cref="Signature"/> does not match the <see cref="ILock.ExpectedSignature"/>.</exception>
-        void TurnToLock(ILock @lock);
-
-        /// <summary>
-        /// Unlock the specified <see cref="ILock"/>.
-        /// </summary>
-        /// <param name="lock">The <see cref="ILock"/> to unlock.</param>
-        /// <exception cref="KeyDoesNotMatchException">Thrown when the key's <see cref="Signature"/> does not match the <see cref="ILock.ExpectedSignature"/>.</exception>
-        void TurnToUnlock(ILock @lock);
     }
 
     public class KeyDoesNotMatchException : Exception
