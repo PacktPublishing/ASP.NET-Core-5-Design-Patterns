@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DoorLock
 {
@@ -45,6 +47,45 @@ namespace DoorLock
         }
 
         public string Signature { get; }
+    }
+
+    public class MultiLock : ILock
+    {
+        private readonly List<ILock> _locks;
+        public MultiLock(List<ILock> locks)
+        {
+            _locks = locks ?? throw new ArgumentNullException(nameof(locks));
+        }
+        public bool IsLocked => _locks.Any(@lock => @lock.IsLocked);
+
+        public bool DoesMatch(IKey key)
+        {
+            return _locks.Any(@lock => @lock.DoesMatch(key));
+        }
+
+        public void Lock(IKey key)
+        {
+            if (!DoesMatch(key))
+            {
+                throw new KeyDoesNotMatchException(key);
+            }
+            _locks
+                .Where(@lock => @lock.DoesMatch(key))
+                .ToList()
+                .ForEach(@lock => @lock.Lock(key));
+        }
+
+        public void Unlock(IKey key)
+        {
+            if (!DoesMatch(key))
+            {
+                throw new KeyDoesNotMatchException(key);
+            }
+            _locks
+                .Where(@lock => @lock.DoesMatch(key))
+                .ToList()
+                .ForEach(@lock => @lock.Unlock(key));
+        }
     }
 
     public interface ILock
