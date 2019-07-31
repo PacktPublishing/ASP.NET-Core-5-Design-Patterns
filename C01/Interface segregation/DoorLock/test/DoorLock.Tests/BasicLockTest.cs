@@ -5,9 +5,6 @@ namespace DoorLock
 {
     public class BasicLockTest
     {
-        private const string _workingKeySignature = "WorkingKey";
-        private const string _invalidKeySignature = "InvalidKey";
-
         private readonly IKey _workingKey;
         private readonly IKey _invalidKey;
 
@@ -15,9 +12,9 @@ namespace DoorLock
 
         public BasicLockTest()
         {
-            sut = new BasicLock(_workingKeySignature);
-            _invalidKey = new BasicKey(_invalidKeySignature);
-            _workingKey = new BasicKey(_workingKeySignature);
+            sut = new BasicLock("WorkingKey");
+            _invalidKey = new BasicKey("InvalidKey");
+            _workingKey = new BasicKey("WorkingKey");
         }
 
         public class DoesMatch : BasicLockTest
