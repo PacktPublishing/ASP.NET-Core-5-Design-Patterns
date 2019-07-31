@@ -12,7 +12,7 @@ namespace DoorLock
         [Fact]
         public void A_single_key_should_fit_identical_locks()
         {
-            var key = new BasicKey("key1");
+            IKey key = new BasicKey("key1");
 
             LockAndAssertResult(new BasicLock("key1"));
             LockAndAssertResult(new BasicLock("key1"));
@@ -31,7 +31,7 @@ namespace DoorLock
         [Fact]
         public void Multiple_keys_should_fit_the_same_lock()
         {
-            var @lock = new BasicLock("key1");
+            ILock @lock = new BasicLock("key1");
 
             LockAndAssertResult(new BasicKey("key1"));
             LockAndAssertResult(new BasicKey("key1"));
