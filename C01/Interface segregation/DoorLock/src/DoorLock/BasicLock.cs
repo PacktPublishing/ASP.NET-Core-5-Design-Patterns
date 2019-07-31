@@ -6,18 +6,18 @@ namespace DoorLock
 {
     public class BasicLock : ILock
     {
+        private readonly string _expectedSignature;
+
         public BasicLock(string expectedSignature)
         {
-            ExpectedSignature = expectedSignature ?? throw new ArgumentNullException(nameof(expectedSignature));
+            _expectedSignature = expectedSignature ?? throw new ArgumentNullException(nameof(expectedSignature));
         }
-
-        public string ExpectedSignature { get; }
 
         public bool IsLocked { get; private set; }
 
         public bool DoesMatch(IKey key)
         {
-            return key.Signature.Equals(ExpectedSignature);
+            return key.Signature.Equals(_expectedSignature);
         }
 
         public void Lock(IKey key)
