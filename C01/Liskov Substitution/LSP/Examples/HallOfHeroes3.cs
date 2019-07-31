@@ -5,31 +5,31 @@ namespace LSP.Examples.Update3
 {
     public class HallOfHeroes : HallOfFame
     {
-        public event EventHandler<NinjaAddedEventArgs> NinjaAdded;
+        public event EventHandler<AddingDuplicatedNinjaEventArgs> AddingDuplicatedNinja;
 
         public override void Add(Ninja ninja)
         {
             if (InternalMembers.Contains(ninja))
             {
+                OnAddingDuplicatedNinja(new AddingDuplicatedNinjaEventArgs(ninja));
                 return;
             }
             InternalMembers.Add(ninja);
-            OnNinjaAdded(new NinjaAddedEventArgs(ninja));
         }
 
-        protected virtual void OnNinjaAdded(NinjaAddedEventArgs e)
+        protected virtual void OnAddingDuplicatedNinja(AddingDuplicatedNinjaEventArgs e)
         {
-            NinjaAdded?.Invoke(this, e);
+            AddingDuplicatedNinja?.Invoke(this, e);
         }
     }
 
-    public class NinjaAddedEventArgs : EventArgs
+    public class AddingDuplicatedNinjaEventArgs : EventArgs
     {
-        public Ninja AddedNinja { get; }
+        public Ninja DuplicatedNinja { get; }
 
-        public NinjaAddedEventArgs(Ninja ninja)
+        public AddingDuplicatedNinjaEventArgs(Ninja ninja)
         {
-            AddedNinja = ninja ?? throw new ArgumentNullException(nameof(ninja));
+            DuplicatedNinja = ninja ?? throw new ArgumentNullException(nameof(ninja));
         }
     }
 }
