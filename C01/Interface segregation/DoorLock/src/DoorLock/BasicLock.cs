@@ -11,21 +11,29 @@ namespace DoorLock
 
         public string ExpectedSignature { get; }
 
-        public bool IsLocked { get; }
+        public bool IsLocked { get; private set; }
 
         public bool DoesMatch(IKey key)
         {
-            throw new NotImplementedException();
+            return key.Signature.Equals(ExpectedSignature);
         }
 
         public void Lock(IKey key)
         {
-            throw new NotImplementedException();
+            if (!DoesMatch(key))
+            {
+                throw new KeyDoesNotMatchException(key, this);
+            }
+            IsLocked = true;
         }
 
         public void Unlock(IKey key)
         {
-            throw new NotImplementedException();
+            if (!DoesMatch(key))
+            {
+                throw new KeyDoesNotMatchException(key, this);
+            }
+            IsLocked = false;
         }
     }
 
