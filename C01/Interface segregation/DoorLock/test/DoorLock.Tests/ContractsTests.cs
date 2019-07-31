@@ -33,9 +33,12 @@ namespace DoorLock
         {
             ILock @lock = new BasicLock("key1");
 
+            var picklock = new Picklock();
+            picklock.OpenLock(@lock, "key1");
+
             LockAndAssertResult(new BasicKey("key1"));
             LockAndAssertResult(new BasicKey("key1"));
-            LockAndAssertResult(new BasicKey("key1"));
+            LockAndAssertResult(picklock);
 
             void LockAndAssertResult(IKey key)
             {
