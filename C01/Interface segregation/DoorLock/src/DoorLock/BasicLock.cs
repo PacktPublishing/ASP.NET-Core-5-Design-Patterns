@@ -49,6 +49,22 @@ namespace DoorLock
         public string Signature { get; }
     }
 
+    public class Picklock : IKey
+    {
+        public string Signature { get; private set; }
+
+        public bool OpenLock(ILock @lock, string signature)
+        {
+            Signature = signature;
+            if (@lock.DoesMatch(this))
+            {
+                @lock.Unlock(this);
+                return true;
+            }
+            return false;
+        }
+    }
+
     public class MultiLock : ILock
     {
         private readonly List<ILock> _locks;
