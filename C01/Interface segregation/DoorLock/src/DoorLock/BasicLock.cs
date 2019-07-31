@@ -104,6 +104,9 @@ namespace DoorLock
         }
     }
 
+    /// <summary>
+    /// Represents a lock than can be opened by zero or more keys.
+    /// </summary>
     public interface ILock
     {
         /// <summary>
@@ -115,24 +118,27 @@ namespace DoorLock
         /// Locks the lock using the specified <see cref="IKey"/>.
         /// </summary>
         /// <param name="key">The <see cref="IKey"/> used to lock the lock.</param>
-        /// <exception cref="KeyDoesNotMatchException">Thrown when the key's <see cref="IKey.Signature"/> does not match the expected signature.</exception>
+        /// <exception cref="KeyDoesNotMatchException">Thrown when the key's <see cref="IKey.Signature"/> does not match the lock.</exception>
         void Lock(IKey key);
 
         /// <summary>
         /// Unlocks the lock using the specified <see cref="IKey"/>.
         /// </summary>
         /// <param name="key">The <see cref="IKey"/> used to unlock the lock.</param>
-        /// <exception cref="KeyDoesNotMatchException">Thrown when the key's <see cref="IKey.Signature"/> does not match the expected signature.</exception>
+        /// <exception cref="KeyDoesNotMatchException">Thrown when the key's <see cref="IKey.Signature"/> does not match the lock.</exception>
         void Unlock(IKey key);
 
         /// <summary>
-        /// Validate that the key's <see cref="IKey.Signature"/> match the expected signature.
+        /// Validate that the key's <see cref="IKey.Signature"/> match the lock.
         /// </summary>
         /// <param name="key">The <see cref="IKey"/> to validate.</param>
-        /// <returns><c>true</c> if the key's <see cref="IKey.Signature"/> match the expected signature; otherwise <c>false</c>.</returns>
+        /// <returns><c>true</c> if the key's <see cref="IKey.Signature"/> match the lock; otherwise <c>false</c>.</returns>
         bool DoesMatch(IKey key);
     }
 
+    /// <summary>
+    /// Represents a key that can open zero or more locks.
+    /// </summary>
     public interface IKey
     {
         /// <summary>
@@ -144,7 +150,7 @@ namespace DoorLock
     public class KeyDoesNotMatchException : Exception
     {
         public KeyDoesNotMatchException(IKey key)
-            : base($"The key {key.Signature} does not match the lock's expected signature.")
+            : base($"The key {key.Signature} does not match the lock's lock.")
         {
             Key = key ?? throw new ArgumentNullException(nameof(key));
         }
