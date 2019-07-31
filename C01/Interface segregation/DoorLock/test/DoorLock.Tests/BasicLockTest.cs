@@ -3,24 +3,10 @@ using Xunit;
 
 namespace DoorLock
 {
-    //
-    // Note that I based my ascii keys on work found at http://ascii.co.uk/art/keys
-    //
     public class BasicLockTest
     {
-        private const string _workingKeySignature = @"
-   .———.
-  /    |\________________
- ()    | ________   _   _)
-  \    |/        |_| | |
-   `———'             |_|
-";
-        private const string _invalidKeySignature = @"
- .--.
-/.-. '----------.
-\'-' .--'--''-'-'
- '--'
-";
+        private const string _workingKeySignature = "WorkingKey";
+        private const string _invalidKeySignature = "InvalidKey";
         private readonly BasicLock sut;
 
         private readonly IKey _workingKey;
