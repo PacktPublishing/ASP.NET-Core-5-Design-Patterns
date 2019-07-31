@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace DoorLock.Tests
+namespace DoorLock
 {
     //
     // Note that I based my ascii keys on work found at http://ascii.co.uk/art/keys
