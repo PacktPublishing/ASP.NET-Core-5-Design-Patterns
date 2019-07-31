@@ -7,10 +7,11 @@ namespace DoorLock
     {
         private const string _workingKeySignature = "WorkingKey";
         private const string _invalidKeySignature = "InvalidKey";
-        private readonly BasicLock sut;
 
         private readonly IKey _workingKey;
         private readonly IKey _invalidKey;
+
+        private readonly BasicLock sut;
 
         public BasicLockTest()
         {
