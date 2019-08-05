@@ -49,19 +49,32 @@ namespace DoorLock
         public string Signature { get; }
     }
 
-    public class Picklock : IKey
+    public class Picklock
     {
-        public string Signature { get; private set; }
+        private readonly string[] _signatures;
 
-        public bool OpenLock(ILock @lock, string signature)
+        public Picklock(string[] signatures)
         {
-            Signature = signature;
-            if (@lock.DoesMatch(this))
+            _signatures = signatures ?? throw new ArgumentNullException(nameof(signatures));
+        }
+
+        public IKey CreateMatchingKeyFor(ILock @lock)
+        {
+            var key = new FakeKey();
+            foreach (var signature in _signatures)
             {
-                @lock.Unlock(this);
-                return true;
+                key.Signature = signature;
+                if (@lock.DoesMatch(key))
+                {
+                    return key;
+                }
             }
-            return false;
+            throw new ImpossibleToPickTheLockException(@lock);
+        }
+
+        private class FakeKey : IKey
+        {
+            public string Signature { get; set; }
         }
     }
 
@@ -156,5 +169,16 @@ namespace DoorLock
         }
 
         public IKey Key { get; }
+    }
+
+    public class ImpossibleToPickTheLockException : Exception
+    {
+        public ImpossibleToPickTheLockException(ILock @lock)
+            :base("Impossible to pick the lock.")
+        {
+            Lock = @lock ?? throw new ArgumentNullException(nameof(@lock));
+        }
+
+        public ILock Lock { get; }
     }
 }
