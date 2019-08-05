@@ -10,7 +10,7 @@ namespace DoorLock
     public class ContractsTests
     {
         [Fact]
-        public void A_single_key_should_fit_identical_locks()
+        public void A_single_key_should_fit_multiple_locks_expecting_the_same_signature()
         {
             IKey key = new BasicKey("key1");
 
@@ -29,16 +29,16 @@ namespace DoorLock
         }
 
         [Fact]
-        public void Multiple_keys_should_fit_the_same_lock()
+        public void Multiple_keys_with_the_same_signature_should_fit_the_same_lock()
         {
             ILock @lock = new BasicLock("key1");
 
-            var picklock = new Picklock();
-            picklock.OpenLock(@lock, "key1");
+            var picklock = new Picklock(new[] { "key1" });
+            var fakeKey = picklock.CreateMatchingKeyFor(@lock);
 
             LockAndAssertResult(new BasicKey("key1"));
             LockAndAssertResult(new BasicKey("key1"));
-            LockAndAssertResult(picklock);
+            LockAndAssertResult(fakeKey);
 
             void LockAndAssertResult(IKey key)
             {
