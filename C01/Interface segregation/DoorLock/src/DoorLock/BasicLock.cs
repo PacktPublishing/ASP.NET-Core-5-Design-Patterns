@@ -131,14 +131,14 @@ namespace DoorLock
         /// Locks the lock using the specified <see cref="IKey"/>.
         /// </summary>
         /// <param name="key">The <see cref="IKey"/> used to lock the lock.</param>
-        /// <exception cref="KeyDoesNotMatchException">Thrown when the key's <see cref="IKey.Signature"/> does not match the lock.</exception>
+        /// <exception cref="KeyDoesNotMatchException">The <see cref="Exception"/> that is thrown when the specified <see cref="IKey"/> does not match the <see cref="ILock"/>.</exception>
         void Lock(IKey key);
 
         /// <summary>
         /// Unlocks the lock using the specified <see cref="IKey"/>.
         /// </summary>
         /// <param name="key">The <see cref="IKey"/> used to unlock the lock.</param>
-        /// <exception cref="KeyDoesNotMatchException">Thrown when the key's <see cref="IKey.Signature"/> does not match the lock.</exception>
+        /// <exception cref="KeyDoesNotMatchException">The <see cref="Exception"/> that is thrown when the specified <see cref="IKey"/> does not match the <see cref="ILock"/>.</exception>
         void Unlock(IKey key);
 
         /// <summary>
@@ -155,7 +155,8 @@ namespace DoorLock
     public interface IKey
     {
         /// <summary>
-        /// Gets the key's signature that will open matching locks.
+        /// Gets the key's signature.
+        /// This should be used by <see cref="ILock"/> to decide wheter or not the key matches the lock.
         /// </summary>
         string Signature { get; }
     }
