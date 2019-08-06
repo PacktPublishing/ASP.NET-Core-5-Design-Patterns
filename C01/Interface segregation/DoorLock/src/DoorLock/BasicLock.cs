@@ -53,7 +53,7 @@ namespace DoorLock
     /// <summary>
     /// Represent a tool that can be used to pick a lock.
     /// </summary>
-    public interface IPickLock
+    public interface IPicklock
     {
         /// <summary>
         /// Create a key that fits the specified <see cref="ILock"/>.
@@ -61,7 +61,7 @@ namespace DoorLock
         /// <param name="lock">The lock to pick.</param>
         /// <returns>The key that fits the specified <see cref="ILock"/>.</returns>
         /// <exception cref="ImpossibleToPickTheLockException">
-        /// The <see cref="Exception"/> that is thrown when a lock cannot be picked using the current <see cref="IPickLock"/>.
+        /// The <see cref="Exception"/> that is thrown when a lock cannot be picked using the current <see cref="IPicklock"/>.
         /// </exception>
         IKey CreateMatchingKeyFor(ILock @lock);
 
@@ -70,12 +70,12 @@ namespace DoorLock
         /// </summary>
         /// <param name="lock">The lock to pick.</param>
         /// <exception cref="ImpossibleToPickTheLockException">
-        /// The <see cref="Exception"/> that is thrown when a lock cannot be picked using the current <see cref="IPickLock"/>.
+        /// The <see cref="Exception"/> that is thrown when a lock cannot be picked using the current <see cref="IPicklock"/>.
         /// </exception>
         void Pick(ILock @lock);
     }
 
-    public class PredefinedPicklock : IPickLock
+    public class PredefinedPicklock : IPicklock
     {
         private readonly string[] _signatures;
 
