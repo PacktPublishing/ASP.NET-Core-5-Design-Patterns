@@ -33,7 +33,7 @@ namespace DoorLock
         {
             ILock @lock = new BasicLock("key1");
 
-            var picklock = new Picklock(new[] { "key1" });
+            var picklock = new PredefinedPicklock(new[] { "key1" });
             var fakeKey = picklock.CreateMatchingKeyFor(@lock);
 
             LockAndAssertResult(new BasicKey("key1"));

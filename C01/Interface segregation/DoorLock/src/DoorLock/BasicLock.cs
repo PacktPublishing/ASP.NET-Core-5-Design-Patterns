@@ -8,9 +8,10 @@ namespace DoorLock
     {
         private readonly string _expectedSignature;
 
-        public BasicLock(string expectedSignature)
+        public BasicLock(string expectedSignature, bool isLocked = false)
         {
             _expectedSignature = expectedSignature ?? throw new ArgumentNullException(nameof(expectedSignature));
+            IsLocked = isLocked;
         }
 
         public bool IsLocked { get; private set; }
@@ -49,11 +50,36 @@ namespace DoorLock
         public string Signature { get; }
     }
 
-    public class Picklock
+    /// <summary>
+    /// Represent a tool that can be used to pick a lock.
+    /// </summary>
+    public interface IPickLock
+    {
+        /// <summary>
+        /// Create a key that fits the specified <see cref="ILock"/>.
+        /// </summary>
+        /// <param name="lock">The lock to pick.</param>
+        /// <returns>The key that fits the specified <see cref="ILock"/>.</returns>
+        /// <exception cref="ImpossibleToPickTheLockException">
+        /// The <see cref="Exception"/> that is thrown when a lock cannot be picked using the current <see cref="IPickLock"/>.
+        /// </exception>
+        IKey CreateMatchingKeyFor(ILock @lock);
+
+        /// <summary>
+        /// Unlock the specified <see cref="ILock"/>.
+        /// </summary>
+        /// <param name="lock">The lock to pick.</param>
+        /// <exception cref="ImpossibleToPickTheLockException">
+        /// The <see cref="Exception"/> that is thrown when a lock cannot be picked using the current <see cref="IPickLock"/>.
+        /// </exception>
+        void Pick(ILock @lock);
+    }
+
+    public class PredefinedPicklock : IPickLock
     {
         private readonly string[] _signatures;
 
-        public Picklock(string[] signatures)
+        public PredefinedPicklock(string[] signatures)
         {
             _signatures = signatures ?? throw new ArgumentNullException(nameof(signatures));
         }
@@ -72,6 +98,24 @@ namespace DoorLock
             throw new ImpossibleToPickTheLockException(@lock);
         }
 
+        public void Pick(ILock @lock)
+        {
+            var key = new FakeKey();
+            foreach (var signature in _signatures)
+            {
+                key.Signature = signature;
+                if (@lock.DoesMatch(key))
+                {
+                    @lock.Unlock(key);
+                    if (!@lock.IsLocked)
+                    {
+                        return;
+                    }
+                }
+            }
+            throw new ImpossibleToPickTheLockException(@lock);
+        }
+
         private class FakeKey : IKey
         {
             public string Signature { get; set; }
@@ -85,6 +129,12 @@ namespace DoorLock
         {
             _locks = locks ?? throw new ArgumentNullException(nameof(locks));
         }
+        public MultiLock(params ILock[] locks)
+            : this(new List<ILock>(locks))
+        {
+            if (locks == null) { throw new ArgumentNullException(nameof(locks)); }
+        }
+
         public bool IsLocked => _locks.Any(@lock => @lock.IsLocked);
 
         public bool DoesMatch(IKey key)
