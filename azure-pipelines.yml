@@ -26,6 +26,7 @@ steps:
 - task: Bash@3
   displayName: Test
   inputs:
+      targetType: inline
       script: find . -name "*.Tests.csproj" -exec dotnet test '{}' --configuration $(buildConfiguration) --collect "Code coverage" --logger trx --results-directory $(Agent.TempDirectory) \;
       failOnStderr: false
 
