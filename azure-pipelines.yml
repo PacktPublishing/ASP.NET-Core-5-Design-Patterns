@@ -23,8 +23,16 @@ steps:
     projects: '**/*.csproj'
     arguments: '--configuration $(BuildConfiguration)'
 
-- task: DotNetCoreCLI@2
+- task: Bash@3
   displayName: Test
+  inputs:
+      targetType: inline
+      script: find . -name "*.Tests.csproj" -exec dotnet test '{}' --configuration $(buildConfiguration) --collect "Code coverage" --logger trx --results-directory $(Agent.TempDirectory) \;
+      failOnStderr: false
+
+- task: DotNetCoreCLI@2
+  displayName: Test (old)
+  enabled: false
   inputs:
     command: test
     projects: '**/*.Tests/*.csproj'
