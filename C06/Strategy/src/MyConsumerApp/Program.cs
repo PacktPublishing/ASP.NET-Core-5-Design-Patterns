@@ -1,6 +1,7 @@
 ﻿using MySortingMachine;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace MyConsumerApp
 {
@@ -10,7 +11,7 @@ namespace MyConsumerApp
 
         public static void Main(string[] args)
         {
-            var input = "";
+            string input = default;
             do
             {
                 Console.Clear();
@@ -25,62 +26,54 @@ namespace MyConsumerApp
                 input = Console.ReadLine();
 
                 Console.Clear();
-                switch (input)
+                var output = input switch
                 {
-                    case "1":
-                        PrintCollection();
-                        break;
-                    case "2":
-                        SortData();
-                        break;
-                    case "3":
-                        SetSortAsc();
-                        break;
-                    case "4":
-                        SetSortDesc();
-                        break;
-                    case "0":
-                        break;
-                    default:
-                        Console.WriteLine("Invalid input!");
-                        break;
-                }
+                    "1" => PrintCollection(),
+                    "2" => SortData(),
+                    "3" => SetSortAsc(),
+                    "4" => SetSortDesc(),
+                    "0" => "Exiting",
+                    _   => "Invalid input!"
+                };
+                Console.WriteLine(output);
                 Console.WriteLine("Press **enter** to continue.");
                 Console.ReadLine();
             } while (input != "0");
         }
 
-        private static void SetSortAsc()
+        private static string SetSortAsc()
         {
             _data.SortStrategy = new SortAscendingStrategy();
-            Console.WriteLine("The sort strategy is now Ascending!");
+            return "The sort strategy is now Ascending!";
         }
 
-        private static void SetSortDesc()
+        private static string SetSortDesc()
         {
             _data.SortStrategy = new SortDescendingStrategy();
-            Console.WriteLine("The sort strategy is now Descending!");
+            return "The sort strategy is now Descending!";
         }
 
-        private static void SortData()
+        private static string SortData()
         {
             try
             {
                 _data.Sort();
-                Console.WriteLine("Data sorted!");
+                return "Data sorted!";
             }
             catch (NullReferenceException ex)
             {
-                Console.WriteLine(ex.Message);
+                return ex.Message;
             }
         }
 
-        private static void PrintCollection()
+        private static string PrintCollection()
         {
+            var sb = new StringBuilder();
             foreach (var item in _data.Items)
             {
-                Console.WriteLine(item);
+                sb.AppendLine(item);
             }
+            return sb.ToString();
         }
     }
 }
