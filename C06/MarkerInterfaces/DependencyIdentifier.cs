@@ -8,21 +8,20 @@ namespace MarkerInterfaces
     {
         public class CodeSmell : DependencyIdentifier
         {
-            private readonly IServiceProvider _serviceProvider;
-
-            public CodeSmell()
+            [Fact]
+            public void ConsumerTest()
             {
-                _serviceProvider = new ServiceCollection()
+                // Arrange
+                var serviceProvider = new ServiceCollection()
                     .AddSingleton<IStrategyA, StrategyA>()
                     .AddSingleton<IStrategyB, StrategyB>()
                     .AddSingleton<Consumer>()
                     .BuildServiceProvider();
-            }
 
-            [Fact]
-            public void ConsumerTest()
-            {
-                var consumer = _serviceProvider.GetService<Consumer>();
+                // Act
+                var consumer = serviceProvider.GetService<Consumer>();
+
+                // Assert
                 Assert.IsType<StrategyA>(consumer.StrategyA);
                 Assert.IsType<StrategyB>(consumer.StrategyB);
             }
@@ -55,58 +54,50 @@ namespace MarkerInterfaces
 
         public class FixedUsage : DependencyIdentifier
         {
-            public class UseCase1 : FixedUsage
+            [Fact]
+            public void ConsumerTestCase1()
             {
-                private readonly IServiceProvider _serviceProvider;
+                // Arrange
+                var serviceProvider = new ServiceCollection()
+                    .AddSingleton<StrategyA>()
+                    .AddSingleton<StrategyB>()
+                    .AddSingleton(serviceProvider =>
+                    {
+                        var strategyA = serviceProvider.GetService<StrategyA>();
+                        var strategyB = serviceProvider.GetService<StrategyB>();
+                        return new Consumer(strategyA, strategyB);
+                    })
+                    .BuildServiceProvider();
 
-                public UseCase1()
-                {
-                    _serviceProvider = new ServiceCollection()
-                        .AddSingleton<StrategyA>()
-                        .AddSingleton<StrategyB>()
-                        .AddSingleton(serviceProvider =>
-                        {
-                            var strategyA = serviceProvider.GetService<StrategyA>();
-                            var strategyB = serviceProvider.GetService<StrategyB>();
-                            return new Consumer(strategyA, strategyB);
-                        })
-                        .BuildServiceProvider();
-                }
+                // Act
+                var consumer = serviceProvider.GetService<Consumer>();
 
-                [Fact]
-                public void ConsumerTest()
-                {
-                    var consumer = _serviceProvider.GetService<Consumer>();
-                    Assert.IsType<StrategyA>(consumer.StrategyA);
-                    Assert.IsType<StrategyB>(consumer.StrategyB);
-                }
+                // Assert
+                Assert.IsType<StrategyA>(consumer.StrategyA);
+                Assert.IsType<StrategyB>(consumer.StrategyB);
             }
 
-            public class UseCase2 : FixedUsage
+            [Fact]
+            public void ConsumerTestCase2()
             {
-                private readonly IServiceProvider _serviceProvider;
+                // Arrange
+                var serviceProvider = new ServiceCollection()
+                    .AddSingleton<StrategyA>()
+                    .AddSingleton<StrategyB>()
+                    .AddSingleton(serviceProvider =>
+                    {
+                        var strategyA = serviceProvider.GetService<StrategyA>();
+                        var strategyB = serviceProvider.GetService<StrategyB>();
+                        return new Consumer(strategyB, strategyA);
+                    })
+                    .BuildServiceProvider();
 
-                public UseCase2()
-                {
-                    _serviceProvider = new ServiceCollection()
-                        .AddSingleton<StrategyA>()
-                        .AddSingleton<StrategyB>()
-                        .AddSingleton(serviceProvider =>
-                        {
-                            var strategyA = serviceProvider.GetService<StrategyA>();
-                            var strategyB = serviceProvider.GetService<StrategyB>();
-                            return new Consumer(strategyB, strategyA);
-                        })
-                        .BuildServiceProvider();
-                }
+                // Act
+                var consumer = serviceProvider.GetService<Consumer>();
 
-                [Fact]
-                public void ConsumerTest()
-                {
-                    var consumer = _serviceProvider.GetService<Consumer>();
-                    Assert.IsType<StrategyB>(consumer.StrategyA);
-                    Assert.IsType<StrategyA>(consumer.StrategyB);
-                }
+                // Assert
+                Assert.IsType<StrategyB>(consumer.StrategyA);
+                Assert.IsType<StrategyA>(consumer.StrategyB);
             }
 
             public class StrategyA : IStrategy
