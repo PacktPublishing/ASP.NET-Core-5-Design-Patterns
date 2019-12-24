@@ -2,6 +2,7 @@ using MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace MVC.Controllers
 {
@@ -14,7 +15,7 @@ namespace MVC.Controllers
             var youCanSetABreakpointHere = "";
         }
 
-        public void ActionWithoutResultV2()
+        public async Task ActionWithoutResultV2Async()
         {
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "netcore-logo.png");
             var bytes = System.IO.File.ReadAllBytes(filePath);
@@ -23,10 +24,10 @@ namespace MVC.Controllers
             //
             Response.ContentLength = bytes.Length;
             Response.ContentType = "image/png";
-            Response.Body.Write(bytes, 0, bytes.Length);
+            await Response.Body.WriteAsync(bytes, 0, bytes.Length);
         }
 
-        public void DownloadTheImage()
+        public async Task DownloadTheImageAsync()
         {
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "netcore-logo.png");
             var bytes = System.IO.File.ReadAllBytes(filePath);
@@ -36,7 +37,7 @@ namespace MVC.Controllers
             Response.ContentLength = bytes.Length;
             Response.ContentType = "image/png";
             Response.Headers.Add("Content-Disposition", "attachment; filename=\"netcore.png\"");
-            Response.Body.Write(bytes, 0, bytes.Length);
+            await Response.Body.WriteAsync(bytes, 0, bytes.Length);
         }
 
         public IActionResult ActionWithSomeInput(int id)
