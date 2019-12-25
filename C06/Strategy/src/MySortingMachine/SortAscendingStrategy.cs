@@ -5,7 +5,7 @@ namespace MySortingMachine
 {
     public class SortAscendingStrategy : ISortStrategy
     {
-        public IEnumerable<string> Sort(IEnumerable<string> input) => 
-            input.OrderBy(x => x);
+        public IOrderedEnumerable<string> Sort(IEnumerable<string> input) 
+            => input.OrderBy(x => x);
     }
 }

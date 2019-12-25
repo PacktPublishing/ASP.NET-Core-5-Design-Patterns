@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace MySortingMachine
 {
     public interface ISortStrategy
     {
-        IEnumerable<string> Sort(IEnumerable<string> input);
+        IOrderedEnumerable<string> Sort(IEnumerable<string> input);
     }
 }
