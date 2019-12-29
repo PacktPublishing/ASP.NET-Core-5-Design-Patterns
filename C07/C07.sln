@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.181
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompositionRoot", "CompositionRoot\CompositionRoot.csproj", "{E9D1D1F9-8E58-4708-ACB0-6A141203B487}"
 EndProject
@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Strategy", "Strategy\Strate
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationState", "ApplicationState\ApplicationState.csproj", "{ECD44A23-8FD2-4DB9-B732-68A26FAF8CA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceLocator", "ServiceLocator\ServiceLocator.csproj", "{C495C914-0B93-4F68-9698-A11C0F90E413}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceLocator", "ServiceLocator\ServiceLocator.csproj", "{C495C914-0B93-4F68-9698-A11C0F90E413}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceLocatorFixed", "ServiceLocatorFixed\ServiceLocatorFixed.csproj", "{47A20AA7-5BB3-4D21-A9A1-8381EA862A04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceLocatorFixed", "ServiceLocatorFixed\ServiceLocatorFixed.csproj", "{47A20AA7-5BB3-4D21-A9A1-8381EA862A04}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Factory", "Factory\Factory.csproj", "{306407A1-B69B-44D0-B301-C420EEDC2DD7}"
 EndProject
