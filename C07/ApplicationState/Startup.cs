@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace ApplicationState
 {
@@ -20,7 +21,7 @@ namespace ApplicationState
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IMyApplicationWideService myAppState)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IMyApplicationWideService myAppState)
         {
             if (env.IsDevelopment())
             {
@@ -39,6 +40,8 @@ namespace ApplicationState
                     // POST /
                     // Request body: 
                     //   key=SomeAppStateKey&value=Some value
+                    // Using Windows PowerShell: 
+                    //   Invoke-WebRequest -Method Post -Body "key=SomeAppStateKey&value=Some value" -Uri https://localhost:5001/
                     await HandlePostRequestAsync(myAppState, context);
                 }
             });
