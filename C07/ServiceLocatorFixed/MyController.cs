@@ -16,7 +16,7 @@ namespace ServiceLocatorFixed
         [Route("/")]
         public IActionResult Get()
         {
-            using (var myService = _serviceProvider.GetService<IMyService>())
+            using (var myService = _serviceProvider.GetService<IMyService>()) // Don't
             {
                 myService.Execute();
                 return Ok();
