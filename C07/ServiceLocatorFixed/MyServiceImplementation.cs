@@ -12,7 +12,7 @@ namespace ServiceLocatorFixed
         {
             if (IsDisposed)
             {
-                throw new NullReferenceException("Some of our dependencies may have been disposed of.");
+                throw new NullReferenceException("Some dependencies has been disposed.");
             }
         }
     }
