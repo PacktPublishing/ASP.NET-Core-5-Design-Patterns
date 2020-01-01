@@ -99,7 +99,7 @@ namespace ApplicationState
             }
 
             [Fact]
-            public async Task Should_remove_an_expired_item_instead_of_updating_it()
+            public async Task Should_set_the_Count_of_expired_items_to_1()
             {
                 // Arrange
                 const string itemName = "NewItem";
@@ -119,6 +119,35 @@ namespace ApplicationState
                 var all = await sut.AllAsync();
                 Assert.Collection(all, x => Assert.Equal(expectedCount, x.Count));
             }
+
+            [Fact]
+            public async Task Should_remove_expired_items()
+            {
+                // Arrange
+                await sut.AddOrRefreshAsync("Item1");
+                await sut.AddOrRefreshAsync("Item2");
+                await sut.AddOrRefreshAsync("Item3");
+
+                var initialDate = DateTimeOffset.UtcNow.AddMinutes(-1);
+                _systemClockMock.Setup(x => x.UtcNow).Returns(initialDate);
+                await sut.AddOrRefreshAsync("Item4");
+                
+                var utcNow = DateTimeOffset.UtcNow;
+                _systemClockMock.Setup(x => x.UtcNow).Returns(utcNow);
+
+                // Act
+                await sut.AddOrRefreshAsync("Item5");
+
+                // Assert
+                var result = await sut.AllAsync();
+                Assert.Collection(result,
+                    x => Assert.Equal("Item1", x.Name),
+                    x => Assert.Equal("Item2", x.Name),
+                    x => Assert.Equal("Item3", x.Name),
+                    x => Assert.Equal("Item5", x.Name)
+                );
+            }
+
         }
 
         public class AllAsync : InMemoryWishListTest
