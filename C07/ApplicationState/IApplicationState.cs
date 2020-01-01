@@ -1,6 +1,6 @@
 ﻿namespace ApplicationState
 {
-    public interface IMyApplicationState
+    public interface IApplicationState
     {
         TItem Get<TItem>(string key);
         bool Has<TItem>(string key);

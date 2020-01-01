@@ -8,9 +8,9 @@ namespace ApplicationState
     /// </remarks>
     public class SomeConsumer
     {
-        private readonly IMyApplicationState _myApplicationWideService;
+        private readonly IApplicationState _myApplicationWideService;
 
-        public SomeConsumer(IMyApplicationState myApplicationWideService)
+        public SomeConsumer(IApplicationState myApplicationWideService)
         {
             _myApplicationWideService = myApplicationWideService ?? throw new ArgumentNullException(nameof(myApplicationWideService));
         }

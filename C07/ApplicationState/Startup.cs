@@ -1,4 +1,4 @@
-﻿//#define USE_MEMORY_CACHE
+﻿// #define USE_MEMORY_CACHE
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +17,13 @@ namespace ApplicationState
         {
 #if USE_MEMORY_CACHE
             services.AddMemoryCache();
-            services.AddSingleton<IMyApplicationState, MyApplicationCache>();
+            services.AddSingleton<IApplicationState, ApplicationMemoryCache>();
 #else
-            services.AddSingleton<IMyApplicationState, MyApplicationDictionary>();
+            services.AddSingleton<IApplicationState, ApplicationDictionary>();
 #endif
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IMyApplicationState myAppState)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApplicationState myAppState)
         {
             if (env.IsDevelopment())
             {
@@ -49,7 +49,7 @@ namespace ApplicationState
             });
         }
 
-        private static async Task HandleGetRequestAsync(IMyApplicationState myAppState, HttpContext context)
+        private static async Task HandleGetRequestAsync(IApplicationState myAppState, HttpContext context)
         {
             var key = context.Request.Query["key"];
             if (key.Count != 1)
@@ -61,7 +61,7 @@ namespace ApplicationState
             await context.Response.WriteAsync($"{key} = {value ?? "null"}");
         }
 
-        private async Task HandlePostRequestAsync(IMyApplicationState myAppState, HttpContext context)
+        private async Task HandlePostRequestAsync(IApplicationState myAppState, HttpContext context)
         {
             var key = context.Request.Form["key"].SingleOrDefault();
             var value = context.Request.Form["value"].SingleOrDefault();

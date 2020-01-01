@@ -4,7 +4,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace ApplicationState
 {
-    public class MyApplicationDictionary : IMyApplicationState
+    public class ApplicationDictionary : IApplicationState
     {
         private readonly Dictionary<string, object> _memoryCache = new Dictionary<string, object>();
 
