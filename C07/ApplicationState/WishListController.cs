@@ -51,20 +51,41 @@ namespace ApplicationState
     public class InMemoryWishList : IWishList
     {
         private readonly InMemoryWishListOptions _options;
+        private readonly Dictionary<string, InternalItem> _items;
 
         public InMemoryWishList(IOptions<InMemoryWishListOptions> optionsAccessor)
         {
             _options = optionsAccessor.Value;
+            _items = new Dictionary<string, InternalItem>();
         }
 
         public Task<WishListItem> AddOrRefreshAsync(string itemName)
         {
-            throw new NotImplementedException();
+            var expirationTime = _options.SystemClock.UtcNow.AddSeconds(_options.ExpirationInSeconds);
+            var item = new InternalItem
+            {
+                Count = 1,
+                Expiration = expirationTime
+            };
+            _items.Add(itemName, item);
+            var wishlistItem = new WishListItem
+            {
+                Name = itemName,
+                Count = item.Count,
+                Expiration = item.Expiration
+            };
+            return Task.FromResult(wishlistItem);
         }
 
         public Task<IEnumerable<WishListItem>> AllAsync()
         {
-            throw new NotImplementedException();
+            var items = _items.Select(x => new WishListItem
+            {
+                Name = x.Key,
+                Count = x.Value.Count,
+                Expiration = x.Value.Expiration
+            });
+            return Task.FromResult(items);
         }
 
         private class InternalItem
