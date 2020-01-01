@@ -87,14 +87,15 @@ namespace ApplicationState
 
                 var expectedUtcNow = DateTimeOffset.UtcNow;
                 _systemClockMock.Setup(x => x.UtcNow).Returns(expectedUtcNow);
+                var expectedExpiryTime = expectedUtcNow.AddSeconds(_options.ExpirationInSeconds);
 
                 // Act
                 var result = await sut.AddOrRefreshAsync(itemName);
 
                 // Assert
-                Assert.Equal(expectedUtcNow, result.Expiration);
+                Assert.Equal(expectedExpiryTime, result.Expiration);
                 var all = await sut.AllAsync();
-                Assert.Collection(all, x => Assert.Equal(expectedUtcNow, x.Expiration));
+                Assert.Collection(all, x => Assert.Equal(expectedExpiryTime, x.Expiration));
             }
 
             [Fact]

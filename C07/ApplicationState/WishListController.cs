@@ -66,6 +66,7 @@ namespace ApplicationState
             {
                 var item = _items[itemName];
                 item.Count++;
+                item.Expiration = expirationTime;
                 var wishlistItem = new WishListItem
                 {
                     Name = itemName,
