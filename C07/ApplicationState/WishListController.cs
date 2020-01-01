@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,12 +24,21 @@ namespace ApplicationState
             return Ok(result);
         }
 
-
         [HttpPost]
-        public async Task<IActionResult> PostAsync(string itemName)
+        public async Task<IActionResult> PostAsync([FromBody,Required]CreateItem newItem)
         {
-            var result = await _wishList.AddOrRefreshAsync(itemName);
-            return CreatedAtAction(nameof(GetAsync), result);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var result = await _wishList.AddOrRefreshAsync(newItem.Name);
+            return Created("/", result);
+        }
+
+        public class CreateItem
+        {
+            [Required]
+            public string Name { get; set; }
         }
     }
 }
