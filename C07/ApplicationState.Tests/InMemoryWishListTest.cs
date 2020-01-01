@@ -1,3 +1,4 @@
+//#define TEST_InMemoryWishListRefactored
 using ApplicationState.Internal;
 using Microsoft.Extensions.Options;
 using Moq;
@@ -11,7 +12,7 @@ namespace ApplicationState
     {
         private readonly Mock<ISystemClock> _systemClockMock;
         private readonly InMemoryWishListOptions _options;
-        private readonly InMemoryWishList sut;
+        private readonly IWishList sut;
         private readonly DateTimeOffset _utcNow;
         private readonly DateTimeOffset _expectedExpiryTime;
 
@@ -29,7 +30,11 @@ namespace ApplicationState
             };
             var optionsMock = new Mock<IOptions<InMemoryWishListOptions>>();
             optionsMock.Setup(x => x.Value).Returns(_options);
+#if TEST_InMemoryWishListRefactored
+            sut = new InMemoryWishListRefactored(optionsMock.Object);
+#else
             sut = new InMemoryWishList(optionsMock.Object);
+#endif
         }
 
         public class AddOrRefreshAsync : InMemoryWishListTest
