@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompositionRoot", "Composit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Strategy", "Strategy\Strategy.csproj", "{8D77A78B-118D-4C64-8BB2-4E36811D2533}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationState", "ApplicationState\ApplicationState.csproj", "{ECD44A23-8FD2-4DB9-B732-68A26FAF8CA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wishlist", "Wishlist\Wishlist.csproj", "{ECD44A23-8FD2-4DB9-B732-68A26FAF8CA0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceLocator", "ServiceLocator\ServiceLocator.csproj", "{C495C914-0B93-4F68-9698-A11C0F90E413}"
 EndProject
@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceLocatorFixed", "Serv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Factory", "Factory\Factory.csproj", "{306407A1-B69B-44D0-B301-C420EEDC2DD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationState.Tests", "ApplicationState.Tests\ApplicationState.Tests.csproj", "{779841A3-A883-481D-A159-14CCDC404A78}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wishlist.Tests", "Wishlist.Tests\Wishlist.Tests.csproj", "{779841A3-A883-481D-A159-14CCDC404A78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
