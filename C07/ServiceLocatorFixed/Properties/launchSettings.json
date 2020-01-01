@@ -1,6 +1,6 @@
 {
     "profiles": {
-        "ApplicationState": {
+        "Service Locator Fixed": {
             "commandName": "Project",
             "launchBrowser": true,
             "environmentVariables": {
