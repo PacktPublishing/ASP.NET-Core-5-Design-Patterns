@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace ApplicationState
 {
@@ -16,7 +17,11 @@ namespace ApplicationState
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMemoryCache();
+            services
+                .ConfigureOptions<InMemoryWishListOptions>()
+                .AddTransient<IValidateOptions<InMemoryWishListOptions>, InMemoryWishListOptions>()
+            ;
+            services.AddSingleton<IWishList, InMemoryWishList>();
             services.AddControllers();
         }
 
