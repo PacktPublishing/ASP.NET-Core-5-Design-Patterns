@@ -101,12 +101,16 @@ namespace ApplicationState
 
         public Task<IEnumerable<WishListItem>> AllAsync()
         {
-            var items = _items.Select(x => new WishListItem
-            {
-                Name = x.Key,
-                Count = x.Value.Count,
-                Expiration = x.Value.Expiration
-            });
+            var items = _items
+                .Select(x => new WishListItem
+                {
+                    Name = x.Key,
+                    Count = x.Value.Count,
+                    Expiration = x.Value.Expiration
+                })
+                .OrderByDescending(x => x.Count)
+                .AsEnumerable()
+            ;
             return Task.FromResult(items);
         }
 
