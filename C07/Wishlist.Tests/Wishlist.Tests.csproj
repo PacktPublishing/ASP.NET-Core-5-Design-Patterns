@@ -5,7 +5,7 @@
 
     <IsPackable>false</IsPackable>
 
-    <RootNamespace>ApplicationState</RootNamespace>
+    <RootNamespace>Wishlist </RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ApplicationState\ApplicationState.csproj" />
+    <ProjectReference Include="..\ApplicationState\Wishlist.csproj" />
   </ItemGroup>
 
 </Project>
