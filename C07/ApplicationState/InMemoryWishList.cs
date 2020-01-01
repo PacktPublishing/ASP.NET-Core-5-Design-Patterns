@@ -60,6 +60,7 @@ namespace ApplicationState
         public Task<IEnumerable<WishListItem>> AllAsync()
         {
             var items = _items
+                .Where(x => x.Value.Expiration >= _options.SystemClock.UtcNow)
                 .Select(x => new WishListItem
                 {
                     Name = x.Key,

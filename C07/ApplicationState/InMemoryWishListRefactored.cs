@@ -28,6 +28,7 @@ namespace ApplicationState
 
         public Task<IEnumerable<WishListItem>> AllAsync()
         {
+            RemoveExpiredItems();
             var items = _items
                 .Select(x => Map(x.Key, x.Value))
                 .OrderByDescending(x => x.Count)

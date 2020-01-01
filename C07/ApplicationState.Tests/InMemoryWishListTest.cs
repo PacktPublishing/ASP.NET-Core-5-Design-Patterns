@@ -1,4 +1,4 @@
-//#define TEST_InMemoryWishListRefactored
+// #define TEST_InMemoryWishListRefactored
 using ApplicationState.Internal;
 using Microsoft.Extensions.Options;
 using Moq;
@@ -30,11 +30,11 @@ namespace ApplicationState
             };
             var optionsMock = new Mock<IOptions<InMemoryWishListOptions>>();
             optionsMock.Setup(x => x.Value).Returns(_options);
-#if TEST_InMemoryWishListRefactored
+    #if TEST_InMemoryWishListRefactored
             sut = new InMemoryWishListRefactored(optionsMock.Object);
-#else
+    #else
             sut = new InMemoryWishList(optionsMock.Object);
-#endif
+    #endif
         }
 
         public class AddOrRefreshAsync : InMemoryWishListTest
@@ -158,7 +158,7 @@ namespace ApplicationState
         public class AllAsync : InMemoryWishListTest
         {
             [Fact]
-            public async Task Should_return_items_ordered_Count_Ascending()
+            public async Task Should_return_items_ordered_by_Count_Descending()
             {
                 // Arrange
                 await sut.AddOrRefreshAsync("Item1");
@@ -178,6 +178,30 @@ namespace ApplicationState
                     x => Assert.Equal("Item2", x.Name)
                 );
             }
+
+            [Fact]
+            public async Task Should_not_return_expired_items()
+            {
+                // Arrange
+                await sut.AddOrRefreshAsync("Item1");
+
+                var initialDate = DateTimeOffset.UtcNow.AddMinutes(-1);
+                _systemClockMock.Setup(x => x.UtcNow).Returns(initialDate);
+                await sut.AddOrRefreshAsync("Item2");
+
+                var utcNow = DateTimeOffset.UtcNow;
+                _systemClockMock.Setup(x => x.UtcNow).Returns(utcNow);
+
+                // Act
+                var result = await sut.AllAsync();
+
+                // Assert
+                // Assert
+                Assert.Collection(result,
+                    x => Assert.Equal("Item1", x.Name)
+                );
+            }
+
         }
     }
 }
