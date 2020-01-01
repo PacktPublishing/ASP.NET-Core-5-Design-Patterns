@@ -65,6 +65,10 @@ namespace ApplicationState
             if (_items.ContainsKey(itemName))
             {
                 var item = _items[itemName];
+                if (item.Expiration < _options.SystemClock.UtcNow)
+                {
+                    item.Count = 0;
+                }
                 item.Count++;
                 item.Expiration = expirationTime;
                 var wishlistItem = new WishListItem

@@ -104,8 +104,9 @@ namespace ApplicationState
                 // Arrange
                 const string itemName = "NewItem";
                 const int expectedCount = 1;
-                var expiredDate = DateTimeOffset.UtcNow.AddMinutes(-1);
-                _systemClockMock.Setup(x => x.UtcNow).Returns(expiredDate);
+                var initialDate = DateTimeOffset.UtcNow.AddMinutes(-1);
+                var expiredDate = initialDate.AddSeconds(_options.ExpirationInSeconds);
+                _systemClockMock.Setup(x => x.UtcNow).Returns(initialDate);
                 var initialItem = await sut.AddOrRefreshAsync(itemName);
                 Assert.Equal(expiredDate, initialItem.Expiration);
                 _systemClockMock.Setup(x => x.UtcNow).Returns(_utcNow);
