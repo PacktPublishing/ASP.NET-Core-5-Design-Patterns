@@ -10,19 +10,19 @@ namespace ApplicationState
 
         void IConfigureOptions<InMemoryWishListOptions>.Configure(InMemoryWishListOptions options)
         {
-            if (SystemClock == default)
+            if (options.SystemClock == default)
             {
-                SystemClock = new SystemClock();
+                options.SystemClock = new SystemClock();
             }
-            if (ExpirationInSeconds == default)
+            if (options.ExpirationInSeconds == default)
             {
-                ExpirationInSeconds = 30;
+                options.ExpirationInSeconds = 30;
             }
         }
 
         ValidateOptionsResult IValidateOptions<InMemoryWishListOptions>.Validate(string name, InMemoryWishListOptions options)
         {
-            if (SystemClock == default)
+            if (options.SystemClock == default)
             {
                 return ValidateOptionsResult.Fail("SystemClock cannot be null.");
             }
