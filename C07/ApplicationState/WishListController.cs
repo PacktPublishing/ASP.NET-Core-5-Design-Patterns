@@ -62,19 +62,34 @@ namespace ApplicationState
         public Task<WishListItem> AddOrRefreshAsync(string itemName)
         {
             var expirationTime = _options.SystemClock.UtcNow.AddSeconds(_options.ExpirationInSeconds);
-            var item = new InternalItem
+            if (_items.ContainsKey(itemName))
             {
-                Count = 1,
-                Expiration = expirationTime
-            };
-            _items.Add(itemName, item);
-            var wishlistItem = new WishListItem
+                var item = _items[itemName];
+                item.Count++;
+                var wishlistItem = new WishListItem
+                {
+                    Name = itemName,
+                    Count = item.Count,
+                    Expiration = item.Expiration
+                };
+                return Task.FromResult(wishlistItem);
+            }
+            else
             {
-                Name = itemName,
-                Count = item.Count,
-                Expiration = item.Expiration
-            };
-            return Task.FromResult(wishlistItem);
+                var item = new InternalItem
+                {
+                    Count = 1,
+                    Expiration = expirationTime
+                };
+                _items.Add(itemName, item);
+                var wishlistItem = new WishListItem
+                {
+                    Name = itemName,
+                    Count = item.Count,
+                    Expiration = item.Expiration
+                };
+                return Task.FromResult(wishlistItem);
+            }
         }
 
         public Task<IEnumerable<WishListItem>> AllAsync()
