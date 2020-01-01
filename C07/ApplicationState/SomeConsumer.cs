@@ -15,7 +15,7 @@ namespace ApplicationState
             _myApplicationWideService = myApplicationWideService ?? throw new ArgumentNullException(nameof(myApplicationWideService));
         }
 
-        public string DoSomething()
+        public string GetSomeKey()
         {
             if (_myApplicationWideService.Has<string>("some-key"))
             {
