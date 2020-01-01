@@ -62,13 +62,15 @@ namespace ApplicationState
         public Task<WishListItem> AddOrRefreshAsync(string itemName)
         {
             var expirationTime = _options.SystemClock.UtcNow.AddSeconds(_options.ExpirationInSeconds);
+            _items
+                .Where(x => x.Value.Expiration < _options.SystemClock.UtcNow)
+                .Select(x => x.Key)
+                .ToList()
+                .ForEach(key => _items.Remove(key))
+            ;
             if (_items.ContainsKey(itemName))
             {
                 var item = _items[itemName];
-                if (item.Expiration < _options.SystemClock.UtcNow)
-                {
-                    item.Count = 0;
-                }
                 item.Count++;
                 item.Expiration = expirationTime;
                 var wishlistItem = new WishListItem
