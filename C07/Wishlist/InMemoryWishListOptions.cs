@@ -1,7 +1,7 @@
-﻿using ApplicationState.Internal;
+﻿using Wishlist.Internal;
 using Microsoft.Extensions.Options;
 
-namespace ApplicationState
+namespace Wishlist
 {
     public class InMemoryWishListOptions : IConfigureOptions<InMemoryWishListOptions>, IValidateOptions<InMemoryWishListOptions>
     {

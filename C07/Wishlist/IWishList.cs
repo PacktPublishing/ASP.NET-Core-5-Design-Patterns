@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ApplicationState
+namespace Wishlist
 {
     public interface IWishList
     {

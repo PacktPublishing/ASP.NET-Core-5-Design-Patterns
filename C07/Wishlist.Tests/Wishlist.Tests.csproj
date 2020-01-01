@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ApplicationState\Wishlist.csproj" />
+    <ProjectReference Include="..\Wishlist\Wishlist.csproj" />
   </ItemGroup>
 
 </Project>

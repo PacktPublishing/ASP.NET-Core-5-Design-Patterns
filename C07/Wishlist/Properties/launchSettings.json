@@ -1,6 +1,6 @@
 {
     "profiles": {
-        "ApplicationState": {
+        "Wishlist": {
             "commandName": "Project",
             "launchBrowser": true,
             "environmentVariables": {

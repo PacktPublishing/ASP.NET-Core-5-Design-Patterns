@@ -1,5 +1,5 @@
 // #define TEST_InMemoryWishListRefactored
-using ApplicationState.Internal;
+using Wishlist.Internal;
 using Microsoft.Extensions.Options;
 using Moq;
 using System;

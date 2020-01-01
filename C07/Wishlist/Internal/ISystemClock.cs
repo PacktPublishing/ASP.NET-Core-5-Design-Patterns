@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ApplicationState.Internal
+namespace Wishlist.Internal
 {
     public interface ISystemClock
     {

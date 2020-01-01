@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ApplicationState
+namespace Wishlist
 {
     public class WishListItem
     {
