@@ -4,6 +4,6 @@
     {
         TItem Get<TItem>(string key);
         bool Has<TItem>(string key);
-        TItem Set<TItem>(string key, TItem value);
+        void Set<TItem>(string key, TItem value);
     }
 }

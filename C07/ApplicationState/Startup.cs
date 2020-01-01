@@ -1,4 +1,5 @@
-﻿using System;
+﻿//#define USE_MEMORY_CACHE
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,8 +15,12 @@ namespace ApplicationState
     {
         public void ConfigureServices(IServiceCollection services)
         {
+#if USE_MEMORY_CACHE
             services.AddMemoryCache();
-            services.AddSingleton<IMyApplicationState, MyApplicationState>();
+            services.AddSingleton<IMyApplicationState, MyApplicationCache>();
+#else
+            services.AddSingleton<IMyApplicationState, MyApplicationDictionary>();
+#endif
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IMyApplicationState myAppState)
