@@ -12,16 +12,13 @@ namespace ApplicationState
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMemoryCache();
-            services.AddSingleton<IMyApplicationWideService, MyApplicationWideServiceImplementation>();
+            services.AddSingleton<IMyApplicationState, MyApplicationState>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IMyApplicationWideService myAppState)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IMyApplicationState myAppState)
         {
             if (env.IsDevelopment())
             {
@@ -47,7 +44,7 @@ namespace ApplicationState
             });
         }
 
-        private static async Task HandleGetRequestAsync(IMyApplicationWideService myAppState, HttpContext context)
+        private static async Task HandleGetRequestAsync(IMyApplicationState myAppState, HttpContext context)
         {
             var key = context.Request.Query["key"];
             if (key.Count != 1)
@@ -59,7 +56,7 @@ namespace ApplicationState
             await context.Response.WriteAsync($"{key} = {value ?? "null"}");
         }
 
-        private async Task HandlePostRequestAsync(IMyApplicationWideService myAppState, HttpContext context)
+        private async Task HandlePostRequestAsync(IMyApplicationState myAppState, HttpContext context)
         {
             var key = context.Request.Form["key"].SingleOrDefault();
             var value = context.Request.Form["value"].SingleOrDefault();

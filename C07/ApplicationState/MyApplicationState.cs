@@ -3,11 +3,11 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace ApplicationState
 {
-    public class MyApplicationWideServiceImplementation : IMyApplicationWideService
+    public class MyApplicationState : IMyApplicationState
     {
         private readonly IMemoryCache _memoryCache;
 
-        public MyApplicationWideServiceImplementation(IMemoryCache memoryCache)
+        public MyApplicationState(IMemoryCache memoryCache)
         {
             _memoryCache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
         }
