@@ -13,28 +13,22 @@ namespace Wishlist
         private readonly Mock<ISystemClock> _systemClockMock;
         private readonly InMemoryWishListOptions _options;
         private readonly IWishList sut;
-        private readonly DateTimeOffset _utcNow;
-        private readonly DateTimeOffset _expectedExpiryTime;
 
         public InMemoryWishListTest()
         {
-            const int expirationInSeconds = 30;
-            _utcNow = DateTimeOffset.UtcNow;
-            _expectedExpiryTime = _utcNow.AddSeconds(expirationInSeconds);
             _systemClockMock = new Mock<ISystemClock>();
-            _systemClockMock.Setup(x => x.UtcNow).Returns(_utcNow);
             _options = new InMemoryWishListOptions
             {
                 SystemClock = _systemClockMock.Object,
-                ExpirationInSeconds = expirationInSeconds
+                ExpirationInSeconds = 30
             };
             var optionsMock = new Mock<IOptions<InMemoryWishListOptions>>();
             optionsMock.Setup(x => x.Value).Returns(_options);
-    #if TEST_InMemoryWishListRefactored
+#if TEST_InMemoryWishListRefactored
             sut = new InMemoryWishListRefactored(optionsMock.Object);
-    #else
+#else
             sut = new InMemoryWishList(optionsMock.Object);
-    #endif
+#endif
         }
 
         public class AddOrRefreshAsync : InMemoryWishListTest
@@ -42,25 +36,24 @@ namespace Wishlist
             [Fact]
             public async Task Should_create_new_item()
             {
-                // Arrange
-                const string expectedItemName = "NewItem";
-                const int expectedCount = 1;
+                // Arrange 
+                var (_, expectedExpiryTime) = SetUtcNow();
 
                 // Act
-                var result = await sut.AddOrRefreshAsync(expectedItemName);
+                var result = await sut.AddOrRefreshAsync("NewItem");
 
                 // Assert
-                Assert.Equal(expectedItemName, result.Name);
-                Assert.Equal(expectedCount, result.Count);
-                Assert.Equal(_expectedExpiryTime, result.Expiration);
+                Assert.Equal("NewItem", result.Name);
+                Assert.Equal(1, result.Count);
+                Assert.Equal(expectedExpiryTime, result.Expiration);
 
                 var all = await sut.AllAsync();
                 Assert.Collection(all,
                     x =>
                     {
-                        Assert.Equal(expectedItemName, x.Name);
-                        Assert.Equal(expectedCount, x.Count);
-                        Assert.Equal(_expectedExpiryTime, x.Expiration);
+                        Assert.Equal("NewItem", x.Name);
+                        Assert.Equal(1, x.Count);
+                        Assert.Equal(expectedExpiryTime, x.Expiration);
                     }
                 );
             }
@@ -69,12 +62,11 @@ namespace Wishlist
             public async Task Should_increment_Count_of_an_existing_item()
             {
                 // Arrange
-                const string itemName = "NewItem";
                 const int expectedCount = 2;
-                await sut.AddOrRefreshAsync(itemName);
+                await sut.AddOrRefreshAsync("NewItem");
 
                 // Act
-                var result = await sut.AddOrRefreshAsync(itemName);
+                var result = await sut.AddOrRefreshAsync("NewItem");
 
                 // Assert
                 Assert.Equal(expectedCount, result.Count);
@@ -86,16 +78,11 @@ namespace Wishlist
             public async Task Should_set_the_new_Expiration_date_of_an_existing_item()
             {
                 // Arrange
-                const string itemName = "NewItem";
-                var initialItem = await sut.AddOrRefreshAsync(itemName);
-                Assert.Equal(_expectedExpiryTime, initialItem.Expiration);
-
-                var expectedUtcNow = DateTimeOffset.UtcNow;
-                _systemClockMock.Setup(x => x.UtcNow).Returns(expectedUtcNow);
-                var expectedExpiryTime = expectedUtcNow.AddSeconds(_options.ExpirationInSeconds);
-
+                await AddOrRefreshAnItemAsync("NewItem");
+                var (_, expectedExpiryTime) = SetUtcNow();
+                
                 // Act
-                var result = await sut.AddOrRefreshAsync(itemName);
+                var result = await sut.AddOrRefreshAsync("NewItem");
 
                 // Assert
                 Assert.Equal(expectedExpiryTime, result.Expiration);
@@ -103,42 +90,30 @@ namespace Wishlist
                 Assert.Collection(all, x => Assert.Equal(expectedExpiryTime, x.Expiration));
             }
 
+
             [Fact]
             public async Task Should_set_the_Count_of_expired_items_to_1()
             {
                 // Arrange
-                const string itemName = "NewItem";
-                const int expectedCount = 1;
-                var initialDate = DateTimeOffset.UtcNow.AddMinutes(-1);
-                var expiredDate = initialDate.AddSeconds(_options.ExpirationInSeconds);
-                _systemClockMock.Setup(x => x.UtcNow).Returns(initialDate);
-                var initialItem = await sut.AddOrRefreshAsync(itemName);
-                Assert.Equal(expiredDate, initialItem.Expiration);
-                _systemClockMock.Setup(x => x.UtcNow).Returns(_utcNow);
+                await AddOrRefreshAnExpiredItemAsync("NewItem");
 
                 // Act
-                var result = await sut.AddOrRefreshAsync(itemName);
+                var result = await sut.AddOrRefreshAsync("NewItem");
 
                 // Assert
-                Assert.Equal(expectedCount, result.Count);
+                Assert.Equal(1, result.Count);
                 var all = await sut.AllAsync();
-                Assert.Collection(all, x => Assert.Equal(expectedCount, x.Count));
+                Assert.Collection(all, x => Assert.Equal(1, x.Count));
             }
 
             [Fact]
             public async Task Should_remove_expired_items()
             {
                 // Arrange
-                await sut.AddOrRefreshAsync("Item1");
-                await sut.AddOrRefreshAsync("Item2");
-                await sut.AddOrRefreshAsync("Item3");
-
-                var initialDate = DateTimeOffset.UtcNow.AddMinutes(-1);
-                _systemClockMock.Setup(x => x.UtcNow).Returns(initialDate);
-                await sut.AddOrRefreshAsync("Item4");
-                
-                var utcNow = DateTimeOffset.UtcNow;
-                _systemClockMock.Setup(x => x.UtcNow).Returns(utcNow);
+                await AddOrRefreshAnItemAsync("Item1");
+                await AddOrRefreshAnItemAsync("Item2");
+                await AddOrRefreshAnItemAsync("Item3");
+                await AddOrRefreshAnExpiredItemAsync("Item4");
 
                 // Act
                 await sut.AddOrRefreshAsync("Item5");
@@ -152,7 +127,6 @@ namespace Wishlist
                     x => Assert.Equal("Item5", x.Name)
                 );
             }
-
         }
 
         public class AllAsync : InMemoryWishListTest
@@ -161,12 +135,12 @@ namespace Wishlist
             public async Task Should_return_items_ordered_by_Count_Descending()
             {
                 // Arrange
-                await sut.AddOrRefreshAsync("Item1");
-                await sut.AddOrRefreshAsync("Item1");
-                await sut.AddOrRefreshAsync("Item1");
-                await sut.AddOrRefreshAsync("Item2");
-                await sut.AddOrRefreshAsync("Item3");
-                await sut.AddOrRefreshAsync("Item3");
+                await AddOrRefreshAnItemAsync("Item1");
+                await AddOrRefreshAnItemAsync("Item1");
+                await AddOrRefreshAnItemAsync("Item1");
+                await AddOrRefreshAnItemAsync("Item2");
+                await AddOrRefreshAnItemAsync("Item3");
+                await AddOrRefreshAnItemAsync("Item3");
 
                 // Act
                 var result = await sut.AllAsync();
@@ -183,25 +157,49 @@ namespace Wishlist
             public async Task Should_not_return_expired_items()
             {
                 // Arrange
-                await sut.AddOrRefreshAsync("Item1");
-
-                var initialDate = DateTimeOffset.UtcNow.AddMinutes(-1);
-                _systemClockMock.Setup(x => x.UtcNow).Returns(initialDate);
-                await sut.AddOrRefreshAsync("Item2");
-
-                var utcNow = DateTimeOffset.UtcNow;
-                _systemClockMock.Setup(x => x.UtcNow).Returns(utcNow);
+                await AddOrRefreshAnItemAsync("Item1");
+                await AddOrRefreshAnExpiredItemAsync("Item2");
 
                 // Act
                 var result = await sut.AllAsync();
 
                 // Assert
-                // Assert
                 Assert.Collection(result,
                     x => Assert.Equal("Item1", x.Name)
                 );
             }
+        }
 
+        private (DateTimeOffset UtcNow, DateTimeOffset ExpectedExpiryTime) SetUtcNow()
+        {
+            var utcNow = DateTimeOffset.UtcNow;
+            _systemClockMock.Setup(x => x.UtcNow).Returns(utcNow);
+            var expectedExpiryTime = utcNow.AddSeconds(_options.ExpirationInSeconds);
+            return (utcNow, expectedExpiryTime);
+        }
+
+        private (DateTimeOffset UtcNow, DateTimeOffset ExpectedExpiryTime) SetUtcNowToExpired()
+        {
+            var delay = -(_options.ExpirationInSeconds * 2);
+            var utcNow = DateTimeOffset.UtcNow.AddSeconds(delay);
+            _systemClockMock.Setup(x => x.UtcNow).Returns(utcNow);
+            var expectedExpiryTime = utcNow.AddSeconds(_options.ExpirationInSeconds);
+            return (utcNow, expectedExpiryTime);
+        }
+
+        private async Task AddOrRefreshAnItemAsync(string itemName)
+        {
+            var (_, expiredDate) = SetUtcNow();
+            var item = await sut.AddOrRefreshAsync(itemName);
+            Assert.Equal(expiredDate, item.Expiration);
+        }
+
+        private async Task AddOrRefreshAnExpiredItemAsync(string itemName)
+        {
+            var (_, firstExpiredDate) = SetUtcNowToExpired();
+            var item = await sut.AddOrRefreshAsync(itemName);
+            Assert.Equal(firstExpiredDate, item.Expiration);
+            SetUtcNow();
         }
     }
 }
