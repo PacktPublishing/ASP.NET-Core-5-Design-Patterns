@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WebApi.Services
 {
-    public class ClientService
+    public class ClientRepository
     {
         public IEnumerable<Client> ReadAll()
         {

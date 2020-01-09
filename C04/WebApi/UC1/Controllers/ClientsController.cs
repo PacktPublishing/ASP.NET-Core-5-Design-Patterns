@@ -12,7 +12,7 @@ namespace WebApi.Controllers
     [ApiController]
     public class ClientsController : ControllerBase
     {
-        private readonly ClientService _clientService = new ClientService();
+        private readonly ClientRepository _clientService = new ClientRepository();
 
         // GET api/clients
         [HttpGet]
