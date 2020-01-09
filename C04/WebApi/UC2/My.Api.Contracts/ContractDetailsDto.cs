@@ -1,30 +1,29 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using System.Text.Json.Serialization;
 
 namespace My.Api.Contracts
 {
     public class ContractDetailsDto
     {
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public int Id { get; set; }
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
-        [JsonProperty("description")]
+        [JsonPropertyName("description")]
         public string Description { get; set; }
 
-        [JsonProperty("workTotal")]
+        [JsonPropertyName("workTotal")]
         public int WorkTotal { get; set; }
-        [JsonProperty("workDone")]
+        [JsonPropertyName("workDone")]
         public int WorkDone { get; set; }
-        [JsonProperty("workState")]
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonPropertyName("workState")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public WorkState WorkState { get; set; }
 
-        [JsonProperty("primaryContactFirstname")]
+        [JsonPropertyName("primaryContactFirstname")]
         public string PrimaryContactFirstname { get; set; }
-        [JsonProperty("primaryContactLastname")]
+        [JsonPropertyName("primaryContactLastname")]
         public string PrimaryContactLastname { get; set; }
-        [JsonProperty("primaryContactEmail")]
+        [JsonPropertyName("primaryContactEmail")]
         public string PrimaryContactEmail { get; set; }
     }
 }

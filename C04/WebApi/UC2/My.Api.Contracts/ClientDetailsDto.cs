@@ -1,16 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using System.Collections.Generic;
 
 namespace My.Api.Contracts
 {
     public class ClientDetailsDto
     {
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public int Id { get; set; }
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        [JsonProperty("contracts")]
+        [JsonPropertyName("contracts")]
         public IEnumerable<ContractDetailsDto> Contracts { get; set; }
     }
 }

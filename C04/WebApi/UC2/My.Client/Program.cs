@@ -1,7 +1,7 @@
 ﻿using My.Api.Contracts;
-using Newtonsoft.Json;
 using System;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace My.Client
@@ -12,7 +12,7 @@ namespace My.Client
 
         static async Task Main(string[] args)
         {
-            var uri = "https://localhost:44318/api/clients";
+            var uri = "https://localhost:5002/api/clients";
 
             // Read all summaries
             WriteTitle("All clients summaries");
@@ -31,8 +31,8 @@ namespace My.Client
         private static async Task<TContract> FetchAndWriteFormattedJson<TContract>(string uri)
         {
             var response = await http.GetStringAsync(uri);
-            var deserializedObject = JsonConvert.DeserializeObject<TContract>(response);
-            var formattedJson = JsonConvert.SerializeObject(deserializedObject, Formatting.Indented);
+            var deserializedObject = JsonSerializer.Deserialize<TContract>(response);
+            var formattedJson = JsonSerializer.Serialize(deserializedObject, new JsonSerializerOptions { WriteIndented = true });
             Console.WriteLine(formattedJson);
             return deserializedObject;
         }

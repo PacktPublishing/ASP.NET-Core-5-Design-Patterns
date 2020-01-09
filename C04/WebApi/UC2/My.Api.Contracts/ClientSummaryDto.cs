@@ -1,16 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace My.Api.Contracts
 {
     public class ClientSummaryDto
     {
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public int Id { get; set; }
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
-        [JsonProperty("totalNumberOfContracts")]
+        [JsonPropertyName("totalNumberOfContracts")]
         public int TotalNumberOfContracts { get; set; }
-        [JsonProperty("numberOfOpenContracts")]
+        [JsonPropertyName("numberOfOpenContracts")]
         public int NumberOfOpenContracts { get; set; }
     }
 }
