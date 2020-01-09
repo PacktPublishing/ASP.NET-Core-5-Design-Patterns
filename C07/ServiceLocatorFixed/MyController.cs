@@ -13,13 +13,13 @@ namespace ServiceLocatorFixed
             _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
         }
 
-        [Route("/")]
+        [Route("/dispose-service")]
         public IActionResult Get()
         {
             using (var myService = _serviceProvider.GetService<IMyService>()) // Don't
             {
                 myService.Execute();
-                return Ok();
+                return Ok("Success!");
             }
         }
     }
@@ -31,7 +31,7 @@ namespace ServiceLocatorFixed
         {
             if (myService == null) { throw new ArgumentNullException(nameof(myService)); }
             myService.Execute();
-            return Ok();
+            return Ok("Success!");
         }
     }
 
@@ -48,7 +48,7 @@ namespace ServiceLocatorFixed
         public IActionResult GetUsingConstructorInjection()
         {
             _myService.Execute();
-            return Ok();
+            return Ok("Success!");
         }
     }
 }

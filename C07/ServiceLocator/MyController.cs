@@ -20,7 +20,7 @@ namespace ServiceLocator
             using (var myService = _serviceProvider.GetService<IMyService>())
             {
                 myService.Execute();
-                return Ok();
+                return Ok("Success!");
             }
         }
     }

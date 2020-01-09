@@ -1,4 +1,5 @@
-﻿using System;
+﻿// #define USE_MEMORY_CACHE
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,16 +13,17 @@ namespace ApplicationState
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+#if USE_MEMORY_CACHE
             services.AddMemoryCache();
-            services.AddSingleton<IMyApplicationWideService, MyApplicationWideServiceImplementation>();
+            services.AddSingleton<IApplicationState, ApplicationMemoryCache>();
+#else
+            services.AddSingleton<IApplicationState, ApplicationDictionary>();
+#endif
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IMyApplicationWideService myAppState)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApplicationState myAppState)
         {
             if (env.IsDevelopment())
             {
@@ -47,7 +49,7 @@ namespace ApplicationState
             });
         }
 
-        private static async Task HandleGetRequestAsync(IMyApplicationWideService myAppState, HttpContext context)
+        private static async Task HandleGetRequestAsync(IApplicationState myAppState, HttpContext context)
         {
             var key = context.Request.Query["key"];
             if (key.Count != 1)
@@ -59,7 +61,7 @@ namespace ApplicationState
             await context.Response.WriteAsync($"{key} = {value ?? "null"}");
         }
 
-        private async Task HandlePostRequestAsync(IMyApplicationWideService myAppState, HttpContext context)
+        private async Task HandlePostRequestAsync(IApplicationState myAppState, HttpContext context)
         {
             var key = context.Request.Form["key"].SingleOrDefault();
             var value = context.Request.Form["value"].SingleOrDefault();

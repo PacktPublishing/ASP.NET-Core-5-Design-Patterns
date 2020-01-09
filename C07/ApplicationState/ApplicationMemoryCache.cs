@@ -3,11 +3,11 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace ApplicationState
 {
-    public class MyApplicationWideServiceImplementation : IMyApplicationWideService
+    public class ApplicationMemoryCache : IApplicationState
     {
         private readonly IMemoryCache _memoryCache;
 
-        public MyApplicationWideServiceImplementation(IMemoryCache memoryCache)
+        public ApplicationMemoryCache(IMemoryCache memoryCache)
         {
             _memoryCache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
         }
@@ -22,9 +22,9 @@ namespace ApplicationState
             return _memoryCache.TryGetValue<TItem>(key, out _);
         }
 
-        public TItem Set<TItem>(string key, TItem value)
+        public void Set<TItem>(string key, TItem value)
         {
-            return _memoryCache.Set(key, value);
+            _memoryCache.Set(key, value);
         }
     }
 }
