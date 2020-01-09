@@ -19,7 +19,13 @@ namespace WebApi.Controllers
         public ActionResult<IEnumerable<ClientSummaryDto>> Get()
         {
             var clients = _clientService.ReadAll();
-            var dto = clients.Select(client => ConvertToSummary(client)).ToArray();
+            var dto = clients.Select(client => new ClientSummaryDto
+            {
+                Id = client.Id,
+                Name = client.Name,
+                TotalNumberOfContracts = client.Contracts.Count,
+                NumberOfOpenContracts = client.Contracts.Count(x => x.Work.State != WorkState.Completed)
+            }).ToArray();
             return dto;
         }
 
@@ -32,52 +38,28 @@ namespace WebApi.Controllers
             {
                 return NotFound();
             }
-            var dto = ConvertToDetails(client);
+            var dto = new ClientDetailsDto
+            {
+                Id = client.Id,
+                Name = client.Name,
+                Contracts = client.Contracts.Select(contract => new ContractDetailsDto
+                {
+                    Id = contract.Id,
+                    Name = contract.Name,
+                    Description = contract.Description,
+
+                    // Flattening PrimaryContact
+                    PrimaryContactEmail = contract.PrimaryContact.Email,
+                    PrimaryContactFirstname = contract.PrimaryContact.Firstname,
+                    PrimaryContactLastname = contract.PrimaryContact.Lastname,
+
+                    // Flattening Work
+                    WorkDone = contract.Work.Done,
+                    WorkState = contract.Work.State,
+                    WorkTotal = contract.Work.Total
+                })
+            };
             return Ok(dto);
-        }
-
-        //
-        // Model to DTO conversion
-        //
-        private ClientSummaryDto ConvertToSummary(Client client)
-        {
-            return new ClientSummaryDto
-            {
-                Id = client.Id,
-                Name = client.Name,
-                TotalNumberOfContracts = client.Contracts.Count,
-                NumberOfOpenContracts = client.Contracts.Count(x => x.Work.State != WorkState.Completed)
-            };
-        }
-
-        private ClientDetailsDto ConvertToDetails(Client client)
-        {
-            return new ClientDetailsDto
-            {
-                Id = client.Id,
-                Name = client.Name,
-                Contracts = client.Contracts.Select(contract => ConvertToDetails(contract))
-            };
-        }
-
-        private static ContractDetailsDto ConvertToDetails(Contract contract)
-        {
-            return new ContractDetailsDto
-            {
-                Id = contract.Id,
-                Name = contract.Name,
-                Description = contract.Description,
-
-                // Flattening PrimaryContact
-                PrimaryContactEmail = contract.PrimaryContact.Email,
-                PrimaryContactFirstname = contract.PrimaryContact.Firstname,
-                PrimaryContactLastname = contract.PrimaryContact.Lastname,
-
-                // Flattening Work
-                WorkDone = contract.Work.Done,
-                WorkState = contract.Work.State,
-                WorkTotal = contract.Work.Total
-            };
         }
     }
 }
