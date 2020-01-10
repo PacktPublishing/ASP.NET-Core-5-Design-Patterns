@@ -17,7 +17,10 @@ namespace MVC.Controllers
 
         public async Task ActionWithoutResultV2Async()
         {
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "netcore-logo.png");
+            var filePath = Path.Combine(
+                Directory.GetCurrentDirectory(), 
+                "wwwroot/images/netcore-logo.png"
+            );
             var bytes = System.IO.File.ReadAllBytes(filePath);
             //
             // Do some processing here
