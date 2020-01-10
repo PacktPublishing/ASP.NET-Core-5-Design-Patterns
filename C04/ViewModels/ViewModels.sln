@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "A list of students", "A list of students\A list of students.csproj", "{C33DA8B6-DC3C-430F-9730-D09E4ACB6125}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "A student form", "A student form\A student form.csproj", "{6E441D4F-3A38-4029-89FE-B5172188A026}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModels", "ViewModels.csproj", "{CDEBFCA7-1F24-40AB-A633-17F5F56B8408}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C33DA8B6-DC3C-430F-9730-D09E4ACB6125}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C33DA8B6-DC3C-430F-9730-D09E4ACB6125}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C33DA8B6-DC3C-430F-9730-D09E4ACB6125}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C33DA8B6-DC3C-430F-9730-D09E4ACB6125}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6E441D4F-3A38-4029-89FE-B5172188A026}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6E441D4F-3A38-4029-89FE-B5172188A026}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E441D4F-3A38-4029-89FE-B5172188A026}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6E441D4F-3A38-4029-89FE-B5172188A026}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDEBFCA7-1F24-40AB-A633-17F5F56B8408}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDEBFCA7-1F24-40AB-A633-17F5F56B8408}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDEBFCA7-1F24-40AB-A633-17F5F56B8408}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDEBFCA7-1F24-40AB-A633-17F5F56B8408}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
