@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -41,7 +42,8 @@ namespace FunctionalTests.Controllers
                 var result = await _httpClient.GetAsync("/api/values");
 
                 // Assert
-                var content = await result.Content.ReadAsAsync<string[]>();
+                var contentText = await result.Content.ReadAsStringAsync();
+                var content = JsonSerializer.Deserialize<string[]>(contentText);
                 Assert.Collection(content,
                     x => Assert.Equal("value1", x),
                     x => Assert.Equal("value2", x)
