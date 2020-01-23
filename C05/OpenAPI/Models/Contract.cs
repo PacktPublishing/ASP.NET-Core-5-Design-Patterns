@@ -1,4 +1,4 @@
-﻿namespace WebApi.Models
+﻿namespace OpenAPI.Models
 {
     public class Contract
     {

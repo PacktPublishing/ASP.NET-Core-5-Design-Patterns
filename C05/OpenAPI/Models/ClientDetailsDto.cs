@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using System.Collections.Generic;
 
-namespace WebApi.Models
+namespace OpenAPI.Models
 {
     public class ClientDetailsDto
     {
