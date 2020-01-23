@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using OpenAPI.Models;
 using OpenAPI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace OpenAPI.Controllers
 {
@@ -31,6 +32,8 @@ namespace OpenAPI.Controllers
 
         // GET api/clients/1
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ClientDetailsDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Get(int id)
         {
             var client = _clientService.ReadOne(id);
