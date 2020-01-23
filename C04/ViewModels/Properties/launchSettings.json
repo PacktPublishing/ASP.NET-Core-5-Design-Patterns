@@ -1,9 +1,9 @@
-﻿{
+{
     "profiles": {
-        "MVC": {
+        "ViewModels": {
             "commandName": "Project",
             "launchBrowser": true,
-            "applicationUrl": "https://localhost:4001",
+            "applicationUrl": "https://localhost:4002/",
             "environmentVariables": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             }
