@@ -51,5 +51,13 @@ namespace CommonScenarios.Options
             Assert.NotNull(options);
             Assert.Equal(DefaultOptionName, options.Name);
         }
+
+        [Fact]
+        public void Options()
+        {
+            var options = _serviceProvider.GetRequiredService<IOptions<MyOptions>>();
+            Assert.NotNull(options.Value);
+            Assert.Equal(DefaultOptionName, options.Value.Name);
+        }
     }
 }

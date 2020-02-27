@@ -43,5 +43,12 @@ namespace CommonScenarios.Options
             var options = factory.Create(defaultName);
             Assert.NotNull(options);
         }
+
+        [Fact]
+        public void Options()
+        {
+            var options = _serviceProvider.GetRequiredService<IOptions<MyOptions>>();
+            Assert.NotNull(options.Value);
+        }
     }
 }
