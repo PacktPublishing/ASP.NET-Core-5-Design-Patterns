@@ -7,16 +7,21 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CommonScenarios
+namespace CommonScenarios.Options
 {
-    public class EmptyDefaultOptionsTests
+    public class DefaultOptionsTests
     {
-        private readonly IServiceProvider _serviceProvider;
+        public const string DefaultOptionName = "Default Options";
+        private IServiceProvider _serviceProvider;
 
-        public EmptyDefaultOptionsTests()
+        public DefaultOptionsTests()
         {
             var services = new ServiceCollection();
             services.AddOptions();
+            services.Configure<MyOptions>(myOptions =>
+            {
+                myOptions.Name = DefaultOptionName;
+            });
             _serviceProvider = services.BuildServiceProvider();
         }
 
@@ -25,6 +30,7 @@ namespace CommonScenarios
         {
             var snapshot = _serviceProvider.GetRequiredService<IOptionsSnapshot<MyOptions>>();
             Assert.NotNull(snapshot.Value);
+            Assert.Equal(DefaultOptionName, snapshot.Value.Name);
         }
 
         [Fact]
@@ -32,7 +38,7 @@ namespace CommonScenarios
         {
             var monitor = _serviceProvider.GetRequiredService<IOptionsMonitor<MyOptions>>();
             Assert.NotNull(monitor.CurrentValue);
+            Assert.Equal(DefaultOptionName, monitor.CurrentValue.Name);
         }
-
     }
 }

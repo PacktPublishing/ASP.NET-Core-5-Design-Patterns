@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using System;
 using Xunit;
 
-namespace CommonScenarios
+namespace CommonScenarios.Options
 {
     public class OptionsMonitorScopeTests
     {
