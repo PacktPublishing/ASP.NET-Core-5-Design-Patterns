@@ -28,6 +28,11 @@ namespace CommonScenarios
             {
                 myOptions.Name = Option2Name;
             });
+            services.Configure<MyDoubleNameOptions>(options =>
+            {
+                options.FirstName = Option1Name;
+                options.SecondName = Option2Name;
+            });
             _sut = services.BuildServiceProvider().GetRequiredService<IMyNameService>();
         }
 
