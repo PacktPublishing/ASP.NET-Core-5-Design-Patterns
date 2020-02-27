@@ -12,7 +12,7 @@ namespace CommonScenarios.Options
     public class DefaultOptionsTests
     {
         public const string DefaultOptionName = "Default Options";
-        private IServiceProvider _serviceProvider;
+        private readonly IServiceProvider _serviceProvider;
 
         public DefaultOptionsTests()
         {
@@ -39,6 +39,15 @@ namespace CommonScenarios.Options
             var monitor = _serviceProvider.GetRequiredService<IOptionsMonitor<MyOptions>>();
             Assert.NotNull(monitor.CurrentValue);
             Assert.Equal(DefaultOptionName, monitor.CurrentValue.Name);
+        }
+
+        [Fact]
+        public void OptionsFactory()
+        {
+            var factory = _serviceProvider.GetRequiredService<IOptionsFactory<MyOptions>>();
+            var options = factory.Create("");
+            Assert.NotNull(options);
+            Assert.Equal(DefaultOptionName, options.Name);
         }
     }
 }
