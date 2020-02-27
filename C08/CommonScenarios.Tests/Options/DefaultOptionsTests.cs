@@ -44,8 +44,10 @@ namespace CommonScenarios.Options
         [Fact]
         public void OptionsFactory()
         {
+            var defaultName = Microsoft.Extensions.Options.Options.DefaultName;
             var factory = _serviceProvider.GetRequiredService<IOptionsFactory<MyOptions>>();
-            var options = factory.Create("");
+
+            var options = factory.Create(defaultName);
             Assert.NotNull(options);
             Assert.Equal(DefaultOptionName, options.Name);
         }
