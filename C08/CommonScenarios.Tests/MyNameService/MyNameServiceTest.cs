@@ -12,7 +12,6 @@ namespace CommonScenarios
         where TMyNameService : class, IMyNameService
     {
         protected readonly IMyNameService _sut;
-        protected readonly IServiceProvider _serviceProvider;
 
         public const string Option1Name = "Options 1";
         public const string Option2Name = "Options 2";
@@ -21,7 +20,6 @@ namespace CommonScenarios
         {
             var services = new ServiceCollection();
             services.AddTransient<IMyNameService, TMyNameService>();
-            services.AddOptions();
             services.Configure<MyOptions>("Options1", myOptions =>
             {
                 myOptions.Name = Option1Name;
@@ -30,8 +28,7 @@ namespace CommonScenarios
             {
                 myOptions.Name = Option2Name;
             });
-            _serviceProvider = services.BuildServiceProvider();
-            _sut = _serviceProvider.GetRequiredService<IMyNameService>();
+            _sut = services.BuildServiceProvider().GetRequiredService<IMyNameService>();
         }
 
         [Fact]

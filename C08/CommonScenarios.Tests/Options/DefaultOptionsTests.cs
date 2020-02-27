@@ -17,7 +17,6 @@ namespace CommonScenarios.Options
         public DefaultOptionsTests()
         {
             var services = new ServiceCollection();
-            services.AddOptions();
             services.Configure<MyOptions>(myOptions =>
             {
                 myOptions.Name = DefaultOptionName;
