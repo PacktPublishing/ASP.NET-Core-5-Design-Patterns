@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Xunit;
 
-namespace OptionsDataAnnotations
+namespace OptionsValidation
 {
     public class ConfigureMeWithDataAnnotations
     {
