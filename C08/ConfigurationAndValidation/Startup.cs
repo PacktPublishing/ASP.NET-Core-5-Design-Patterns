@@ -29,6 +29,27 @@ namespace ConfigurationAndValidation
             services.Configure<ConfigureMeOptions>(_configuration.GetSection("configureMe"));
             services.AddSingleton<IConfigureOptions<ConfigureMeOptions>, Configure1ConfigureMeOptions>();
             services.AddSingleton<IConfigureOptions<ConfigureMeOptions>, Configure2ConfigureMeOptions>();
+            services.Configure<ConfigureMeOptions>(options =>
+            {
+                options.Lines = options.Lines.Append("Another Configure call");
+            });
+            services.PostConfigure<ConfigureMeOptions>(options =>
+            {
+                options.Lines = options.Lines.Append("What about PostConfigure?");
+            });
+            services.PostConfigureAll<ConfigureMeOptions>(options =>
+            {
+                options.Lines = options.Lines.Append("Did you forgot about PostConfigureAll?");
+            });
+            services.ConfigureAll<ConfigureMeOptions>(options =>
+            {
+                options.Lines = options.Lines.Append("Or ConfigureAll?");
+            });
+            services.AddOptions<ConfigureMeOptions>().Validate(options =>
+            {
+                options.Lines = options.Lines.Append("Validate was not intended for this, but this is a trace isn't it?");
+                return true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
