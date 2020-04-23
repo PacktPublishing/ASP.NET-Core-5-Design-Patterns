@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -6,7 +5,7 @@ using Xunit;
 
 namespace OptionsValidation
 {
-    public class ConfigureMeWithDataAnnotations
+    public class ValidateOptionsWithDataAnnotations
     {
         [Fact]
         public void Should_pass_validation()
@@ -27,8 +26,8 @@ namespace OptionsValidation
             services.AddOptions<Options>()
                 .ValidateDataAnnotations();
             var serviceProvider = services.BuildServiceProvider();
-            var error = Assert.Throws<OptionsValidationException>(()
-                => serviceProvider.GetService<IOptionsMonitor<Options>>().CurrentValue);
+            var options = serviceProvider.GetService<IOptionsMonitor<Options>>();
+            var error = Assert.Throws<OptionsValidationException>(() => options.CurrentValue);
             Assert.Collection(error.Failures,
                 f => Assert.Equal("DataAnnotation validation failed for members: 'MyImportantProperty' with the error: 'The MyImportantProperty field is required.'.", f)
             );
