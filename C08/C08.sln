@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonScenarios.Tests", "Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OptionsConfiguration", "ConfigurationAndValidation\OptionsConfiguration.csproj", "{2D46D22C-4167-4CDE-BF6A-C574418FB87C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OptionsDataAnnotations", "OptionsDataAnnotations\OptionsDataAnnotations.csproj", "{BA8E7383-5826-4437-9F32-4B6AE13DBD96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OptionsValidation", "OptionsDataAnnotations\OptionsValidation.csproj", "{BA8E7383-5826-4437-9F32-4B6AE13DBD96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
