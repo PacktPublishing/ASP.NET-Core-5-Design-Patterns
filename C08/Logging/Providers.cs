@@ -1,4 +1,3 @@
-using ForEvolve.Testing.Logging;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -26,6 +25,7 @@ namespace Logging
                 .ConfigureLogging(loggingBuilder =>
                 {
                     loggingBuilder.ClearProviders();
+                    loggingBuilder.AddConsole();
                     loggingBuilder.AddxUnitTestOutput(_output);
                 })
                 .Build();
