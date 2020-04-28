@@ -4,7 +4,6 @@ using Xunit;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using System.IO;
-using Microsoft.AspNetCore.Http.Internal;
 using System.Threading;
 using System.Text;
 using ForEvolve.XUnit.Http;
