@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Threading;
 using System.Text;
-using ForEvolve.XUnit.Http;
+using ForEvolve.Testing.AspNetCore.Http;
 
 namespace DecoratorScrutor
 {
@@ -28,7 +28,7 @@ namespace DecoratorScrutor
                 await sut.ExecuteAsync(httpContextHelper.HttpContextMock.Object);
 
                 // Assert
-                httpContextHelper.HttpResponse.BodyShouldEqual("Operation: Test Value");
+                httpContextHelper.HttpResponseFake.BodyShouldEqual("Operation: Test Value");
             }
         }
     }

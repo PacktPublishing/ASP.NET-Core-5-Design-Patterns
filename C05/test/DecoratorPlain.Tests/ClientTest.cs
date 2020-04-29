@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Threading;
 using System.Text;
-using ForEvolve.XUnit.Http;
+using ForEvolve.Testing.AspNetCore.Http;
 
 namespace DecoratorPlain
 {
@@ -23,12 +23,12 @@ namespace DecoratorPlain
                 var componentMock = new Mock<IComponent>();
                 componentMock.Setup(x => x.Operation()).Returns("Test Value").Verifiable();
                 var sut = new Client(componentMock.Object);
-
+                
                 // Act
                 await sut.ExecuteAsync(httpContextHelper.HttpContextMock.Object);
 
                 // Assert
-                httpContextHelper.HttpResponse.BodyShouldEqual("Operation: Test Value");
+                httpContextHelper.HttpResponseFake.BodyShouldEqual("Operation: Test Value");
             }
         }
     }
