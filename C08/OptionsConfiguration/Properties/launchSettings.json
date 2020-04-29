@@ -1,0 +1,12 @@
+﻿{
+  "profiles": {
+    "ConfigurationAndValidation": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:8002",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
