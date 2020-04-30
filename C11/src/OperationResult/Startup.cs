@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
+using Microsoft.Extensions.Hosting;
 
 namespace OperationResult
 {
@@ -18,7 +19,7 @@ namespace OperationResult
             services.AddRouting();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -108,7 +109,7 @@ namespace OperationResult
             else
             {
                 // Handle the failure
-                var json = JsonConvert.SerializeObject(result.Errors);
+                var json = JsonSerializer.Serialize(result.Errors);
                 response.Headers["ContentType"] = "application/json";
                 await response.WriteAsync(json);
             }
@@ -129,7 +130,7 @@ namespace OperationResult
             {
                 // Handle the failure
             }
-            var json = JsonConvert.SerializeObject(result);
+            var json = JsonSerializer.Serialize(result);
             response.Headers["ContentType"] = "application/json";
             await response.WriteAsync(json);
         }
@@ -149,7 +150,7 @@ namespace OperationResult
             {
                 // Handle the failure
             }
-            var json = JsonConvert.SerializeObject(result);
+            var json = JsonSerializer.Serialize(result);
             response.Headers["ContentType"] = "application/json";
             await response.WriteAsync(json);
         }
