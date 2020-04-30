@@ -1,9 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <RootNamespace>ChainOfResponsibility</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\ImprovedChainOfResponsibility\ImprovedChainOfResponsibility.csproj" />
+    <ProjectReference Include="..\..\src\ChainOfResponsibility\ChainOfResponsibility.csproj" />
   </ItemGroup>
 
 </Project>

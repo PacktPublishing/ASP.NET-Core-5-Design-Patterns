@@ -1,11 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
-
-    <RootNamespace>TemplateMethod</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\TemplateMethod\TemplateMethod.csproj" />
+    <ProjectReference Include="..\..\src\FinalChainOfResponsibility\FinalChainOfResponsibility.csproj" />
   </ItemGroup>
 
 </Project>

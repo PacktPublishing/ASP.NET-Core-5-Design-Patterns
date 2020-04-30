@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace TemplateMethod
 {
@@ -14,7 +15,7 @@ namespace TemplateMethod
             services.AddSingleton<SearchMachine>(x => new BinarySearchMachine(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IEnumerable<SearchMachine> searchMachines)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IEnumerable<SearchMachine> searchMachines)
         {
             if (env.IsDevelopment())
             {

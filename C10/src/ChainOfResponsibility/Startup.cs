@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace ChainOfResponsibility
 {
@@ -20,7 +21,7 @@ namespace ChainOfResponsibility
             services.AddSingleton<IMessageHandler>(new AlarmTriggeredHandler(new AlarmPausedHandler(new AlarmStoppedHandler(new DefaultHandler()))));
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IMessageHandler messageHandler)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IMessageHandler messageHandler)
         {
             if (env.IsDevelopment())
             {
