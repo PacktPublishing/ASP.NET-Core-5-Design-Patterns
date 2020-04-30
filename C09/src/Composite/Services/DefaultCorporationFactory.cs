@@ -60,7 +60,7 @@ public class DefaultCorporationFactory : ICorporationFactory
                 "Sequel trilogy",
                 new Book("Episode VII: The Force Awakens"),
                 new Book("Episode VIII: The Last Jedi"),
-                new Book("Episode IX: TBD")
+                new Book("Episode IX: The Rise of Skywalker")
             )
         ));
         return section;
