@@ -22,4 +22,8 @@
     <ProjectReference Include="..\..\src\DomainModel\DomainModel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Anemic\" />
+  </ItemGroup>
+
 </Project>

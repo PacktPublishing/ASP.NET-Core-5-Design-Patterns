@@ -1,17 +1,17 @@
 using System;
 using Xunit;
 
-namespace DomainModel
+namespace DomainModel.Rich
 {
-    public class ItemTest
+    public class StockServiceTest
     {
-        public class AddStock : ItemTest
+        public class AddStock : StockServiceTest
         {
             [Fact]
             public void Should_add_the_specified_amount_to_QuantityInStock()
             {
                 // Arrange
-                var sut = new Item();
+                var sut = new Product();
 
                 // Act
                 sut.AddStock(2);
@@ -21,13 +21,13 @@ namespace DomainModel
             }
         }
 
-        public class RemoveStock : ItemTest
+        public class RemoveStock : StockServiceTest
         {
             [Fact]
             public void Should_remove_the_specified_amount_to_QuantityInStock()
             {
                 // Arrange
-                var sut = new Item { QuantityInStock = 5 };
+                var sut = new Product { QuantityInStock = 5 };
 
                 // Act
                 sut.RemoveStock(2);
@@ -40,7 +40,7 @@ namespace DomainModel
             public void Should_throw_a_NotEnoughStockException_when_the_specified_amount_of_items_to_remove_is_greater_than_QuantityInStock()
             {
                 // Arrange
-                var sut = new Item { QuantityInStock = 2 };
+                var sut = new Product { QuantityInStock = 2 };
 
                 // Act & Assert
                 var stockException = Assert.Throws<NotEnoughStockException>(
