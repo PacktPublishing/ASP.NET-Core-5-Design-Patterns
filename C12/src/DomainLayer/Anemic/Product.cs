@@ -1,6 +1,6 @@
-﻿namespace DomainModel.Anemic
+﻿namespace DomainLayer.Anemic
 {
-    public class Product
+    public class Product : IProduct
     {
         public int Id { get; set; }
         public string Name { get; set; }

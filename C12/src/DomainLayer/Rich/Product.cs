@@ -1,6 +1,6 @@
-﻿namespace DomainModel.Rich
+﻿namespace DomainLayer.Rich
 {
-    public class Product
+    public class Product : IProduct
     {
         public int Id { get; set; }
         public string Name { get; set; }
