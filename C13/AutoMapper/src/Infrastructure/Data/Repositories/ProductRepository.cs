@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using AutoMapper;
+using Core.Entities;
 using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,9 +13,12 @@ namespace Infrastructure.Data.Repositories
     public class ProductRepository : IProductRepository
     {
         private readonly ProductContext _db;
-        public ProductRepository(ProductContext db)
+        private readonly IMapper _mapper;
+
+        public ProductRepository(ProductContext db, IMapper mapper)
         {
             _db = db ?? throw new ArgumentNullException(nameof(db));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         public IEnumerable<Product> All()

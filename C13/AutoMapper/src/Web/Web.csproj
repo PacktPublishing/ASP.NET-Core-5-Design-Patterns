@@ -5,8 +5,9 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="ForEvolve.DependencyInjection.AspNetCore" Version="1.0.8" />
-    <PackageReference Include="ForEvolve.EntityFrameworkCore" Version="2.1.2-ged90243e62" />
+    <PackageReference Include="ForEvolve.EntityFrameworkCore" Version="2.1.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.0-preview.3.20181.2" />
   </ItemGroup>
 

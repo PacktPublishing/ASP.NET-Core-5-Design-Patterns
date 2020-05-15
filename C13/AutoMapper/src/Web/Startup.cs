@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Core.Interfaces;
 using Core.UseCases;
 using ForEvolve.DependencyInjection;
@@ -37,7 +38,10 @@ namespace Web
             services
                 .ScanForDIModules()
                 .FromAssemblyOf<Startup>();
-
+            services.AddAutoMapper(
+                GetType().Assembly,
+                typeof(Infrastructure.Mappers.ProductProfile).Assembly
+            );
             services.AddControllers();
         }
 

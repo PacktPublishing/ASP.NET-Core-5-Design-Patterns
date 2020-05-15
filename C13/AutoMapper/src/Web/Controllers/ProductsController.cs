@@ -1,4 +1,5 @@
-﻿using Core.Interfaces;
+﻿using AutoMapper;
+using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,12 @@ namespace Web.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductRepository _productRepository;
-        public ProductsController(IProductRepository productRepository)
+        private readonly IMapper _mapper;
+
+        public ProductsController(IProductRepository productRepository, IMapper mapper)
         {
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet]
@@ -23,11 +27,7 @@ namespace Web.Controllers
         {
             var products = _productRepository
                 .All()
-                .Select(p => new ProductDetails(
-                    id: p.Id,
-                    name: p.Name,
-                    quantityInStock: p.QuantityInStock
-                ));
+                .Select(p => _mapper.Map<ProductDetails>(p));
             return Ok(products);
         }
 

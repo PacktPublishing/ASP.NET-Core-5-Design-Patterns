@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using AutoMapper;
+using Core;
 using Core.UseCases;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,6 +14,12 @@ namespace Web.Controllers
     [Route("products/{productId}/")]
     public class StocksController : ControllerBase
     {
+        private readonly IMapper _mapper;
+        public StocksController(IMapper mapper)
+        {
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+        }
+
         [HttpPost("add-stocks")]
         public ActionResult<StockLevel> Add(
             int productId,
@@ -21,7 +28,7 @@ namespace Web.Controllers
         )
         {
             var product = useCase.Handle(productId, command.Amount);
-            var stockLevel = new StockLevel(product.QuantityInStock);
+            var stockLevel = _mapper.Map<StockLevel>(product);
             return Ok(stockLevel);
         }
 
@@ -35,7 +42,7 @@ namespace Web.Controllers
             try
             {
                 var product = useCase.Handle(productId, command.Amount);
-                var stockLevel = new StockLevel(product.QuantityInStock);
+                var stockLevel = _mapper.Map<StockLevel>(product);
                 return Ok(stockLevel);
             }
             catch (NotEnoughStockException ex)
