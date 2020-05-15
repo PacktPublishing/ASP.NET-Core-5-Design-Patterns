@@ -12,19 +12,18 @@ namespace Infrastructure.Data.Repositories
     public class ProductRepository : IProductRepository
     {
         private readonly ProductContext _db;
-        public ProductRepository(ProductContext db)
+        private readonly IMapper<Data.Models.Product, Core.Entities.Product> _dataToEntityMapper;
+        private readonly IMapper<Core.Entities.Product, Data.Models.Product> _entityToDataMapper;
+        public ProductRepository(ProductContext db, IMapper<Data.Models.Product, Core.Entities.Product> productMapper, IMapper<Core.Entities.Product, Data.Models.Product> entityToDataMapper)
         {
             _db = db ?? throw new ArgumentNullException(nameof(db));
+            _dataToEntityMapper = productMapper ?? throw new ArgumentNullException(nameof(productMapper));
+            _entityToDataMapper = entityToDataMapper ?? throw new ArgumentNullException(nameof(entityToDataMapper));
         }
 
         public IEnumerable<Product> All()
         {
-            return _db.Products.Select(p => new Product
-            {
-                Id = p.Id,
-                Name = p.Name,
-                QuantityInStock = p.QuantityInStock
-            });
+            return _db.Products.Select(p => _dataToEntityMapper.Map(p));
         }
 
         public void DeleteById(int productId)
@@ -37,22 +36,12 @@ namespace Infrastructure.Data.Repositories
         public Product FindById(int productId)
         {
             var product = _db.Products.Find(productId);
-            return new Product
-            {
-                Id = product.Id,
-                Name = product.Name,
-                QuantityInStock = product.QuantityInStock
-            };
+            return _dataToEntityMapper.Map(product);
         }
 
         public void Insert(Product product)
         {
-            var data = new Models.Product
-            {
-                Id = product.Id,
-                Name = product.Name,
-                QuantityInStock = product.QuantityInStock
-            };
+            var data = _entityToDataMapper.Map(product);
             _db.Products.Add(data);
             _db.SaveChanges();
         }
