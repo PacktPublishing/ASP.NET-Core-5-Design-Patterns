@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using DataLayer;
 using DataLayer.EFCore;
 using DomainLayer;
+using DomainLayer.Services;
 using ForEvolve.DependencyInjection;
 using ForEvolve.EntityFrameworkCore.Seeders;
 using Microsoft.AspNetCore.Builder;
@@ -19,6 +20,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SharedModels;
 
 namespace PresentationLayer
 {
@@ -66,13 +68,8 @@ namespace PresentationLayer
         public DomainLayerModule(IServiceCollection services)
             : base(services)
         {
-#if RICH_MODEL
-            services.AddScoped<IProductService, DomainLayer.Rich.ProductService>();
-            services.AddScoped<IStockService, DomainLayer.Rich.StockService>();
-#else
-            services.AddScoped<IProductService, DomainLayer.Anemic.ProductService>();
-            services.AddScoped<IStockService, DomainLayer.Anemic.StockService>();
-#endif
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IStockService, StockService>();
         }
     }
 

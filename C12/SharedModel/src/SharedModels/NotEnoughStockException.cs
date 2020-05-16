@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DomainLayer
+namespace SharedModels
 {
     public class NotEnoughStockException : Exception
     {

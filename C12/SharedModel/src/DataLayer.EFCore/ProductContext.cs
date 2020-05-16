@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SharedModels;
 using System;
 
 namespace DataLayer

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharedModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace DomainLayer
 {
     public interface IProductService
     {
-        IEnumerable<IProduct> All();
+        IEnumerable<Product> All();
     }
 }

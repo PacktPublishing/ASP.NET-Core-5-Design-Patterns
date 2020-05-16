@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
+    <ProjectReference Include="..\SharedModels\SharedModels.csproj" />
   </ItemGroup>
 
 </Project>

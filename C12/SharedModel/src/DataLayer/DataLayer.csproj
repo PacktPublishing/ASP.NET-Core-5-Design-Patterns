@@ -8,4 +8,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0-preview.3.20181.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SharedModels\SharedModels.csproj" />
+  </ItemGroup>
+
 </Project>
