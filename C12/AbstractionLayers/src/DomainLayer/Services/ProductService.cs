@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DomainLayer.Rich
+namespace DomainLayer.Services
 {
     public class ProductService : IProductService
     {
@@ -15,7 +15,7 @@ namespace DomainLayer.Rich
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
-        public IEnumerable<IProduct> All()
+        public IEnumerable<Product> All()
         {
             return _repository.All().Select(p => new Product
             {

@@ -8,6 +8,6 @@ namespace DomainLayer
 {
     public interface IProductService
     {
-        IEnumerable<IProduct> All();
+        IEnumerable<Product> All();
     }
 }

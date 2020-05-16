@@ -1,5 +1,3 @@
-#undef RICH_MODEL
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +5,7 @@ using System.Threading.Tasks;
 using DataLayer;
 using DataLayer.EFCore;
 using DomainLayer;
+using DomainLayer.Services;
 using ForEvolve.DependencyInjection;
 using ForEvolve.EntityFrameworkCore.Seeders;
 using Microsoft.AspNetCore.Builder;
@@ -66,13 +65,8 @@ namespace PresentationLayer
         public DomainLayerModule(IServiceCollection services)
             : base(services)
         {
-#if RICH_MODEL
-            services.AddScoped<IProductService, DomainLayer.Rich.ProductService>();
-            services.AddScoped<IStockService, DomainLayer.Rich.StockService>();
-#else
-            services.AddScoped<IProductService, DomainLayer.Anemic.ProductService>();
-            services.AddScoped<IStockService, DomainLayer.Anemic.StockService>();
-#endif
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IStockService, StockService>();
         }
     }
 
@@ -94,19 +88,19 @@ namespace PresentationLayer
     {
         public void Seed(ProductContext db)
         {
-            db.Products.Add(new Product
+            db.Products.Add(new DataLayer.Product
             {
                 Id = 1,
                 Name = "Banana",
                 QuantityInStock = 50
             });
-            db.Products.Add(new Product
+            db.Products.Add(new DataLayer.Product
             {
                 Id = 2,
                 Name = "Apple",
                 QuantityInStock = 20
             });
-            db.Products.Add(new Product
+            db.Products.Add(new DataLayer.Product
             {
                 Id = 3,
                 Name = "Habanero Pepper",
