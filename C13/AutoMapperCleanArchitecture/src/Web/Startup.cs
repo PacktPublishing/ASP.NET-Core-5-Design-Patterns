@@ -40,7 +40,7 @@ namespace Web
                 .FromAssemblyOf<Startup>();
             services.AddAutoMapper(
                 GetType().Assembly,
-                typeof(Infrastructure.Mappers.ProductProfile).Assembly
+                typeof(Infrastructure.Data.Mappers.ProductProfile).Assembly
             );
             services.AddControllers();
         }
