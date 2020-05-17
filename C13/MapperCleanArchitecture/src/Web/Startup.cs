@@ -9,7 +9,7 @@ using ForEvolve.EntityFrameworkCore.Seeders;
 using Infrastructure.Data;
 using Infrastructure.Data.Models;
 using Infrastructure.Data.Repositories;
-using Infrastructure.Mappers;
+using Infrastructure.Data.Mappers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -82,8 +82,8 @@ namespace Web
             : base(services)
         {
             services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddSingleton<IMapper<Infrastructure.Data.Models.Product, Core.Entities.Product>, Infrastructure.Mappers.ProductMapper>();
-            services.AddSingleton<IMapper<Core.Entities.Product, Infrastructure.Data.Models.Product>, Infrastructure.Mappers.ProductMapper>();
+            services.AddSingleton<IMapper<Infrastructure.Data.Models.Product, Core.Entities.Product>, Infrastructure.Data.Mappers.ProductMapper>();
+            services.AddSingleton<IMapper<Core.Entities.Product, Infrastructure.Data.Models.Product>, Infrastructure.Data.Mappers.ProductMapper>();
 
             services.AddDbContext<ProductContext>(options => options
                 .UseInMemoryDatabase("ProductContextMemoryDB")

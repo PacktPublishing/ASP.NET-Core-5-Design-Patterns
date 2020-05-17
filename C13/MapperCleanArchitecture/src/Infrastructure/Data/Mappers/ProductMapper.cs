@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Mappers
+namespace Infrastructure.Data.Mappers
 {
     public class ProductMapper : IMapper<Data.Models.Product, Core.Entities.Product>, IMapper<Core.Entities.Product, Data.Models.Product>
     {
