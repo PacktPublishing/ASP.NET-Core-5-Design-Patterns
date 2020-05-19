@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Core.Interfaces;
 using Core.UseCases;
 using ForEvolve.DependencyInjection;
@@ -9,7 +10,6 @@ using ForEvolve.EntityFrameworkCore.Seeders;
 using Infrastructure.Data;
 using Infrastructure.Data.Models;
 using Infrastructure.Data.Repositories;
-using Infrastructure.Mappers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -20,8 +20,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Web.Controllers;
-using Web.Mappers;
 
 namespace Web
 {
@@ -37,12 +35,13 @@ namespace Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IMapper<Core.Entities.Product, StocksController.StockLevel>, StockMapper>();
-            services.AddSingleton<IMapper<Core.Entities.Product, ProductsController.ProductDetails>, Mappers.ProductMapper>();
             services
                 .ScanForDIModules()
                 .FromAssemblyOf<Startup>();
-
+            services.AddAutoMapper(
+                GetType().Assembly,
+                typeof(Infrastructure.Data.Mappers.ProductProfile).Assembly
+            );
             services.AddControllers();
         }
 
@@ -82,8 +81,6 @@ namespace Web
             : base(services)
         {
             services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddSingleton<IMapper<Infrastructure.Data.Models.Product, Core.Entities.Product>, Infrastructure.Mappers.ProductMapper>();
-            services.AddSingleton<IMapper<Core.Entities.Product, Infrastructure.Data.Models.Product>, Infrastructure.Mappers.ProductMapper>();
 
             services.AddDbContext<ProductContext>(options => options
                 .UseInMemoryDatabase("ProductContextMemoryDB")
