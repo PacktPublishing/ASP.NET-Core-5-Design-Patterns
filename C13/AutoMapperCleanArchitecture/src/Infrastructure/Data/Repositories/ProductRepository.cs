@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿#define USE_PROJECT_TO
+using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -23,12 +24,13 @@ namespace Infrastructure.Data.Repositories
 
         public IEnumerable<Product> All()
         {
-            return _db.Products.Select(p => new Product
-            {
-                Id = p.Id,
-                Name = p.Name,
-                QuantityInStock = p.QuantityInStock
-            });
+#if USE_PROJECT_TO
+            // Transposed to a Select() possibly optimal in some cases; previously known as "Queryable Extensions".
+            return _mapper.ProjectTo<Product>(_db.Products);
+#else
+            // Manual Mapping (query the whole object, then map it; could lead to "over-querying" the database)
+            return _db.Products.Select(p => _mapper.Map<Product>(p));
+#endif
         }
 
         public void DeleteById(int productId)
@@ -41,22 +43,12 @@ namespace Infrastructure.Data.Repositories
         public Product FindById(int productId)
         {
             var product = _db.Products.Find(productId);
-            return new Product
-            {
-                Id = product.Id,
-                Name = product.Name,
-                QuantityInStock = product.QuantityInStock
-            };
+            return _mapper.Map<Product>(product);
         }
 
         public void Insert(Product product)
         {
-            var data = new Models.Product
-            {
-                Id = product.Id,
-                Name = product.Name,
-                QuantityInStock = product.QuantityInStock
-            };
+            var data = _mapper.Map<Models.Product>(product);
             _db.Products.Add(data);
             _db.SaveChanges();
         }
