@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AutoMapper;
+using MediatR;
+using FluentValidation.AspNetCore;
 
 namespace VerticalApp
 {
@@ -16,6 +19,15 @@ namespace VerticalApp
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            var currentAssembly = GetType().Assembly;
+            services.AddAutoMapper(currentAssembly);
+            services.AddMediatR(currentAssembly);
+            services
+                .ScanForDIModules()
+                .FromAssemblyOf<Startup>();
+            services
+                .AddControllers()
+                .AddFluentValidation(config => config.RegisterValidatorsFromAssembly(currentAssembly));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -25,16 +37,16 @@ namespace VerticalApp
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseHttpsRedirection();
             app.UseRouting();
-
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
             });
+
+            // Seed temp data
+            app.Seed<Data.ProductContext>();
         }
     }
 }
