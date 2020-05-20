@@ -31,7 +31,7 @@ namespace VerticalApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IMapper mapper)
         {
             if (env.IsDevelopment())
             {
@@ -45,7 +45,7 @@ namespace VerticalApp
                 endpoints.MapControllers();
             });
 
-            // Seed temp data
+            mapper.ConfigurationProvider.AssertConfigurationIsValid();
             app.Seed<Data.ProductContext>();
         }
     }
