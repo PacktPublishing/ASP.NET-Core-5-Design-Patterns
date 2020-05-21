@@ -44,9 +44,6 @@ namespace Infrastructure.Data.Repositories
         public void Update(Product product)
         {
             _db.Entry(product).State = EntityState.Modified;
-            //var data = _db.Products.Find(product.Id);
-            //data.Name = product.Name;
-            //data.QuantityInStock = product.QuantityInStock;
             _db.SaveChanges();
         }
     }
