@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataLayer.EFCore\DataLayer.EFCore.csproj" />
-    <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
     <ProjectReference Include="..\DomainLayer\DomainLayer.csproj" />
   </ItemGroup>
 

@@ -40,9 +40,9 @@ namespace PresentationLayer.Controllers
                 QuantityInStock = quantityInStock;
             }
 
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public int QuantityInStock { get; set; }
+            public int Id { get; }
+            public string Name { get; }
+            public int QuantityInStock { get; }
         }
     }
 }
