@@ -1,14 +1,7 @@
-using Microsoft.Extensions.Hosting;
-using System;
-using Xunit;
-using Xunit.Abstractions;
-using Microsoft.Extensions.Logging;
-using ForEvolve.Testing.Logging;
-using Moq;
-using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using System.Text;
+using Xunit;
 
 namespace Mediator.Tests
 {
