@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\MediatR\MediatR.csproj" />
+    <ProjectReference Include="..\..\src\MediatRMediator\MediatRMediator.csproj" />
   </ItemGroup>
 
 </Project>
