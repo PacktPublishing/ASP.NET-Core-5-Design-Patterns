@@ -68,18 +68,18 @@ namespace Mediator
 
     public class ConcreteColleague : IColleague
     {
-        private readonly ILogger _logger;
-        public ConcreteColleague(string name, ILoggerFactory logger)
+        private readonly IMessageWriter<Message> _messageWriter;
+        public ConcreteColleague(string name, IMessageWriter<Message> messageWriter)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
-            _logger = logger.CreateLogger(Name);
+            _messageWriter = messageWriter ?? throw new ArgumentNullException(nameof(messageWriter));
         }
 
         public string Name { get; }
 
         public void ReceiveMessage(Message message)
         {
-            _logger.LogInformation($"[from: {message.Sender.Name}][to: {Name}]: {message.Content}");
+            _messageWriter.Write(message);
         }
     }
 }

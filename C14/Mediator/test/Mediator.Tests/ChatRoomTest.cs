@@ -59,11 +59,21 @@ namespace Mediator
 ", daveenChat.Output.ToString());
         }
 
-        private (StringMessageWriter, User) CreateTestUser(string name)
+        private (TestMessageWriter, User) CreateTestUser(string name)
         {
-            var writer = new StringMessageWriter();
+            var writer = new TestMessageWriter();
             var user = new User(writer, name);
             return (writer, user);
+        }
+
+        public class TestMessageWriter : IMessageWriter<ChatMessage>
+        {
+            public StringBuilder Output { get; } = new StringBuilder();
+
+            public void Write(ChatMessage message)
+            {
+                Output.AppendLine($"[{message.Sender.Name}]: {message.Content}");
+            }
         }
     }
 }

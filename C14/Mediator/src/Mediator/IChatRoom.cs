@@ -35,9 +35,9 @@ namespace Mediator
     public class User : IParticipant
     {
         private IChatRoom _chatRoom;
-        private readonly IMessageWriter _messageWriter;
+        private readonly IMessageWriter<ChatMessage> _messageWriter;
 
-        public User(IMessageWriter messageWriter, string name)
+        public User(IMessageWriter<ChatMessage> messageWriter, string name)
         {
             _messageWriter = messageWriter ?? throw new ArgumentNullException(nameof(messageWriter));
             Name = name ?? throw new ArgumentNullException(nameof(name));
@@ -75,21 +75,6 @@ namespace Mediator
         public void Send(ChatMessage message)
         {
             _participants.ForEach(participant => participant.ReceiveMessage(message));
-        }
-    }
-
-    public interface IMessageWriter
-    {
-        void Write(ChatMessage message);
-    }
-
-    public class StringMessageWriter : IMessageWriter
-    {
-        public StringBuilder Output { get; } = new StringBuilder();
-
-        public void Write(ChatMessage message)
-        {
-            Output.AppendLine($"[{message.Sender.Name}]: {message.Content}");
         }
     }
 }
