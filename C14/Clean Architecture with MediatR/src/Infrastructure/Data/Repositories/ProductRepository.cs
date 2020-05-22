@@ -17,34 +17,35 @@ namespace Infrastructure.Data.Repositories
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
-        public IEnumerable<Product> All()
+        public Task<IEnumerable<Product>> AllAsync()
         {
-            return _db.Products;
+            var products = _db.Products.AsEnumerable();
+            return Task.FromResult(products);
         }
 
-        public void DeleteById(int productId)
+        public async Task DeleteByIdAsync(int productId)
         {
-            var product = _db.Products.Find(productId);
+            var product = await _db.Products.FindAsync(productId);
             _db.Products.Remove(product);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
-        public Product FindById(int productId)
+        public async Task<Product> FindByIdAsync(int productId)
         {
-            var product = _db.Products.Find(productId);
+            var product = await _db.Products.FindAsync(productId);
             return product;
         }
 
-        public void Insert(Product product)
+        public async Task InsertAsync(Product product)
         {
             _db.Products.Add(product);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
-        public void Update(Product product)
+        public async Task UpdateAsync(Product product)
         {
             _db.Entry(product).State = EntityState.Modified;
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
     }
 }

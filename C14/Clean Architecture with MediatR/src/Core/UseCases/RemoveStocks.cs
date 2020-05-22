@@ -26,16 +26,16 @@ namespace Core.UseCases
                 _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
             }
 
-            public Task<Product> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Product> Handle(Command request, CancellationToken cancellationToken)
             {
-                var product = _productRepository.FindById(request.ProductId);
+                var product = await _productRepository.FindByIdAsync(request.ProductId);
                 if (request.Amount > product.QuantityInStock)
                 {
                     throw new NotEnoughStockException(product.QuantityInStock, request.Amount);
                 }
                 product.QuantityInStock -= request.Amount;
-                _productRepository.Update(product);
-                return Task.FromResult(product);
+                await _productRepository.UpdateAsync(product);
+                return product;
             }
         }
     }

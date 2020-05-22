@@ -9,10 +9,10 @@ namespace Core.Interfaces
 {
     public interface IProductRepository
     {
-        IEnumerable<Product> All();
-        Product FindById(int productId);
-        void Update(Product product);
-        void Insert(Product product);
-        void DeleteById(int productId);
+        Task<IEnumerable<Product>> AllAsync();
+        Task<Product> FindByIdAsync(int productId);
+        Task UpdateAsync(Product product);
+        Task InsertAsync(Product product);
+        Task DeleteByIdAsync(int productId);
     }
 }

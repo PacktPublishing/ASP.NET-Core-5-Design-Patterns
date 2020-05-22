@@ -19,10 +19,10 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ProductDetails>> Get()
+        public async Task<ActionResult<IEnumerable<ProductDetails>>> GetAsync()
         {
-            var products = _productRepository
-                .All()
+            var products = (await _productRepository
+                .AllAsync())
                 .Select(p => new ProductDetails(
                     id: p.Id,
                     name: p.Name,
