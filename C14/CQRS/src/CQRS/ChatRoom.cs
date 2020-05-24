@@ -39,11 +39,6 @@ namespace CQRS
             where TCommand : ICommand;
         void Register<TCommand, TReturn>(IReturnHandler<TCommand, TReturn> commandHandler)
             where TCommand : ICommand<TReturn>;
-
-        void UnRegister<TCommand>(IVoidHandler<TCommand> commandHandler)
-            where TCommand : ICommand;
-        void UnRegister<TCommand, TReturn>(IReturnHandler<TCommand, TReturn> commandHandler)
-            where TCommand : ICommand<TReturn>;
     }
 
     public interface ICommand { }
@@ -57,7 +52,7 @@ namespace CQRS
     public interface IReturnHandler<TCommand, TReturn>
         where TCommand : ICommand<TReturn>
     {
-        TReturn Handle(ICommand<TReturn> query);
+        TReturn Handle(TCommand query);
     }
 
     public class ChatMessage
@@ -96,7 +91,7 @@ namespace CQRS
         {
             public void Handle(Command command)
             {
-                throw new NotImplementedException();
+                command.ChatRoom.Add(command.Requester);
             }
         }
     }
@@ -119,7 +114,7 @@ namespace CQRS
         {
             public void Handle(Command command)
             {
-                throw new NotImplementedException();
+                command.ChatRoom.Remove(command.Requester);
             }
         }
     }
@@ -142,7 +137,11 @@ namespace CQRS
         {
             public void Handle(Command command)
             {
-                throw new NotImplementedException();
+                command.ChatRoom.Add(command.Message);
+                foreach (var participant in command.ChatRoom.ListParticipants())
+                {
+                    participant.NewMessageReceivedFrom(command.ChatRoom, command.Message);
+                }
             }
         }
     }
@@ -163,9 +162,9 @@ namespace CQRS
 
         public class Handler : IReturnHandler<Command, IEnumerable<IParticipant>>
         {
-            public IEnumerable<IParticipant> Handle(ICommand<IEnumerable<IParticipant>> query)
+            public IEnumerable<IParticipant> Handle(Command query)
             {
-                throw new NotImplementedException();
+                return query.ChatRoom.ListParticipants();
             }
         }
     }
@@ -186,9 +185,9 @@ namespace CQRS
 
         public class Handler : IReturnHandler<Command, IEnumerable<ChatMessage>>
         {
-            public IEnumerable<ChatMessage> Handle(ICommand<IEnumerable<ChatMessage>> query)
+            public IEnumerable<ChatMessage> Handle(Command query)
             {
-                throw new NotImplementedException();
+                return query.ChatRoom.ListMessages();
             }
         }
     }
@@ -310,16 +309,6 @@ namespace CQRS
             {
                 handler.Handle(command);
             }
-        }
-
-        public void UnRegister<TCommand>(IVoidHandler<TCommand> commandHandler) where TCommand : ICommand
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UnRegister<TCommand, TReturn>(IReturnHandler<TCommand, TReturn> commandHandler) where TCommand : ICommand<TReturn>
-        {
-            throw new NotImplementedException();
         }
 
         private class HandlerList

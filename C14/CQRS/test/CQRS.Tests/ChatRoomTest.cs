@@ -82,6 +82,41 @@ namespace CQRS.Tests
                 }
             );
         }
+
+        [Fact]
+        public void A_participant_should_not_receive_messages_after_leaving_a_chatroom()
+        {
+            _reagen.Join(_room1);
+            _garner.Join(_room1);
+            _cornelia.Join(_room1);
+            _reagen.SendMessageTo(_room1, "Hello!");
+            _garner.Leave(_room1);
+            _reagen.SendMessageTo(_room1, "This should not reach Garner");
+
+            Assert.Collection(_garnerMessageWriter.Output,
+                line =>
+                {
+                    Assert.Equal(_room1, line.chatRoom);
+                    Assert.Equal(_reagen, line.message.Sender);
+                    Assert.Equal("Hello!", line.message.Message);
+                }
+            );
+            Assert.Collection(_corneliaMessageWriter.Output,
+                line =>
+                {
+                    Assert.Equal(_room1, line.chatRoom);
+                    Assert.Equal(_reagen, line.message.Sender);
+                    Assert.Equal("Hello!", line.message.Message);
+                },
+                line =>
+                {
+                    Assert.Equal(_room1, line.chatRoom);
+                    Assert.Equal(_reagen, line.message.Sender);
+                    Assert.Equal("This should not reach Garner", line.message.Message);
+                }
+            );
+        }
+
     }
 
     public class TestMessageWriter : IMessageWriter
