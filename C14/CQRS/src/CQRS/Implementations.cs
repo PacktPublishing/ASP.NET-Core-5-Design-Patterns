@@ -1,201 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CQRS
 {
-    #region Interfaces
-
-    public interface IParticipant
-    {
-        string Name { get; }
-        void Join(IChatRoom chatRoom);
-        void Leave(IChatRoom chatRoom);
-        void SendMessageTo(IChatRoom chatRoom, string message);
-        void NewMessageReceivedFrom(IChatRoom chatRoom, ChatMessage message);
-        IEnumerable<IParticipant> ListParticipantsOf(IChatRoom chatRoom);
-        IEnumerable<ChatMessage> ListMessagesOf(IChatRoom chatRoom);
-    }
-
-    public interface IChatRoom
-    {
-        string Name { get; }
-
-        void Add(IParticipant participant);
-        void Remove(IParticipant participant);
-        IEnumerable<IParticipant> ListParticipants();
-
-        void Add(ChatMessage message);
-        IEnumerable<ChatMessage> ListMessages();
-    }
-
-    public interface IMediator
-    {
-        TReturn Send<TCommand, TReturn>(TCommand query)
-            where TCommand: ICommand<TReturn>;
-        void Send<TCommand>(TCommand command)
-            where TCommand : ICommand;
-
-        void Register<TCommand>(IVoidHandler<TCommand> commandHandler)
-            where TCommand : ICommand;
-        void Register<TCommand, TReturn>(IReturnHandler<TCommand, TReturn> commandHandler)
-            where TCommand : ICommand<TReturn>;
-    }
-
-    public interface ICommand { }
-    public interface IVoidHandler<TCommand>
-        where TCommand : ICommand
-    {
-        void Handle(TCommand command);
-    }
-
-    public interface ICommand<TReturn> { }
-    public interface IReturnHandler<TCommand, TReturn>
-        where TCommand : ICommand<TReturn>
-    {
-        TReturn Handle(TCommand query);
-    }
-
-    public class ChatMessage
-    {
-        public ChatMessage(IParticipant sender, string message)
-        {
-            Sender = sender ?? throw new ArgumentNullException(nameof(sender));
-            Message = message ?? throw new ArgumentNullException(nameof(message));
-            Date = DateTime.UtcNow;
-        }
-
-        public DateTime Date { get; }
-        public IParticipant Sender { get; }
-        public string Message { get; }
-    }
-
-    #endregion
-
-    #region Commands
-
-    public class JoinChatRoom
-    {
-        public class Command : ICommand
-        {
-            public Command(IChatRoom chatRoom, IParticipant requester)
-            {
-                ChatRoom = chatRoom ?? throw new ArgumentNullException(nameof(chatRoom));
-                Requester = requester ?? throw new ArgumentNullException(nameof(requester));
-            }
-
-            public IChatRoom ChatRoom { get; }
-            public IParticipant Requester { get; }
-        }
-
-        public class Handler : IVoidHandler<Command>
-        {
-            public void Handle(Command command)
-            {
-                command.ChatRoom.Add(command.Requester);
-            }
-        }
-    }
-
-    public class LeaveChatRoom
-    {
-        public class Command : ICommand
-        {
-            public Command(IChatRoom chatRoom, IParticipant requester)
-            {
-                ChatRoom = chatRoom ?? throw new ArgumentNullException(nameof(chatRoom));
-                Requester = requester ?? throw new ArgumentNullException(nameof(requester));
-            }
-
-            public IChatRoom ChatRoom { get; }
-            public IParticipant Requester { get; }
-        }
-
-        public class Handler : IVoidHandler<Command>
-        {
-            public void Handle(Command command)
-            {
-                command.ChatRoom.Remove(command.Requester);
-            }
-        }
-    }
-
-    public class SendChatMessage
-    {
-        public class Command : ICommand
-        {
-            public Command(IChatRoom chatRoom, ChatMessage message)
-            {
-                ChatRoom = chatRoom ?? throw new ArgumentNullException(nameof(chatRoom));
-                Message = message ?? throw new ArgumentNullException(nameof(message));
-            }
-
-            public IChatRoom ChatRoom { get; }
-            public ChatMessage Message { get; }
-        }
-
-        public class Handler : IVoidHandler<Command>
-        {
-            public void Handle(Command command)
-            {
-                command.ChatRoom.Add(command.Message);
-                foreach (var participant in command.ChatRoom.ListParticipants())
-                {
-                    participant.NewMessageReceivedFrom(command.ChatRoom, command.Message);
-                }
-            }
-        }
-    }
-
-    public class ListParticipants
-    {
-        public class Command : ICommand<IEnumerable<IParticipant>>
-        {
-            public Command(IChatRoom chatRoom, IParticipant requester)
-            {
-                Requester = requester ?? throw new ArgumentNullException(nameof(requester));
-                ChatRoom = chatRoom ?? throw new ArgumentNullException(nameof(chatRoom));
-            }
-
-            public IParticipant Requester { get; }
-            public IChatRoom ChatRoom { get; }
-        }
-
-        public class Handler : IReturnHandler<Command, IEnumerable<IParticipant>>
-        {
-            public IEnumerable<IParticipant> Handle(Command query)
-            {
-                return query.ChatRoom.ListParticipants();
-            }
-        }
-    }
-
-    public class ListMessages
-    {
-        public class Command : ICommand<IEnumerable<ChatMessage>>
-        {
-            public Command(IChatRoom chatRoom, IParticipant requester)
-            {
-                Requester = requester ?? throw new ArgumentNullException(nameof(requester));
-                ChatRoom = chatRoom ?? throw new ArgumentNullException(nameof(chatRoom));
-            }
-
-            public IParticipant Requester { get; }
-            public IChatRoom ChatRoom { get; }
-        }
-
-        public class Handler : IReturnHandler<Command, IEnumerable<ChatMessage>>
-        {
-            public IEnumerable<ChatMessage> Handle(Command query)
-            {
-                return query.ChatRoom.ListMessages();
-            }
-        }
-    }
-
-    #endregion
-
-    #region Implementations
-
     public class Participant : IParticipant
     {
         private readonly IMediator _mediator;
@@ -353,7 +163,7 @@ namespace CQRS
             }
         }
 
-        public class HandlerDictionary
+        private class HandlerDictionary
         {
             private readonly Dictionary<Type, HandlerList> _handlers = new Dictionary<Type, HandlerList>();
 
@@ -411,5 +221,4 @@ namespace CQRS
         {
         }
     }
-    #endregion
 }
