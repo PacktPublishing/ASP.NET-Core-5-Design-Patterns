@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text;
 using Xunit;
 
-namespace Mediator.Tests
+namespace Mediator
 {
     public class MediatorTest
     {
@@ -15,7 +15,7 @@ namespace Mediator.Tests
             var (orazioWriter, orazio) = CreateConcreteColleague("Orazio");
             var (fletcherWriter, fletcher) = CreateConcreteColleague("Fletcher");
 
-            var mediator = new BroadcastMediator(miller, orazio, fletcher);
+            var mediator = new ConcreteMediator(miller, orazio, fletcher);
             var expectedOutput = @"[Miller]: Hey everyone!
 [Orazio]: What's up Miller?
 [Fletcher]: Hey Miller!
@@ -41,52 +41,6 @@ namespace Mediator.Tests
             Assert.Equal(expectedOutput, fletcherWriter.Output.ToString());
         }
 
-        [Fact]
-        public void Send_a_direct_message_using_dependency_injection()
-        {
-            // Arrange
-            var (millerWriter, miller) = CreateConcreteColleague("Miller");
-            var (orazioWriter, orazio) = CreateConcreteColleague("Orazio");
-            var (fletcherWriter, fletcher) = CreateConcreteColleague("Fletcher");
-
-            var services = new ServiceCollection();
-            services.AddSingleton<IMediator, DirectMessageMediator>();
-            services.AddSingleton(serviceProvider => serviceProvider.GetServices<IColleague>().ToArray());
-            services.AddSingleton<IColleague>(miller);
-            services.AddSingleton<IColleague>(orazio);
-            services.AddSingleton<IColleague>(fletcher);
-
-            var serviceProvider = services.BuildServiceProvider();
-            var mediator = serviceProvider.GetRequiredService<IMediator>();
-
-            // Act
-            mediator.Send(new Message(
-                from: miller,
-                content: "Hey Orazio!"
-            ));
-            mediator.Send(new Message(
-                from: orazio,
-                content: "What's up Miller?"
-            ));
-            mediator.Send(new Message(
-                from: miller,
-                content: "Great Orazio, and you?"
-            ));
-
-            // Assert
-            Assert.Empty(fletcherWriter.Output.ToString());
-
-            Assert.Equal(@"[Miller]: Hey Orazio!
-[Orazio]: What's up Miller?
-[Miller]: Great Orazio, and you?
-", millerWriter.Output.ToString());
-
-            Assert.Equal(@"[Miller]: Hey Orazio!
-[Orazio]: What's up Miller?
-[Miller]: Great Orazio, and you?
-", orazioWriter.Output.ToString());
-        }
-
         private (TestMessageWriter, ConcreteColleague) CreateConcreteColleague(string name)
         {
             var messageWriter = new TestMessageWriter();
@@ -94,7 +48,7 @@ namespace Mediator.Tests
             return (messageWriter, concreateColleague);
         }
 
-        public class TestMessageWriter : IMessageWriter<Message>
+        private class TestMessageWriter : IMessageWriter<Message>
         {
             public StringBuilder Output { get; } = new StringBuilder();
 

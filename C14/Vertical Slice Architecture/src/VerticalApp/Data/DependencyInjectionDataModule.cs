@@ -15,7 +15,6 @@ namespace VerticalApp.Data
         public DependencyInjectionDataModule(IServiceCollection services)
             : base(services)
         {
-
             services.AddDbContext<ProductContext>(options => options
                 .UseInMemoryDatabase("ProductContextMemoryDB")
                 .ConfigureWarnings(builder => builder.Ignore(InMemoryEventId.TransactionIgnoredWarning))

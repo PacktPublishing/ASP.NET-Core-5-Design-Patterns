@@ -27,10 +27,10 @@ namespace Mediator
         public string Content { get; }
     }
 
-    public class BroadcastMediator : IMediator
+    public class ConcreteMediator : IMediator
     {
         private readonly List<IColleague> _colleagues;
-        public BroadcastMediator(params IColleague[] colleagues)
+        public ConcreteMediator(params IColleague[] colleagues)
         {
             if (colleagues == null) { throw new ArgumentNullException(nameof(colleagues)); }
             _colleagues = new List<IColleague>(colleagues);
@@ -41,27 +41,6 @@ namespace Mediator
             foreach (var colleague in _colleagues)
             {
                 colleague.ReceiveMessage(message);
-            }
-        }
-    }
-
-    public class DirectMessageMediator : IMediator
-    {
-        private readonly List<IColleague> _colleagues;
-        public DirectMessageMediator(params IColleague[] colleagues)
-        {
-            if (colleagues == null) { throw new ArgumentNullException(nameof(colleagues)); }
-            _colleagues = new List<IColleague>(colleagues);
-        }
-
-        public void Send(Message message)
-        {
-            foreach (var colleague in _colleagues)
-            {
-                if (message.Sender == colleague || message.Content.Contains(colleague.Name))
-                {
-                    colleague.ReceiveMessage(message);
-                }
             }
         }
     }

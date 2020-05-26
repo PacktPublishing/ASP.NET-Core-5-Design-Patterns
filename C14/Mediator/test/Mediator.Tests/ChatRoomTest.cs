@@ -62,7 +62,7 @@ namespace Mediator
             return (writer, user);
         }
 
-        public class TestMessageWriter : IMessageWriter<ChatMessage>
+        private class TestMessageWriter : IMessageWriter<ChatMessage>
         {
             public StringBuilder Output { get; } = new StringBuilder();
 
