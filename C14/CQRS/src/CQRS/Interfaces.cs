@@ -28,29 +28,29 @@ namespace CQRS
 
     public interface IMediator
     {
-        TReturn Send<TCommand, TReturn>(TCommand query)
-            where TCommand: ICommand<TReturn>;
+        TReturn Send<TQuery, TReturn>(TQuery query)
+            where TQuery: IQuery<TReturn>;
         void Send<TCommand>(TCommand command)
             where TCommand : ICommand;
 
-        void Register<TCommand>(IVoidHandler<TCommand> commandHandler)
+        void Register<TCommand>(ICommandHandler<TCommand> commandHandler)
             where TCommand : ICommand;
-        void Register<TCommand, TReturn>(IReturnHandler<TCommand, TReturn> commandHandler)
-            where TCommand : ICommand<TReturn>;
+        void Register<TQuery, TReturn>(IQueryHandler<TQuery, TReturn> commandHandler)
+            where TQuery : IQuery<TReturn>;
     }
 
     public interface ICommand { }
-    public interface IVoidHandler<TCommand>
+    public interface ICommandHandler<TCommand>
         where TCommand : ICommand
     {
         void Handle(TCommand command);
     }
 
-    public interface ICommand<TReturn> { }
-    public interface IReturnHandler<TCommand, TReturn>
-        where TCommand : ICommand<TReturn>
+    public interface IQuery<TReturn> { }
+    public interface IQueryHandler<TQuery, TReturn>
+        where TQuery : IQuery<TReturn>
     {
-        TReturn Handle(TCommand query);
+        TReturn Handle(TQuery query);
     }
 
     public class ChatMessage

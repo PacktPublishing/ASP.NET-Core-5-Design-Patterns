@@ -31,12 +31,12 @@ namespace CQRS
 
         public IEnumerable<ChatMessage> ListMessagesOf(IChatRoom chatRoom)
         {
-            return _mediator.Send<ListMessages.Command, IEnumerable<ChatMessage>>(new ListMessages.Command(chatRoom, this));
+            return _mediator.Send<ListMessages.Query, IEnumerable<ChatMessage>>(new ListMessages.Query(chatRoom, this));
         }
 
         public IEnumerable<IParticipant> ListParticipantsOf(IChatRoom chatRoom)
         {
-            return _mediator.Send<ListParticipants.Command, IEnumerable<IParticipant>>(new ListParticipants.Command(chatRoom, this));
+            return _mediator.Send<ListParticipants.Query, IEnumerable<IParticipant>>(new ListParticipants.Query(chatRoom, this));
         }
 
         public void NewMessageReceivedFrom(IChatRoom chatRoom, ChatMessage message)
@@ -92,22 +92,22 @@ namespace CQRS
     {
         private readonly HandlerDictionary _handlers = new HandlerDictionary();
 
-        public void Register<TCommand>(IVoidHandler<TCommand> commandHandler)
+        public void Register<TCommand>(ICommandHandler<TCommand> commandHandler)
             where TCommand : ICommand
         {
             _handlers.AddHandler(commandHandler);
         }
 
-        public void Register<TCommand, TReturn>(IReturnHandler<TCommand, TReturn> commandHandler)
-            where TCommand : ICommand<TReturn>
+        public void Register<TQuery, TReturn>(IQueryHandler<TQuery, TReturn> commandHandler)
+            where TQuery : IQuery<TReturn>
         {
             _handlers.AddHandler(commandHandler);
         }
 
-        public TReturn Send<TCommand, TReturn>(TCommand query)
-            where TCommand : ICommand<TReturn>
+        public TReturn Send<TQuery, TReturn>(TQuery query)
+            where TQuery : IQuery<TReturn>
         {
-            var handler = _handlers.Find<TCommand, TReturn>();
+            var handler = _handlers.Find<TQuery, TReturn>();
             return handler.Handle(query);
         }
 
@@ -123,43 +123,43 @@ namespace CQRS
 
         private class HandlerList
         {
-            private readonly List<object> _voidHandlers = new List<object>();
-            private readonly List<object> _returnHandlers = new List<object>();
+            private readonly List<object> _commandHandlers = new List<object>();
+            private readonly List<object> _queryHandlers = new List<object>();
 
-            public void Add<TCommand>(IVoidHandler<TCommand> handler)
+            public void Add<TCommand>(ICommandHandler<TCommand> handler)
                 where TCommand : ICommand
             {
-                _voidHandlers.Add(handler);
+                _commandHandlers.Add(handler);
             }
 
-            public void Add<TCommand, TReturn>(IReturnHandler<TCommand, TReturn> handler)
-                where TCommand : ICommand<TReturn>
+            public void Add<TQuery, TReturn>(IQueryHandler<TQuery, TReturn> handler)
+                where TQuery : IQuery<TReturn>
             {
-                _returnHandlers.Add(handler);
+                _queryHandlers.Add(handler);
             }
 
-            public IEnumerable<IVoidHandler<TCommand>> FindAll<TCommand>()
+            public IEnumerable<ICommandHandler<TCommand>> FindAll<TCommand>()
                 where TCommand : ICommand
             {
-                foreach (var handler in _voidHandlers)
+                foreach (var handler in _commandHandlers)
                 {
-                    if (handler is IVoidHandler<TCommand> output)
+                    if (handler is ICommandHandler<TCommand> output)
                     {
                         yield return output;
                     }
                 }
             }
-            public IReturnHandler<TCommand, TReturn> Find<TCommand, TReturn>()
-                where TCommand : ICommand<TReturn>
+            public IQueryHandler<TQuery, TReturn> Find<TQuery, TReturn>()
+                where TQuery : IQuery<TReturn>
             {
-                foreach (var handler in _returnHandlers)
+                foreach (var handler in _queryHandlers)
                 {
-                    if (handler is IReturnHandler<TCommand, TReturn> output)
+                    if (handler is IQueryHandler<TQuery, TReturn> output)
                     {
                         return output;
                     }
                 }
-                throw new ReturnHandlerNotFoundException(typeof(TCommand));
+                throw new QueryHandlerNotFoundException(typeof(TQuery));
             }
         }
 
@@ -167,7 +167,7 @@ namespace CQRS
         {
             private readonly Dictionary<Type, HandlerList> _handlers = new Dictionary<Type, HandlerList>();
 
-            public void AddHandler<TCommand>(IVoidHandler<TCommand> handler)
+            public void AddHandler<TCommand>(ICommandHandler<TCommand> handler)
                 where TCommand : ICommand
             {
                 var type = typeof(TCommand);
@@ -177,16 +177,16 @@ namespace CQRS
             }
 
 
-            public void AddHandler<TCommand, TReturn>(IReturnHandler<TCommand, TReturn> handler)
-                where TCommand : ICommand<TReturn>
+            public void AddHandler<TQuery, TReturn>(IQueryHandler<TQuery, TReturn> handler)
+                where TQuery : IQuery<TReturn>
             {
-                var type = typeof(TCommand);
+                var type = typeof(TQuery);
                 EnforceTypeEntry(type);
                 var registeredHandlers = _handlers[type];
                 registeredHandlers.Add(handler);
             }
 
-            public IEnumerable<IVoidHandler<TCommand>> FindAll<TCommand>()
+            public IEnumerable<ICommandHandler<TCommand>> FindAll<TCommand>()
                 where TCommand : ICommand
             {
                 var type = typeof(TCommand);
@@ -195,13 +195,13 @@ namespace CQRS
                 return registeredHandlers.FindAll<TCommand>();
             }
 
-            public IReturnHandler<TCommand, TReturn> Find<TCommand, TReturn>()
-                where TCommand : ICommand<TReturn>
+            public IQueryHandler<TQuery, TReturn> Find<TQuery, TReturn>()
+                where TQuery : IQuery<TReturn>
             {
-                var type = typeof(TCommand);
+                var type = typeof(TQuery);
                 EnforceTypeEntry(type);
                 var registeredHandlers = _handlers[type];
-                return registeredHandlers.Find<TCommand, TReturn>();
+                return registeredHandlers.Find<TQuery, TReturn>();
             }
 
             private void EnforceTypeEntry(Type type)
@@ -214,10 +214,10 @@ namespace CQRS
         }
     }
 
-    public class ReturnHandlerNotFoundException : Exception
+    public class QueryHandlerNotFoundException : Exception
     {
-        public ReturnHandlerNotFoundException(Type queryType)
-            : base($"No return handler found for query '{queryType}'.")
+        public QueryHandlerNotFoundException(Type queryType)
+            : base($"No handler found for query '{queryType}'.")
         {
         }
     }

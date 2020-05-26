@@ -165,7 +165,7 @@ namespace CQRS.Tests
 
         }
 
-        private class ChatModerator : Participant, IParticipant, IVoidHandler<SendChatMessage.Command>
+        private class ChatModerator : Participant, IParticipant, ICommandHandler<SendChatMessage.Command>
         {
             private readonly IEnumerable<string> _badWords;
             private readonly IMediator _mediator;

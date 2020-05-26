@@ -20,7 +20,7 @@ namespace CQRS
             public IParticipant Requester { get; }
         }
 
-        public class Handler : IVoidHandler<Command>
+        public class Handler : ICommandHandler<Command>
         {
             public void Handle(Command command)
             {
@@ -43,7 +43,7 @@ namespace CQRS
             public IParticipant Requester { get; }
         }
 
-        public class Handler : IVoidHandler<Command>
+        public class Handler : ICommandHandler<Command>
         {
             public void Handle(Command command)
             {
@@ -66,7 +66,7 @@ namespace CQRS
             public ChatMessage Message { get; }
         }
 
-        public class Handler : IVoidHandler<Command>
+        public class Handler : ICommandHandler<Command>
         {
             public void Handle(Command command)
             {
@@ -75,52 +75,6 @@ namespace CQRS
                 {
                     participant.NewMessageReceivedFrom(command.ChatRoom, command.Message);
                 }
-            }
-        }
-    }
-
-    public class ListParticipants
-    {
-        public class Command : ICommand<IEnumerable<IParticipant>>
-        {
-            public Command(IChatRoom chatRoom, IParticipant requester)
-            {
-                Requester = requester ?? throw new ArgumentNullException(nameof(requester));
-                ChatRoom = chatRoom ?? throw new ArgumentNullException(nameof(chatRoom));
-            }
-
-            public IParticipant Requester { get; }
-            public IChatRoom ChatRoom { get; }
-        }
-
-        public class Handler : IReturnHandler<Command, IEnumerable<IParticipant>>
-        {
-            public IEnumerable<IParticipant> Handle(Command query)
-            {
-                return query.ChatRoom.ListParticipants();
-            }
-        }
-    }
-
-    public class ListMessages
-    {
-        public class Command : ICommand<IEnumerable<ChatMessage>>
-        {
-            public Command(IChatRoom chatRoom, IParticipant requester)
-            {
-                Requester = requester ?? throw new ArgumentNullException(nameof(requester));
-                ChatRoom = chatRoom ?? throw new ArgumentNullException(nameof(chatRoom));
-            }
-
-            public IParticipant Requester { get; }
-            public IChatRoom ChatRoom { get; }
-        }
-
-        public class Handler : IReturnHandler<Command, IEnumerable<ChatMessage>>
-        {
-            public IEnumerable<ChatMessage> Handle(Command query)
-            {
-                return query.ChatRoom.ListMessages();
             }
         }
     }
