@@ -165,7 +165,7 @@ namespace CQRS.Tests
 
         }
 
-        private class ChatModerator : Participant, IParticipant, ICommandHandler<SendChatMessage.Command>
+        private sealed class ChatModerator : Participant, IParticipant, ICommandHandler<SendChatMessage.Command>
         {
             private readonly IEnumerable<string> _badWords;
             private readonly IMediator _mediator;
@@ -206,15 +206,15 @@ namespace CQRS.Tests
                 public void Write(IChatRoom chatRoom, ChatMessage message) { }
             }
         }
-    }
 
-    public class TestMessageWriter : IMessageWriter
-    {
-        public List<(IChatRoom chatRoom, ChatMessage message)> Output { get; } = new List<(IChatRoom, ChatMessage)>();
-
-        public void Write(IChatRoom chatRoom, ChatMessage message)
+        private class TestMessageWriter : IMessageWriter
         {
-            Output.Add((chatRoom, message));
+            public List<(IChatRoom chatRoom, ChatMessage message)> Output { get; } = new List<(IChatRoom, ChatMessage)>();
+
+            public void Write(IChatRoom chatRoom, ChatMessage message)
+            {
+                Output.Add((chatRoom, message));
+            }
         }
     }
 }
