@@ -40,10 +40,7 @@ namespace Web
                 .ScanForDIModules()
                 .FromAssemblyOf<Startup>();
 
-            services.AddMediatR(
-                GetType().Assembly,
-                typeof(NotEnoughStockException).Assembly
-            );
+            services.AddMediatR(typeof(NotEnoughStockException).Assembly);
 
             services.AddControllers();
         }
