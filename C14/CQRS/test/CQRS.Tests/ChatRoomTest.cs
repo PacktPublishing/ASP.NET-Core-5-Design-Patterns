@@ -137,7 +137,7 @@ namespace CQRS.Tests
         }
 
         [Fact]
-        public void Another_component_could_react_to_commands()
+        public void Multiple_handlers_can_react_to_one_command()
         {
             var moderatorChatRoom = new ChatRoom("Moderator Room");
             var moderator = new ChatModerator(_mediator, moderatorChatRoom, new string[] { "bad" });
