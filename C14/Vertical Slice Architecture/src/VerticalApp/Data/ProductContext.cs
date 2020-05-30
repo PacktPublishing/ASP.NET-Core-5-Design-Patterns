@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using VerticalApp.Models;
 
 namespace VerticalApp.Data
 {

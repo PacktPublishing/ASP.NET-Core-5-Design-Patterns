@@ -5,9 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VerticalApp.Features.Products.UseCases;
 
-namespace VerticalApp.Features.Products.Controllers
+namespace VerticalApp.Features.Products
 {
     [ApiController]
     [Route("[controller]")]

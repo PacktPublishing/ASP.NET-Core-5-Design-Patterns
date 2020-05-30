@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +8,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using VerticalApp.Data;
+using VerticalApp.Models;
 
-namespace VerticalApp.Features.Stocks.UseCases
+namespace VerticalApp.Features.Stocks
 {
-    public class AddStocks
+    public class RemoveStocks
     {
         public class Command : IRequest<Result>
         {
@@ -56,7 +55,11 @@ namespace VerticalApp.Features.Stocks.UseCases
             public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
             {
                 var product = await _db.Products.FindAsync(request.ProductId);
-                product.QuantityInStock += request.Amount;
+                if (request.Amount > product.QuantityInStock)
+                {
+                    throw new NotEnoughStockException(product.QuantityInStock, request.Amount);
+                }
+                product.QuantityInStock -= request.Amount;
                 await _db.SaveChangesAsync();
 
                 var result = _mapper.Map<Result>(product);

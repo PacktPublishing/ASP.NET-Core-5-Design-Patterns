@@ -1,4 +1,4 @@
-﻿namespace VerticalApp.Data
+﻿namespace VerticalApp.Models
 {
     public class Product
     {

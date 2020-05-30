@@ -9,8 +9,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using VerticalApp.Data;
+using VerticalApp.Models;
 
-namespace VerticalApp.Features.Products.UseCases
+namespace VerticalApp.Features.Products
 {
     public class ListAllProducts
     {
