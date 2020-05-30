@@ -22,9 +22,7 @@ namespace VerticalApp
             var currentAssembly = GetType().Assembly;
             services.AddAutoMapper(currentAssembly);
             services.AddMediatR(currentAssembly);
-            services
-                .ScanForDIModules()
-                .FromAssemblyOf<Startup>();
+            services.AddDependencyInjectionModules(currentAssembly);
             services
                 .AddControllers()
                 .AddFluentValidation(config => config.RegisterValidatorsFromAssembly(currentAssembly));

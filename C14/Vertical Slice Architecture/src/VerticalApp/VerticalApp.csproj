@@ -9,7 +9,7 @@
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.2" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.0-preview.3.20181.2" />
-    <PackageReference Include="ForEvolve.DependencyInjection.AspNetCore" Version="1.0.8" />
+    <PackageReference Include="ForEvolve.DependencyInjection.Modules" Version="2.0.5-g65920955db" />
     <PackageReference Include="ForEvolve.EntityFrameworkCore" Version="2.1.14" />
   </ItemGroup>
 
