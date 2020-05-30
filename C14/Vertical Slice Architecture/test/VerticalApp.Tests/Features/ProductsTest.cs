@@ -13,14 +13,32 @@ using Xunit;
 
 namespace VerticalApp.Features.Products
 {
-    public class ProductsTest
+    public class ProductsTest : BaseIntegrationTest
     {
-        private readonly IServiceCollection _services;
         public ProductsTest()
+            : base("ProductsTest") { }
+
+        protected async override Task SeedAsync(ProductContext db)
         {
-            _services = new ServiceCollection();
-            var startup = new Startup();
-            startup.ConfigureServices(_services);
+            await db.Products.AddAsync(new Product
+            {
+                Id = 1,
+                Name = "Banana",
+                QuantityInStock = 50
+            });
+            await db.Products.AddAsync(new Product
+            {
+                Id = 2,
+                Name = "Scotch Bottle",
+                QuantityInStock = 20
+            });
+            await db.Products.AddAsync(new Product
+            {
+                Id = 3,
+                Name = "Habanero Pepper",
+                QuantityInStock = 10
+            });
+            await db.SaveChangesAsync();
         }
 
         public class ListAllProductsTest : ProductsTest
@@ -29,11 +47,9 @@ namespace VerticalApp.Features.Products
             public async Task Should_return_all_products()
             {
                 // Arrange
-                var serviceProvider = _services.BuildServiceProvider();
-                using var scope = serviceProvider.CreateScope();
+                using var scope = _services.BuildServiceProvider().CreateScope();
                 var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
                 var db = scope.ServiceProvider.GetRequiredService<ProductContext>();
-                Seed(db);
 
                 // Act
                 var result = await mediator.Send(new ListAllProducts.Command());
@@ -44,31 +60,7 @@ namespace VerticalApp.Features.Products
                     product => Assert.Equal("Scotch Bottle", product.Name),
                     product => Assert.Equal("Habanero Pepper", product.Name)
                 );
-
-                static void Seed(ProductContext db)
-                {
-                    db.Products.Add(new Product
-                    {
-                        Id = 1,
-                        Name = "Banana",
-                        QuantityInStock = 50
-                    });
-                    db.Products.Add(new Product
-                    {
-                        Id = 2,
-                        Name = "Scotch Bottle",
-                        QuantityInStock = 20
-                    });
-                    db.Products.Add(new Product
-                    {
-                        Id = 3,
-                        Name = "Habanero Pepper",
-                        QuantityInStock = 10
-                    });
-                    db.SaveChanges();
-                }
             }
-
         }
     }
 }
