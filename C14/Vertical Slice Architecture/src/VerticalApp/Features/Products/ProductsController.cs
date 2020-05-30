@@ -19,7 +19,7 @@ namespace VerticalApp.Features.Products
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ListAllProducts>>> GetAsync()
+        public async Task<ActionResult<IEnumerable<ListAllProducts.Result>>> GetAsync()
         {
             var result = await _mediator.Send(new ListAllProducts.Command());
             return Ok(result);
