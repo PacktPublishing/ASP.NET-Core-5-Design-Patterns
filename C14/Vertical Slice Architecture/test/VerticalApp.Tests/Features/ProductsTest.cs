@@ -16,7 +16,7 @@ namespace VerticalApp.Features.Products
     public class ProductsTest : BaseIntegrationTest
     {
         public ProductsTest()
-            : base("ProductsTest") { }
+            : base(databaseName: "ProductsTest") { }
 
         protected async override Task SeedAsync(ProductContext db)
         {
@@ -47,14 +47,16 @@ namespace VerticalApp.Features.Products
             public async Task Should_return_all_products()
             {
                 // Arrange
-                using var scope = _services.BuildServiceProvider().CreateScope();
+                var serviceProvider = _services.BuildServiceProvider();
+                using var scope = serviceProvider.CreateScope();
                 var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-                var db = scope.ServiceProvider.GetRequiredService<ProductContext>();
 
                 // Act
                 var result = await mediator.Send(new ListAllProducts.Command());
 
                 // Assert
+                using var assertScope = serviceProvider.CreateScope();
+                var db = assertScope.ServiceProvider.GetRequiredService<ProductContext>();
                 Assert.Collection(result,
                     product => Assert.Equal("Banana", product.Name),
                     product => Assert.Equal("Scotch Bottle", product.Name),

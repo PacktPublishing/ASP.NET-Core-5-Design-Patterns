@@ -17,7 +17,8 @@ namespace VerticalApp.Features.Stocks
 {
     public class StocksTest : BaseIntegrationTest
     {
-        public StocksTest() : base("StocksTest") { }
+        public StocksTest()
+            : base(databaseName: "StocksTest") { }
 
         protected async override Task SeedAsync(ProductContext db)
         {
@@ -44,9 +45,9 @@ namespace VerticalApp.Features.Stocks
             public async Task Should_increment_QuantityInStock_by_the_specified_amount()
             {
                 // Arrange
-                using var scope = _services.BuildServiceProvider().CreateScope();
+                var serviceProvider = _services.BuildServiceProvider();
+                using var scope = serviceProvider.CreateScope();
                 var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-                var db = scope.ServiceProvider.GetRequiredService<ProductContext>();
 
                 // Act
                 var result = await mediator.Send(new AddStocks.Command
@@ -56,6 +57,8 @@ namespace VerticalApp.Features.Stocks
                 });
 
                 // Assert
+                using var assertScope = serviceProvider.CreateScope();
+                var db = assertScope.ServiceProvider.GetRequiredService<ProductContext>();
                 var peppers = await db.Products.FindAsync(_productId);
                 Assert.Equal(20, peppers.QuantityInStock);
             }
@@ -69,9 +72,9 @@ namespace VerticalApp.Features.Stocks
             public async Task Should_decrement_QuantityInStock_by_the_specified_amount()
             {
                 // Arrange
-                using var scope = _services.BuildServiceProvider().CreateScope();
+                var serviceProvider = _services.BuildServiceProvider();
+                using var scope = serviceProvider.CreateScope();
                 var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-                var db = scope.ServiceProvider.GetRequiredService<ProductContext>();
 
                 // Act
                 var result = await mediator.Send(new RemoveStocks.Command
@@ -81,6 +84,8 @@ namespace VerticalApp.Features.Stocks
                 });
 
                 // Assert
+                using var assertScope = serviceProvider.CreateScope();
+                var db = assertScope.ServiceProvider.GetRequiredService<ProductContext>();
                 var peppers = await db.Products.FindAsync(_productId);
                 Assert.Equal(0, peppers.QuantityInStock);
             }
@@ -91,7 +96,6 @@ namespace VerticalApp.Features.Stocks
                 // Arrange
                 using var scope = _services.BuildServiceProvider().CreateScope();
                 var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-                var db = scope.ServiceProvider.GetRequiredService<ProductContext>();
 
                 // Act & Assert
                 await Assert.ThrowsAsync<NotEnoughStockException>(() => mediator.Send(new RemoveStocks.Command
