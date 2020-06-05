@@ -33,7 +33,8 @@ namespace ClearName
 
         private IEnumerable<string> ShuffleData()
         {
-            // The shuffle algorithm is based on https://stackoverflow.com/a/1262619/8339553
+            // The shuffle algorithm is based on the Fisher–Yates shuffle, 
+            // implementation taken from https://stackoverflow.com/a/1262619/8339553
             var shuffledList = _data.ToArray();
             var rng = new RNGCryptoServiceProvider();
             var n = shuffledList.Count();
