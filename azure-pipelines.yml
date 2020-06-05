@@ -28,8 +28,8 @@ steps:
   displayName: Test
   inputs:
       targetType: inline
-      script: find . -name "*.Tests.csproj" -exec dotnet test '{}' --configuration $(buildConfiguration) --collect "Code coverage" --logger trx --results-directory $(Agent.TempDirectory) \;
-      failOnStderr: false
+      script: find . -name "*.Tests.csproj" -exec dotnet test '{}' --configuration $(buildConfiguration) --filter "FailureExpected!=true" --collect "Code coverage" --logger trx --results-directory $(Agent.TempDirectory) \;
+      failOnStderr: true
 
 - task: DotNetCoreCLI@2
   displayName: Test (old)
