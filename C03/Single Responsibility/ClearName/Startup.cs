@@ -1,11 +1,12 @@
 ﻿#define USE_CLEAN_SERVICE
 
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
+using Microsoft.Extensions.Hosting;
 
 namespace ClearName
 {
@@ -22,7 +23,7 @@ namespace ClearName
 #endif
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IExampleService exampleService)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IExampleService exampleService)
         {
             if (env.IsDevelopment())
             {
@@ -32,7 +33,7 @@ namespace ClearName
             app.Run(async (context) =>
             {
                 var result = exampleService.RandomizeOneString();
-                var json = JsonConvert.SerializeObject(result, Formatting.Indented);
+                var json = JsonSerializer.Serialize(result);
 
                 context.Response.Headers.Add("Content-Type", "application/json");
                 await context.Response.WriteAsync($"Result: {json}");
