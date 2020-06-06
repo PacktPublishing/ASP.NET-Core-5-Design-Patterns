@@ -15,7 +15,7 @@ namespace LSP.Examples
         };
 
         [Fact]
-        public void Add_should_not_add_existing_ninja()
+        public virtual void Add_should_not_add_existing_ninja()
         {
             // Arrange
             var expectedNinja = new Ninja { Kills = 200 };
