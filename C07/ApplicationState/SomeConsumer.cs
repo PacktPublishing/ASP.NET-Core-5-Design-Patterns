@@ -15,13 +15,16 @@ namespace ApplicationState
             _myApplicationWideService = myApplicationWideService ?? throw new ArgumentNullException(nameof(myApplicationWideService));
         }
 
-        public string GetSomeKey()
+        public void Execute()
         {
             if (_myApplicationWideService.Has<string>("some-key"))
             {
-                return _myApplicationWideService.Get<string>("some-key");
+                var someValue = _myApplicationWideService.Get<string>("some-key");
+                // Do something with someValue
             }
-            return null;
+            // Do something else like:
+            _myApplicationWideService.Set("some-key", "some-value");
+            // More logic here
         }
     }
 }

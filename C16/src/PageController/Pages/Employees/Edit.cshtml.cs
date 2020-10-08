@@ -11,7 +11,7 @@ using PageController.Data.Models;
 
 namespace PageController.Pages.Employees
 {
-    public class EditModel : PageModel
+    public class EditModel : PageModel, ICreateOrEditModel
     {
         private readonly EmployeeDbContext _context;
 

@@ -11,9 +11,9 @@ namespace Wishlist
         private readonly InMemoryWishListOptions _options;
         private readonly Dictionary<string, InternalItem> _items;
 
-        public InMemoryWishListRefactored(IOptions<InMemoryWishListOptions> optionsAccessor)
+        public InMemoryWishListRefactored(InMemoryWishListOptions options)
         {
-            _options = optionsAccessor.Value;
+            _options = options ?? throw new ArgumentNullException(nameof(options));
             _items = new Dictionary<string, InternalItem>();
         }
 

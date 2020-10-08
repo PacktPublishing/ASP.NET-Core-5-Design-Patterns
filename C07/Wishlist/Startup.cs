@@ -20,6 +20,7 @@ namespace Wishlist
             services
                 .ConfigureOptions<InMemoryWishListOptions>()
                 .AddTransient<IValidateOptions<InMemoryWishListOptions>, InMemoryWishListOptions>()
+                .AddSingleton(serviceProvider => serviceProvider.GetRequiredService<IOptions<InMemoryWishListOptions>>().Value)
             ;
             services.AddSingleton<IWishList, InMemoryWishList>();
             services.AddControllers();

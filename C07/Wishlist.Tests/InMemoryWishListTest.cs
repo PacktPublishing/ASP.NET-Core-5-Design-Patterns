@@ -22,12 +22,10 @@ namespace Wishlist
                 SystemClock = _systemClockMock.Object,
                 ExpirationInSeconds = 30
             };
-            var optionsMock = new Mock<IOptions<InMemoryWishListOptions>>();
-            optionsMock.Setup(x => x.Value).Returns(_options);
 #if TEST_InMemoryWishListRefactored
-            sut = new InMemoryWishListRefactored(optionsMock.Object);
+            sut = new InMemoryWishListRefactored(_options);
 #else
-            sut = new InMemoryWishList(optionsMock.Object);
+            sut = new InMemoryWishList(_options);
 #endif
         }
 

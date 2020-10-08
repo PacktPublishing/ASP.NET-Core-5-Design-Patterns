@@ -10,7 +10,7 @@ using PageController.Data.Models;
 
 namespace PageController.Pages.Employees
 {
-    public class CreateModel : PageModel
+    public class CreateModel : PageModel, ICreateOrEditModel
     {
         private readonly EmployeeDbContext _context;
         public CreateModel(EmployeeDbContext context)

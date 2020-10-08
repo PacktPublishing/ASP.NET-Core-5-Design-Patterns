@@ -12,13 +12,10 @@ namespace Factory.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IHomeViewModelFactory _homeViewModelFactory;
-
-        public HomeController(IHomeViewModelFactory homeViewModelFactory, ILogger<HomeController> logger)
+        public HomeController(IHomeViewModelFactory homeViewModelFactory)
         {
             _homeViewModelFactory = homeViewModelFactory ?? throw new ArgumentNullException(nameof(homeViewModelFactory));
-            _logger = logger;
         }
 
         public IActionResult Index([FromServices]HomePageViewModel viewModel)

@@ -7,11 +7,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using PageController.Data;
+using PageController.TagHelpers;
 
 namespace PageController
 {
@@ -38,6 +42,11 @@ namespace PageController
             );
 
             services.AddRazorPages();
+
+            services.Configure<RssFeedTagHelperComponentOptions>(Configuration.GetSection("RssFeed"));
+            services.AddTransient(sp => sp.GetRequiredService<IOptionsMonitor<RssFeedTagHelperComponentOptions>>().CurrentValue);
+            services.AddTransient<ITagHelperComponent, RssFeedTagHelperComponent>();
+            services.AddTransient<ITagHelperComponent, MinifierTagHelperComponent>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
