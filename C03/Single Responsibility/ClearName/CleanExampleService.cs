@@ -33,23 +33,11 @@ namespace ClearName
 
         private IEnumerable<string> ShuffleData()
         {
-            // The shuffle algorithm is based on the Fisher–Yates shuffle, 
-            // implementation taken from https://stackoverflow.com/a/1262619/8339553
-            var shuffledList = _data.ToArray();
-            var rng = new RNGCryptoServiceProvider();
-            var n = shuffledList.Count();
-            while (n > 1)
-            {
-                var box = new byte[1];
-                do rng.GetBytes(box);
-                while (!(box[0] < n * (byte.MaxValue / n)));
-                var k = (box[0] % n);
-                n--;
-                var value = shuffledList[k];
-                shuffledList[k] = shuffledList[n];
-                shuffledList[n] = value;
-            }
-            return shuffledList;
+           return _data
+                .Select(value => new { Value = value, Order = _random.NextDouble() })
+                .OrderBy(x => x.Order)
+                .Select(x => x.Value)
+            ;
         }
     }
 }

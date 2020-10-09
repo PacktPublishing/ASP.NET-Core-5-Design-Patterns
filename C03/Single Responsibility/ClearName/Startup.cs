@@ -36,7 +36,7 @@ namespace ClearName
                 var json = JsonSerializer.Serialize(result);
 
                 context.Response.Headers.Add("Content-Type", "application/json");
-                await context.Response.WriteAsync($"Result: {json}");
+                await context.Response.WriteAsync(json);
             });
         }
     }
