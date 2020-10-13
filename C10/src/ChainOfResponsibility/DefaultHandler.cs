@@ -6,7 +6,7 @@ namespace ChainOfResponsibility
     {
         public void Handle(Message message)
         {
-            throw new NotSupportedException($"Message named '{message.Name}' are not supported.");
+            throw new NotSupportedException($"Messages named '{message.Name}' are not supported.");
         }
     }
 }
