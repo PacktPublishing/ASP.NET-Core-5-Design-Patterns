@@ -17,10 +17,10 @@ namespace Infrastructure.Data.Repositories
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
-        public Task<IEnumerable<Product>> AllAsync()
+        public async Task<IEnumerable<Product>> AllAsync()
         {
-            var products = _db.Products.AsEnumerable();
-            return Task.FromResult(products);
+            var products = await _db.Products.ToArrayAsync();
+            return products;
         }
 
         public async Task DeleteByIdAsync(int productId)

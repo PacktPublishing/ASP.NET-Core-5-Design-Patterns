@@ -56,14 +56,6 @@ namespace Web.Controllers
             }
         }
 
-        public class StockLevel
-        {
-            public StockLevel(int quantityInStock)
-            {
-                QuantityInStock = quantityInStock;
-            }
-
-            public int QuantityInStock { get; }
-        }
+        public record StockLevel(int QuantityInStock);
     }
 }
