@@ -9,7 +9,7 @@ namespace LSP.Examples
 {
     public class HallOfFame
     {
-        protected List<Ninja> InternalMembers { get; } = new List<Ninja>();
+        protected HashSet<Ninja> InternalMembers { get; } = new HashSet<Ninja>();
 
         public virtual void Add(Ninja ninja)
         {
