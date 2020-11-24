@@ -31,7 +31,7 @@ namespace SRP
                     switch (input)
                     {
                         case "1":
-                            FetchAnDisplayBook();
+                            FetchAndDisplayBook();
                             break;
                         case "2":
                             FailToFetchBook();
@@ -70,7 +70,7 @@ namespace SRP
             } while (run);
         }
 
-        private static void FetchAnDisplayBook()
+        private static void FetchAndDisplayBook()
         {
             var book = _bookStore.Load(1);
             _bookPresenter.Display(book);
