@@ -11,6 +11,10 @@
 }
 else
 {
+    <button class="btn btn-primary mb-4" @onclick="RefreshAsync">Refresh</button>
+    <button class="btn btn-primary mb-4" @onclick="DisplayXY">Display (X, Y)</button>
+    <button class="btn btn-primary mb-4" @onclick="@(e => Console.WriteLine($"DOM(x, y): ({e.ClientX}, {e.ClientY})"))">Lamdba (X, Y)</button>
+
     <table class="table">
         <thead>
             <tr>
@@ -36,20 +40,44 @@ else
 
 @code {
     private WeatherForecast[] forecasts;
+    private Cycle _uriList = new(
+        "sample-data/weather1.json",
+        "sample-data/weather2.json",
+        "sample-data/weather3.json"
+    );
 
-    protected override async Task OnInitializedAsync()
+    protected override Task OnInitializedAsync() => LoadWeatherAsync();
+
+    private Task RefreshAsync() => LoadWeatherAsync();
+
+    private async Task LoadWeatherAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>(_uriList.Next());
     }
 
-    public class WeatherForecast
+    public record WeatherForecast(DateTime Date, int TemperatureC, string Summary)
     {
-        public DateTime Date { get; set; }
-
-        public int TemperatureC { get; set; }
-
-        public string Summary { get; set; }
-
         public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    }
+
+    public void DisplayXY(MouseEventArgs e)
+    {
+        Console.WriteLine($"DOM(x, y): ({e.ClientX}, {e.ClientY}) | Button(x, y): ({e.OffsetX}, {e.OffsetY}) | Screen(x, y): ({e.ScreenX}, {e.ScreenY})");
+    }
+
+    private class Cycle
+    {
+        private int _currentIndex = -1;
+        private string[] _uris;
+        public Cycle(params string[] uris) => _uris = uris;
+
+        public string Next()
+        {
+            if ((++_currentIndex) + 1 > _uris.Length)
+            {
+                _currentIndex = 0;
+            }
+            return _uris[_currentIndex];
+        }
     }
 }
