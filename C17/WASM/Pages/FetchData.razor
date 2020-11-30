@@ -70,14 +70,6 @@ else
         private int _currentIndex = -1;
         private string[] _uris;
         public Cycle(params string[] uris) => _uris = uris;
-
-        public string Next()
-        {
-            if ((++_currentIndex) + 1 > _uris.Length)
-            {
-                _currentIndex = 0;
-            }
-            return _uris[_currentIndex];
-        }
+        public string Next() => _uris[++_currentIndex % _uris.Length];
     }
 }
