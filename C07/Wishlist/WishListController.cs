@@ -20,8 +20,8 @@ namespace Wishlist
         [HttpGet]
         public async Task<IActionResult> GetAsync()
         {
-            var result = await _wishList.AllAsync();
-            return Ok(result);
+            var items = await _wishList.AllAsync();
+            return Ok(items);
         }
 
         [HttpPost]
@@ -31,8 +31,8 @@ namespace Wishlist
             {
                 return BadRequest(ModelState);
             }
-            var result = await _wishList.AddOrRefreshAsync(newItem.Name);
-            return Created("/", result);
+            var item = await _wishList.AddOrRefreshAsync(newItem.Name);
+            return Created("/", item);
         }
 
         public class CreateItem
