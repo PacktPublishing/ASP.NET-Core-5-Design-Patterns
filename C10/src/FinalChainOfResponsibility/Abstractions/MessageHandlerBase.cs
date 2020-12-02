@@ -14,7 +14,7 @@ namespace FinalChainOfResponsibility
         {
             if (CanHandle(message))
             {
-                Treat(message);
+                Process(message);
             }
             else if (HasNext())
             {
@@ -28,6 +28,6 @@ namespace FinalChainOfResponsibility
         }
 
         protected abstract bool CanHandle(Message message);
-        protected abstract void Treat(Message message);
+        protected abstract void Process(Message message);
     }
 }

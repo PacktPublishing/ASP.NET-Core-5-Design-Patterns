@@ -7,7 +7,7 @@
         public AlarmPausedHandler(IMessageHandler next = null)
             : base(next) { }
 
-        protected override void Treat(Message message)
+        protected override void Process(Message message)
         {
             // Do something cleaver with the Payload
         }

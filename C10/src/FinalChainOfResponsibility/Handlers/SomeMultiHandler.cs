@@ -8,7 +8,7 @@
         protected override string[] HandledMessagesName
             => new string[] { "Foo", "Bar", "Baz" };
 
-        protected override void Treat(Message message)
+        protected override void Process(Message message)
         {
             // Do something cleaver with the Payload
         }

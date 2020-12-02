@@ -12,7 +12,7 @@
         {
             if (CanHandle(message))
             {
-                Treat(message);
+                Process(message);
             }
             else if (HasNext())
             {
@@ -31,6 +31,6 @@
         }
 
         protected abstract string HandledMessageName { get; }
-        protected abstract void Treat(Message message);
+        protected abstract void Process(Message message);
     }
 }
