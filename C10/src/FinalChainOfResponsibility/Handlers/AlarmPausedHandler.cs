@@ -9,7 +9,7 @@
 
         protected override void Process(Message message)
         {
-            // Do something cleaver with the Payload
+            // Do something clever with the Payload
         }
     }
 }

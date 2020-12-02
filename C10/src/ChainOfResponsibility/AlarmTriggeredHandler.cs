@@ -12,7 +12,7 @@
         {
             if (message.Name == "AlarmTriggered")
             {
-                // Do something cleaver with the Payload
+                // Do something clever with the Payload
             }
             else if (_next != null)
             {
