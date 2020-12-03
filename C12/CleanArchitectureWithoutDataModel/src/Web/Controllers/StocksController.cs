@@ -20,8 +20,8 @@ namespace Web.Controllers
             [FromServices] AddStocks useCase
         )
         {
-            var product = useCase.Handle(productId, command.Amount);
-            var stockLevel = new StockLevel(product.QuantityInStock);
+            var quantityInStock = useCase.Handle(productId, command.Amount);
+            var stockLevel = new StockLevel(quantityInStock);
             return Ok(stockLevel);
         }
 
@@ -34,8 +34,8 @@ namespace Web.Controllers
         {
             try
             {
-                var product = useCase.Handle(productId, command.Amount);
-                var stockLevel = new StockLevel(product.QuantityInStock);
+                var quantityInStock = useCase.Handle(productId, command.Amount);
+                var stockLevel = new StockLevel(quantityInStock);
                 return Ok(stockLevel);
             }
             catch (NotEnoughStockException ex)

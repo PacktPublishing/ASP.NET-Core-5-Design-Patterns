@@ -16,12 +16,12 @@ namespace Core.UseCases
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
         }
 
-        public Product Handle(int productId, int amount)
+        public int Handle(int productId, int amount)
         {
             var product = _productRepository.FindById(productId);
             product.QuantityInStock += amount;
             _productRepository.Update(product);
-            return product;
+            return product.QuantityInStock;
         }
     }
 }
