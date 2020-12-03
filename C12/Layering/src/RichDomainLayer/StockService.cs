@@ -18,12 +18,11 @@ namespace RichDomainLayer
         public int AddStock(int productId, int amount)
         {
             var data = _db.Products.Find(productId);
-            var product = new Product
-            {
-                Id = data.Id,
-                Name = data.Name,
-                QuantityInStock = data.QuantityInStock
-            };
+            var product = new Product(
+                id: data.Id,
+                name: data.Name,
+                quantityInStock: data.QuantityInStock
+            );
             product.AddStock(amount);
             data.QuantityInStock = product.QuantityInStock;
             _db.SaveChanges();
@@ -33,12 +32,11 @@ namespace RichDomainLayer
         public int RemoveStock(int productId, int amount)
         {
             var data = _db.Products.Find(productId);
-            var product = new Product
-            {
-                Id = data.Id,
-                Name = data.Name,
-                QuantityInStock = data.QuantityInStock
-            };
+            var product = new Product(
+                id: data.Id,
+                name: data.Name,
+                quantityInStock: data.QuantityInStock
+            );
             product.RemoveStock(amount);
             data.QuantityInStock = product.QuantityInStock;
             _db.SaveChanges();

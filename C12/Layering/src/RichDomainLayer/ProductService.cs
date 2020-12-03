@@ -17,12 +17,11 @@ namespace RichDomainLayer
 
         public IEnumerable<Product> All()
         {
-            return _db.Products.Select(p => new Product
-            {
-                Id = p.Id,
-                Name = p.Name,
-                QuantityInStock = p.QuantityInStock
-            });
+            return _db.Products.Select(p => new Product(
+                p.Id,
+                p.Name,
+                p.QuantityInStock
+            ));
         }
     }
 }

@@ -1,10 +1,24 @@
-﻿namespace RichDomainLayer
+﻿using System;
+
+namespace RichDomainLayer
 {
     public class Product
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int QuantityInStock { get; set; }
+        public Product(string name, int quantityInStock)
+        {
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            QuantityInStock = quantityInStock;
+        }
+
+        public Product(int id, string name, int quantityInStock)
+            : this(name, quantityInStock)
+        {
+            Id = id;
+        }
+
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+        public int QuantityInStock { get; private set; }
 
         public void AddStock(int amount)
         {
