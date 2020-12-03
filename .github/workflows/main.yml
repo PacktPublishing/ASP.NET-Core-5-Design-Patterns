@@ -1,0 +1,30 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+      - 'Chapter/**'
+
+env:
+  BUILD_CONFIGURATION: Release
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        dotnet: ['5.0.x']
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Build
+        run: find . -name "*.csproj" -exec dotnet build '{}' --configuration ${{ env.BUILD_CONFIGURATION }} \;
+
+      - name: Test
+        run: find . -name "*.csproj" -exec dotnet build '{}' --configuration ${{ env.BUILD_CONFIGURATION }} --filter "FailureExpected!=true" \;
