@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DomainLayer.Rich
+namespace AnemicDomainLayer
 {
     public class ProductService : IProductService
     {
@@ -15,7 +15,7 @@ namespace DomainLayer.Rich
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
-        public IEnumerable<IProduct> All()
+        public IEnumerable<Product> All()
         {
             return _db.Products.Select(p => new Product
             {

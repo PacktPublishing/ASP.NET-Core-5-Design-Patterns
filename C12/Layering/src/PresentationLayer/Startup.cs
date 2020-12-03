@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
-using DomainLayer;
 using ForEvolve.DependencyInjection;
 using ForEvolve.EntityFrameworkCore.Seeders;
 using Microsoft.AspNetCore.Builder;
@@ -60,17 +59,17 @@ namespace PresentationLayer
         }
     }
 
-    public class DomainLayerModule : DependencyInjectionModule
+    public class RichDomainLayerModule : DependencyInjectionModule
     {
-        public DomainLayerModule(IServiceCollection services)
+        public RichDomainLayerModule(IServiceCollection services)
             : base(services)
         {
 #if RICH_MODEL
-            services.AddScoped<IProductService, DomainLayer.Rich.ProductService>();
-            services.AddScoped<IStockService, DomainLayer.Rich.StockService>();
+            services.AddScoped<RichDomainLayer.IProductService, RichDomainLayer.ProductService>();
+            services.AddScoped<RichDomainLayer.IStockService, RichDomainLayer.StockService>();
 #else
-            services.AddScoped<IProductService, DomainLayer.Anemic.ProductService>();
-            services.AddScoped<IStockService, DomainLayer.Anemic.StockService>();
+            services.AddScoped<AnemicDomainLayer.IProductService, AnemicDomainLayer.ProductService>();
+            services.AddScoped<AnemicDomainLayer.IStockService, AnemicDomainLayer.StockService>();
 #endif
         }
     }

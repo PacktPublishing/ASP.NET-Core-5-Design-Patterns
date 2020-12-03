@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DomainLayer
+namespace RichDomainLayer
 {
     public class NotEnoughStockException : Exception
     {

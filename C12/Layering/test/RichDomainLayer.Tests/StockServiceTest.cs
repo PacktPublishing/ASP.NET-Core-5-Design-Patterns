@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace DomainLayer.Rich
+namespace RichDomainLayer.Rich
 {
     public class StockServiceTest
     {

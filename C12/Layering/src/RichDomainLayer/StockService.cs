@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DomainLayer.Rich
+namespace RichDomainLayer
 {
     public class StockService : IStockService
     {
@@ -15,7 +15,7 @@ namespace DomainLayer.Rich
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
-        public IProduct AddStock(int productId, int amount)
+        public Product AddStock(int productId, int amount)
         {
             var data = _db.Products.Find(productId);
             var product = new Product
@@ -30,7 +30,7 @@ namespace DomainLayer.Rich
             return product;
         }
 
-        public IProduct RemoveStock(int productId, int amount)
+        public Product RemoveStock(int productId, int amount)
         {
             var data = _db.Products.Find(productId);
             var product = new Product

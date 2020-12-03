@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <RootNamespace>DomainModel</RootNamespace>
+    <RootNamespace>RichDomainModel</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -19,11 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Anemic\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\DomainLayer\DomainLayer.csproj" />
+    <ProjectReference Include="..\..\src\RichDomainLayer\RichDomainLayer.csproj" />
   </ItemGroup>
 
 </Project>

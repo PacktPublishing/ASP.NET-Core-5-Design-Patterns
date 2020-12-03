@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DomainLayer.Anemic
+namespace AnemicDomainLayer
 {
     public class StockService : IStockService
     {
@@ -15,7 +15,7 @@ namespace DomainLayer.Anemic
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
-        public IProduct AddStock(int productId, int amount)
+        public Product AddStock(int productId, int amount)
         {
             var product = _db.Products.Find(productId);
             product.QuantityInStock += amount;
@@ -29,7 +29,7 @@ namespace DomainLayer.Anemic
             };
         }
 
-        public IProduct RemoveStock(int productId, int amount)
+        public Product RemoveStock(int productId, int amount)
         {
             var product = _db.Products.Find(productId);
             if (amount > product.QuantityInStock)

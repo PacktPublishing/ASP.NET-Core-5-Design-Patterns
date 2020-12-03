@@ -1,4 +1,4 @@
-﻿using DomainLayer;
+﻿using RichDomainLayer;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpPost("add-stocks")]
-        public ActionResult<StockLevel> Add(int productId, [FromBody]AddStocksCommand command)
+        public ActionResult<StockLevel> Add(int productId, [FromBody] AddStocksCommand command)
         {
             var product = _stockService.AddStock(productId, command.Amount);
             var stockLevel = new StockLevel(product.QuantityInStock);
@@ -27,7 +27,7 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpPost("remove-stocks")]
-        public ActionResult<StockLevel> Remove(int productId, [FromBody]RemoveStocksCommand command)
+        public ActionResult<StockLevel> Remove(int productId, [FromBody] RemoveStocksCommand command)
         {
             try
             {

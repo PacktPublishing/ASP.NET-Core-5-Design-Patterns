@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DomainLayer
+namespace AnemicDomainLayer
 {
     public interface IProductService
     {
-        IEnumerable<IProduct> All();
+        IEnumerable<Product> All();
     }
 }
