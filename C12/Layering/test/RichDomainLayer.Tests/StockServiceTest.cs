@@ -1,23 +1,40 @@
+using DataLayer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
 using Xunit;
 
-namespace RichDomainLayer.Rich
+namespace RichDomainLayer
 {
     public class StockServiceTest
     {
+        private readonly DbContextOptionsBuilder _builder = new DbContextOptionsBuilder<ProductContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .ConfigureWarnings(builder => builder.Ignore(InMemoryEventId.TransactionIgnoredWarning))
+        ;
+
         public class AddStock : StockServiceTest
         {
             [Fact]
             public void Should_add_the_specified_amount_to_QuantityInStock()
             {
                 // Arrange
-                var sut = new Product("Product 1", quantityInStock: 0);
+                using var arrangeContext = new ProductContext(_builder.Options);
+                using var actContext = new ProductContext(_builder.Options);
+                using var assertContext = new ProductContext(_builder.Options);
+
+                arrangeContext.Products.Add(new() { Name = "Product 1", QuantityInStock = 1 });
+                arrangeContext.SaveChanges();
+
+                var sut = new StockService(actContext);
 
                 // Act
-                sut.AddStock(2);
+                var quantityInStock = sut.AddStock(productId: 1, amount: 2);
 
                 // Assert
-                Assert.Equal(2, sut.QuantityInStock);
+                Assert.Equal(3, quantityInStock);
+                var actual = assertContext.Products.Find(1);
+                Assert.Equal(3, actual.QuantityInStock);
             }
         }
 
@@ -27,27 +44,22 @@ namespace RichDomainLayer.Rich
             public void Should_remove_the_specified_amount_to_QuantityInStock()
             {
                 // Arrange
-                var sut = new Product("Product 1", quantityInStock: 5);
+                using var arrangeContext = new ProductContext(_builder.Options);
+                using var actContext = new ProductContext(_builder.Options);
+                using var assertContext = new ProductContext(_builder.Options);
+
+                arrangeContext.Products.Add(new() { Name = "Product 1", QuantityInStock = 5 });
+                arrangeContext.SaveChanges();
+
+                var sut = new StockService(actContext);
 
                 // Act
-                sut.RemoveStock(2);
+                var quantityInStock = sut.RemoveStock(productId: 1, amount: 2);
 
                 // Assert
-                Assert.Equal(3, sut.QuantityInStock);
-            }
-
-            [Fact]
-            public void Should_throw_a_NotEnoughStockException_when_the_specified_amount_of_items_to_remove_is_greater_than_QuantityInStock()
-            {
-                // Arrange
-                var sut = new Product("Product 1", quantityInStock: 2);
-
-                // Act & Assert
-                var stockException = Assert.Throws<NotEnoughStockException>(
-                    () => sut.RemoveStock(3)
-                );
-                Assert.Equal(2, stockException.QuantityInStock);
-                Assert.Equal(3, stockException.AmountToRemove);
+                Assert.Equal(3, quantityInStock);
+                var actual = assertContext.Products.Find(1);
+                Assert.Equal(3, actual.QuantityInStock);
             }
         }
     }

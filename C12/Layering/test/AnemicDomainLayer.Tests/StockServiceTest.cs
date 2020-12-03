@@ -40,7 +40,6 @@ namespace AnemicDomainLayer
                 var actual = assertContext.Products.Find(1);
                 Assert.Equal(10, actual.QuantityInStock);
             }
-
         }
 
         public class RemoveStock : StockServiceTest

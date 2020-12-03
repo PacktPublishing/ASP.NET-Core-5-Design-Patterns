@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace RichDomainLayer.Rich
+namespace RichDomainLayer
 {
     public class ProductTest
     {
