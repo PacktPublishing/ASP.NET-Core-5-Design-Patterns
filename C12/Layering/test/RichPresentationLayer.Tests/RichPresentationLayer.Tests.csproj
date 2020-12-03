@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\PresentationLayer\PresentationLayer.csproj" />
+    <ProjectReference Include="..\..\src\RichPresentationLayer\RichPresentationLayer.csproj" />
   </ItemGroup>
 
 </Project>

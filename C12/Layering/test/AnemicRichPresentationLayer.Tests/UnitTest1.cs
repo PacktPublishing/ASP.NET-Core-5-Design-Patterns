@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace PresentationLayer.Tests
+namespace RichPresentationLayer.Tests
 {
     public class UnitTest1
     {

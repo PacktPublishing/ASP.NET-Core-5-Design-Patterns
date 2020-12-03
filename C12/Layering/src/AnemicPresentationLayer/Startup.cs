@@ -1,5 +1,3 @@
-#undef RICH_MODEL
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace PresentationLayer
+namespace RichPresentationLayer
 {
     public class Startup
     {
@@ -64,13 +62,8 @@ namespace PresentationLayer
         public RichDomainLayerModule(IServiceCollection services)
             : base(services)
         {
-#if RICH_MODEL
-            services.AddScoped<RichDomainLayer.IProductService, RichDomainLayer.ProductService>();
-            services.AddScoped<RichDomainLayer.IStockService, RichDomainLayer.StockService>();
-#else
             services.AddScoped<AnemicDomainLayer.IProductService, AnemicDomainLayer.ProductService>();
             services.AddScoped<AnemicDomainLayer.IStockService, AnemicDomainLayer.StockService>();
-#endif
         }
     }
 
@@ -80,7 +73,7 @@ namespace PresentationLayer
             : base(services)
         {
             services.AddDbContext<ProductContext>(options => options
-                .UseInMemoryDatabase("ProductContextMemoryDB")
+                .UseInMemoryDatabase("AnemicProductContextMemoryDB")
                 .ConfigureWarnings(builder => builder.Ignore(InMemoryEventId.TransactionIgnoredWarning))
             );
             services.AddForEvolveSeeders().Scan<Startup>();
