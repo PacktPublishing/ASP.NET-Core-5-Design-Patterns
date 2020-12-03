@@ -27,4 +27,4 @@ jobs:
         run: find . -name "*.csproj" -exec dotnet build '{}' --configuration ${{ env.BUILD_CONFIGURATION }} \;
 
       - name: Test
-        run: find . -name "*.csproj" -exec dotnet build '{}' --configuration ${{ env.BUILD_CONFIGURATION }} --filter "FailureExpected!=true" \;
+        run: find . -name "*.csproj" -exec dotnet test '{}' --configuration ${{ env.BUILD_CONFIGURATION }} --filter "FailureExpected!=true" \;
