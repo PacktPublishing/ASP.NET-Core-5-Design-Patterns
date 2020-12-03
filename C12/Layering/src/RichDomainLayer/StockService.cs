@@ -15,7 +15,7 @@ namespace RichDomainLayer
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
-        public Product AddStock(int productId, int amount)
+        public int AddStock(int productId, int amount)
         {
             var data = _db.Products.Find(productId);
             var product = new Product
@@ -27,10 +27,10 @@ namespace RichDomainLayer
             product.AddStock(amount);
             data.QuantityInStock = product.QuantityInStock;
             _db.SaveChanges();
-            return product;
+            return product.QuantityInStock;
         }
 
-        public Product RemoveStock(int productId, int amount)
+        public int RemoveStock(int productId, int amount)
         {
             var data = _db.Products.Find(productId);
             var product = new Product
@@ -42,7 +42,7 @@ namespace RichDomainLayer
             product.RemoveStock(amount);
             data.QuantityInStock = product.QuantityInStock;
             _db.SaveChanges();
-            return product;
+            return product.QuantityInStock;
         }
     }
 }

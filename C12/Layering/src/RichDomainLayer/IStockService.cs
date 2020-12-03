@@ -2,7 +2,7 @@
 {
     public interface IStockService
     {
-        Product AddStock(int productId, int amount);
-        Product RemoveStock(int productId, int amount);
+        int AddStock(int productId, int amount);
+        int RemoveStock(int productId, int amount);
     }
 }

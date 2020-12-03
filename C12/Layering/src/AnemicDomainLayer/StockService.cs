@@ -15,21 +15,16 @@ namespace AnemicDomainLayer
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
-        public Product AddStock(int productId, int amount)
+        public int AddStock(int productId, int amount)
         {
             var product = _db.Products.Find(productId);
             product.QuantityInStock += amount;
             _db.SaveChanges();
 
-            return new Product
-            {
-                Id = product.Id,
-                Name = product.Name,
-                QuantityInStock = product.QuantityInStock
-            };
+            return product.QuantityInStock;
         }
 
-        public Product RemoveStock(int productId, int amount)
+        public int RemoveStock(int productId, int amount)
         {
             var product = _db.Products.Find(productId);
             if (amount > product.QuantityInStock)
@@ -39,12 +34,7 @@ namespace AnemicDomainLayer
             product.QuantityInStock -= amount;
             _db.SaveChanges();
 
-            return new Product
-            {
-                Id = product.Id,
-                Name = product.Name,
-                QuantityInStock = product.QuantityInStock
-            };
+            return product.QuantityInStock;
         }
     }
 }
