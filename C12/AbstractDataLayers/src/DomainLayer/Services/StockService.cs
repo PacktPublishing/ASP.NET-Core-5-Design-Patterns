@@ -15,21 +15,16 @@ namespace DomainLayer.Services
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
-        public Product AddStock(int productId, int amount)
+        public int AddStock(int productId, int amount)
         {
             var product = _repository.FindById(productId);
             product.QuantityInStock += amount;
             _repository.Update(product);
 
-            return new Product
-            {
-                Id = product.Id,
-                Name = product.Name,
-                QuantityInStock = product.QuantityInStock
-            };
+            return product.QuantityInStock;
         }
 
-        public Product RemoveStock(int productId, int amount)
+        public int RemoveStock(int productId, int amount)
         {
             var product = _repository.FindById(productId);
             if (amount > product.QuantityInStock)
@@ -39,12 +34,7 @@ namespace DomainLayer.Services
             product.QuantityInStock -= amount;
             _repository.Update(product);
 
-            return new Product
-            {
-                Id = product.Id,
-                Name = product.Name,
-                QuantityInStock = product.QuantityInStock
-            };
+            return product.QuantityInStock;
         }
     }
 }
