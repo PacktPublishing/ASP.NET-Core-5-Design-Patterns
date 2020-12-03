@@ -22,8 +22,8 @@ namespace PresentationLayer.Controllers
         [HttpPost("add-stocks")]
         public ActionResult<StockLevel> Add(int productId, [FromBody]AddStocksCommand command)
         {
-            var product = _stockService.AddStock(productId, command.Amount);
-            var stockLevel = new StockLevel(product.QuantityInStock);
+            var quantityInStock = _stockService.AddStock(productId, command.Amount);
+            var stockLevel = new StockLevel(quantityInStock);
             return Ok(stockLevel);
         }
 
@@ -32,8 +32,8 @@ namespace PresentationLayer.Controllers
         {
             try
             {
-                var product = _stockService.RemoveStock(productId, command.Amount);
-                var stockLevel = new StockLevel(product.QuantityInStock);
+                var quantityInStock = _stockService.RemoveStock(productId, command.Amount);
+                var stockLevel = new StockLevel(quantityInStock);
                 return Ok(stockLevel);
             }
             catch (NotEnoughStockException ex)
