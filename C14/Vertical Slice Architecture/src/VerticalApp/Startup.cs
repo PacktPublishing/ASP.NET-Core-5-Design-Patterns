@@ -24,8 +24,9 @@ namespace VerticalApp
             services.AddMediatR(currentAssembly);
             services.AddDependencyInjectionModules(currentAssembly);
             services
-                .AddControllers()
+                .AddControllers(options => options.Filters.Add<FluentValidationExceptionFilter>())
                 .AddFluentValidation(config => config.RegisterValidatorsFromAssembly(currentAssembly));
+            services.AddSingleton(typeof(IPipelineBehavior<,>), typeof(ThrowFluentValidationExceptionBehavior<,>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
