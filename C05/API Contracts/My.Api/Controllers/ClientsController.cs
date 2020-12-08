@@ -13,13 +13,13 @@ namespace My.Api.Controllers
     [ApiController]
     public class ClientsController : ControllerBase
     {
-        private readonly ClientRepository _clientService = new ClientRepository();
+        private readonly ClientRepository _clientRepository = new ClientRepository();
 
         // GET api/clients
         [HttpGet]
         public ActionResult<IEnumerable<ClientSummaryDto>> Get()
         {
-            var clients = _clientService.ReadAll();
+            var clients = _clientRepository.ReadAll();
             var dto = clients.Select(client => new ClientSummaryDto
             {
                 Id = client.Id,
@@ -34,7 +34,7 @@ namespace My.Api.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var client = _clientService.ReadOne(id);
+            var client = _clientRepository.ReadOne(id);
             if (client == default(Client))
             {
                 return NotFound();
