@@ -16,20 +16,20 @@ namespace DomainLayer.Services
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
-        public Product AddStock(int productId, int amount)
+        public int AddStock(int productId, int amount)
         {
             var product = _repository.FindById(productId);
             product.AddStock(amount);
             _repository.Update(product);
-            return product;
+            return product.QuantityInStock;
         }
 
-        public Product RemoveStock(int productId, int amount)
+        public int RemoveStock(int productId, int amount)
         {
             var product = _repository.FindById(productId);
             product.RemoveStock(amount);
             _repository.Update(product);
-            return product;
+            return product.QuantityInStock;
         }
     }
 }

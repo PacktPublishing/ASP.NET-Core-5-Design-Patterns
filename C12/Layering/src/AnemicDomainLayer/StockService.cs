@@ -5,34 +5,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DomainLayer.Services
+namespace AnemicDomainLayer
 {
     public class StockService : IStockService
     {
-        private readonly IProductRepository _repository;
-        public StockService(IProductRepository repository)
+        private readonly ProductContext _db;
+        public StockService(ProductContext db)
         {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
         public int AddStock(int productId, int amount)
         {
-            var product = _repository.FindById(productId);
+            var product = _db.Products.Find(productId);
             product.QuantityInStock += amount;
-            _repository.Update(product);
+            _db.SaveChanges();
 
             return product.QuantityInStock;
         }
 
         public int RemoveStock(int productId, int amount)
         {
-            var product = _repository.FindById(productId);
+            var product = _db.Products.Find(productId);
             if (amount > product.QuantityInStock)
             {
                 throw new NotEnoughStockException(product.QuantityInStock, amount);
             }
             product.QuantityInStock -= amount;
-            _repository.Update(product);
+            _db.SaveChanges();
 
             return product.QuantityInStock;
         }

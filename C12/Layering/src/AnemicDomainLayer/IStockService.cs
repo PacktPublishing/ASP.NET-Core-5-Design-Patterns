@@ -1,6 +1,4 @@
-﻿using SharedModels;
-
-namespace DomainLayer
+﻿namespace AnemicDomainLayer
 {
     public interface IStockService
     {

@@ -1,13 +1,8 @@
-#undef RICH_MODEL
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
-using DataLayer.EFCore;
-using DomainLayer;
-using DomainLayer.Services;
 using ForEvolve.DependencyInjection;
 using ForEvolve.EntityFrameworkCore.Seeders;
 using Microsoft.AspNetCore.Builder;
@@ -20,9 +15,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using SharedModels;
 
-namespace PresentationLayer
+namespace RichPresentationLayer
 {
     public class Startup
     {
@@ -63,13 +57,13 @@ namespace PresentationLayer
         }
     }
 
-    public class DomainLayerModule : DependencyInjectionModule
+    public class RichDomainLayerModule : DependencyInjectionModule
     {
-        public DomainLayerModule(IServiceCollection services)
+        public RichDomainLayerModule(IServiceCollection services)
             : base(services)
         {
-            services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IStockService, StockService>();
+            services.AddScoped<RichDomainLayer.IProductService, RichDomainLayer.ProductService>();
+            services.AddScoped<RichDomainLayer.IStockService, RichDomainLayer.StockService>();
         }
     }
 
@@ -78,9 +72,8 @@ namespace PresentationLayer
         public DataLayerModule(IServiceCollection services)
             : base(services)
         {
-            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddDbContext<ProductContext>(options => options
-                .UseInMemoryDatabase("ProductContextMemoryDB")
+                .UseInMemoryDatabase("RichProductContextMemoryDB")
                 .ConfigureWarnings(builder => builder.Ignore(InMemoryEventId.TransactionIgnoredWarning))
             );
             services.AddForEvolveSeeders().Scan<Startup>();
@@ -91,21 +84,24 @@ namespace PresentationLayer
     {
         public void Seed(ProductContext db)
         {
-            db.Products.Add(new Product(
-                id: 1,
-                name: "Banana",
-                quantityInStock: 50
-            ));
-            db.Products.Add(new Product(
-                id: 2,
-                name: "Apple",
-                quantityInStock: 20
-            ));
-            db.Products.Add(new Product(
-                id: 3,
-                name: "Habanero Pepper",
-                quantityInStock: 10
-            ));
+            db.Products.Add(new Product
+            {
+                Id = 1,
+                Name = "Banana",
+                QuantityInStock = 50
+            });
+            db.Products.Add(new Product
+            {
+                Id = 2,
+                Name = "Apple",
+                QuantityInStock = 20
+            });
+            db.Products.Add(new Product
+            {
+                Id = 3,
+                Name = "Habanero Pepper",
+                QuantityInStock = 10
+            });
             db.SaveChanges();
         }
     }

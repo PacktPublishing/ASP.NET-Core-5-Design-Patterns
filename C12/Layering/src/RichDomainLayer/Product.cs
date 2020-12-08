@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SharedModels
+namespace RichDomainLayer
 {
     public class Product
     {
