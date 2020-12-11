@@ -1,14 +1,14 @@
 # Introduction
 
 This repository contains the code of `An atypical .NET 5 Design Patterns book`.
-It also contains pointers to help you find yourself around the repository and some additional information.
+It also contains pointers to help you find your way around the repository.
+This repo is also there to rectify any mistake that could have been made in the book and missed during reviews.
 
-One last thing this repo will do for you is to correct any mistake that could have been made in the book.
-So please an open issue if you find something missing from the instruction bellow or the book's instructions.
+Please open an issue if you find something missing from the instructions below or the book's instructions.
 
 # Postman Collection
 
-If you know Postman, or if you want to learn it, we created a collection of HTTP requests to query the various REST APIs that are created throughout the book.
+If you know Postman, or if you want to learn it, we have a collection of HTTP requests to query the various REST APIs created throughout the book.
 
 Link: https://net5.link/postman
 
@@ -24,8 +24,7 @@ If you think a request is missing or find an error, please open an issue to let 
 # UML Diagrams
 
 In the book, we have UML Class diagrams, UML Sequence Diagrams, and some non-UML diagrams.
-We assumed that most-developers would know about that, so did not write about it.
-The book also contains many pages, so there was no need to add more.
+We assumed that most-developers would know about UML, so we decided not to add pages about it.
 
 The author used [diagrams.net (draw.io)](https://draw.io/) to draw the diagrams (which is free and open-source).
 You can even load their editor in Visual Studio Code using the [Draw.io Integration](https://net5.link/w32e) extension.
@@ -34,7 +33,7 @@ You can even load their editor in Visual Studio Code using the [Draw.io Integrat
 
 # Getting Started
 
-1. You need a copy of `An atypical .NET 5 Design Patterns book` to make sense of the code projects as many projects starts with bad code and get refactored into better ones.
+1. You need a copy of `An atypical .NET 5 Design Patterns book` to make sense of the code projects as many projects start with bad code and get refactored into better ones.
 
     - <mark>TODO: add a link</mark>
 
@@ -52,7 +51,7 @@ With that in place, you should be good to go!
 # Build and Test
 
 All projects and solutions can be built using the .NET CLI or Visual Studio.
-You can find most useful commands in the introduction chapter, under `Running and building your program` or online.
+You can find the most useful commands in the introduction chapter, under `Running and building your program` or online.
 
 The two commands that you will need are:
 
@@ -61,9 +60,9 @@ The two commands that you will need are:
 
 # Content/Code
 
-There are many projects throughout the book, and it may become confusing to know what code block relates to what file in the Git repository.
-Here we map the location of the code to its location in the book.
-If at any point you are not totally sure, please have a look here.
+Throughout the book, there are many projects, and it may become confusing to know what code block relates to what file in the Git repository.
+Here we map the location of the code to its place in the book.
+If at any point you are not sure, please have a look here.
 
 1. <mark>TODO: map chapters and projects to code</mark>
 
@@ -71,6 +70,6 @@ If you find something missing or erroneous, please open an issue and let us know
 
 # Contribute
 
-Please open an issue if you find some missing docs, errors in the source code, or divergence between the book and the source code.
+Please open an issue if you find some missing docs, errors in the source code, or a divergence between the book and the source code.
 
 For more information, check out the [Code of conduct](CODE_OF_CONDUCT.md).
