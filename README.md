@@ -19,7 +19,7 @@ The structure is as follow:
 The author built that collection to test the code himself while writing the book.
 Since he needed it, we concluded that you could also find these requests useful during your journey.
 
-If you think a request is missing or find an error, please open an issue to let me know.
+If you think a request is missing or find an error, please open an issue to let us know.
 
 # UML Diagrams
 
