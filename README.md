@@ -32,6 +32,10 @@ You can even load their editor in Visual Studio Code using the [Draw.io Integrat
 
 <mark>TODO: write a short article</mark>
 
+^^TODO: write a short article^^
+
+==TODO: write a short article==
+
 # Getting Started
 
 1. You need a copy of `An atypical .NET 5 Design Patterns book` to make sense of the code projects as many projects starts with bad code and get refactored into better ones.
