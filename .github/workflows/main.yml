@@ -6,10 +6,16 @@ on:
       - main
     paths-ignore:
       - README.md
+      - CODE_OF_CONDUCT.md
+      - LICENSE
 
   pull_request:
     branches:
       - main
+    paths-ignore:
+      - README.md
+      - CODE_OF_CONDUCT.md
+      - LICENSE
 
 env:
   BUILD_CONFIGURATION: Release
