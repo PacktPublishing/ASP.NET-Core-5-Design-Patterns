@@ -40,7 +40,7 @@ namespace Web
         {
             services.AddSingleton<IMapper<Core.Entities.Product, StocksController.StockLevel>, StockMapper>();
             services.AddSingleton<IMapper<Core.Entities.Product, ProductsController.ProductDetails>, Mappers.ProductMapper>();
-            services.AddSingleton<IMappingService, MappingServiceLocator>();
+            services.AddSingleton<IMappingService, ServiceLocatorMappingService>();
             services
                 .ScanForDIModules()
                 .FromAssemblyOf<Startup>();

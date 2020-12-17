@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 namespace Web.Services
 {
-    public class MappingServiceLocator : IMappingService
+    public class ServiceLocatorMappingService : IMappingService
     {
         private readonly IServiceProvider _serviceProvider;
-        public MappingServiceLocator(IServiceProvider serviceProvider)
+        public ServiceLocatorMappingService(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
         }
