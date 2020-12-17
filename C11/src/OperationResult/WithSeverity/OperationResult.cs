@@ -13,7 +13,7 @@ namespace OperationResult.WithSeverity
         }
 
         public bool Succeeded => !HasErrors();
-        public int? Value { get; set; }
+        public int? Value { get; init; }
 
         public IEnumerable<OperationResultMessage> Messages
             => new ReadOnlyCollection<OperationResultMessage>(_messages);

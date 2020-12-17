@@ -14,6 +14,6 @@ namespace OperationResult.SingleErrorWithValue
         public bool Succeeded => string.IsNullOrWhiteSpace(ErrorMessage);
         public string ErrorMessage { get; }
 
-        public int? Value { get; set; }
+        public int? Value { get; init; }
     }
 }

@@ -14,7 +14,7 @@ namespace OperationResult.MultipleErrorsWithValue
         }
 
         public bool Succeeded => !HasErrors();
-        public int? Value { get; set; }
+        public int? Value { get; init; }
 
         public IEnumerable<string> Errors => new ReadOnlyCollection<string>(_errors);
         public bool HasErrors()

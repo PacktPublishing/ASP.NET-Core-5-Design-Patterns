@@ -11,7 +11,7 @@ namespace OperationResult.StaticFactoryMethod
         private OperationResult() { }
 
         public abstract bool Succeeded { get; }
-        public virtual int? Value { get; set; }
+        public virtual int? Value { get; init; }
         public abstract IEnumerable<OperationResultMessage> Messages { get; }
 
         public static OperationResult Success(int? value = null)
