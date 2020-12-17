@@ -94,10 +94,10 @@ namespace SRP
         {
             var book = new Book
             {
-                Id = 4, // this value is not enforced by anything and will be overridden at some point.
+                Id = 4,
                 Title = "Some out of order book"
             };
-            _bookStore.Create(book);
+            _bookStore.Create(book); // Exception: A new book cannot be created with an id.
             _bookPresenter.Display(book);
         } 
 
