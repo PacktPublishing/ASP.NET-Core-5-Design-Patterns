@@ -12,13 +12,13 @@ namespace Core.UseCases
 {
     public class AddStocks
     {
-        public class Command : IRequest<Product>
+        public class Command : IRequest<int>
         {
             public int ProductId { get; set; }
             public int Amount { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command, Product>
+        public class Handler : IRequestHandler<Command, int>
         {
             private readonly IProductRepository _productRepository;
             public Handler(IProductRepository productRepository)
@@ -26,12 +26,12 @@ namespace Core.UseCases
                 _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
             }
 
-            public async Task<Product> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<int> Handle(Command request, CancellationToken cancellationToken)
             {
-                var product = await _productRepository.FindByIdAsync(request.ProductId);
+                var product = await _productRepository.FindByIdAsync(request.ProductId, cancellationToken);
                 product.QuantityInStock += request.Amount;
-                await _productRepository.UpdateAsync(product);
-                return product;
+                await _productRepository.UpdateAsync(product, cancellationToken);
+                return product.QuantityInStock;
             }
         }
     }

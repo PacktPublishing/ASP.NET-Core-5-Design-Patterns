@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Web.Controllers
@@ -19,10 +20,10 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDetails>>> GetAsync()
+        public async Task<ActionResult<IEnumerable<ProductDetails>>> GetAsync(CancellationToken cancellationToken)
         {
             var products = (await _productRepository
-                .AllAsync())
+                .AllAsync(cancellationToken))
                 .Select(p => new ProductDetails(
                     id: p.Id,
                     name: p.Name,

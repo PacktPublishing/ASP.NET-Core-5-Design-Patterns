@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Data.Repositories
@@ -17,35 +18,35 @@ namespace Infrastructure.Data.Repositories
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
-        public async Task<IEnumerable<Product>> AllAsync()
+        public async Task<IEnumerable<Product>> AllAsync(CancellationToken cancellationToken)
         {
-            var products = await _db.Products.ToArrayAsync();
+            var products = await _db.Products.ToArrayAsync(cancellationToken);
             return products;
         }
 
-        public async Task DeleteByIdAsync(int productId)
+        public async Task DeleteByIdAsync(int productId, CancellationToken cancellationToken)
         {
-            var product = await _db.Products.FindAsync(productId);
+            var product = await _db.Products.FindAsync(productId, cancellationToken);
             _db.Products.Remove(product);
-            await _db.SaveChangesAsync();
+            await _db.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<Product> FindByIdAsync(int productId)
+        public async Task<Product> FindByIdAsync(int productId, CancellationToken cancellationToken)
         {
-            var product = await _db.Products.FindAsync(productId);
+            var product = await _db.Products.FindAsync(productId, cancellationToken);
             return product;
         }
 
-        public async Task InsertAsync(Product product)
+        public async Task InsertAsync(Product product, CancellationToken cancellationToken)
         {
             _db.Products.Add(product);
-            await _db.SaveChangesAsync();
+            await _db.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task UpdateAsync(Product product)
+        public async Task UpdateAsync(Product product, CancellationToken cancellationToken)
         {
             _db.Entry(product).State = EntityState.Modified;
-            await _db.SaveChangesAsync();
+            await _db.SaveChangesAsync(cancellationToken);
         }
     }
 }

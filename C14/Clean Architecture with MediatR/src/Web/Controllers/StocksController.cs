@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Web.Controllers
@@ -23,26 +24,28 @@ namespace Web.Controllers
         [HttpPost("add-stocks")]
         public async Task<ActionResult<StockLevel>> AddAsync(
             int productId,
-            [FromBody] AddStocks.Command command
+            [FromBody] AddStocks.Command command,
+            CancellationToken cancellationToken
         )
         {
             command.ProductId = productId;
-            var product = await _mediator.Send(command);
-            var stockLevel = new StockLevel(product.QuantityInStock);
+            var quantityInStock = await _mediator.Send(command, cancellationToken);
+            var stockLevel = new StockLevel(quantityInStock);
             return Ok(stockLevel);
         }
 
         [HttpPost("remove-stocks")]
         public async Task<ActionResult<StockLevel>> RemoveAsync(
             int productId,
-            [FromBody] RemoveStocks.Command command
+            [FromBody] RemoveStocks.Command command,
+            CancellationToken cancellationToken
         )
         {
             try
             {
                 command.ProductId = productId;
-                var product = await _mediator.Send(command);
-                var stockLevel = new StockLevel(product.QuantityInStock);
+                var quantityInStock = await _mediator.Send(command, cancellationToken);
+                var stockLevel = new StockLevel(quantityInStock);
                 return Ok(stockLevel);
             }
             catch (NotEnoughStockException ex)
