@@ -1,11 +1,12 @@
 ## $5 Tech Unlocked 2021!
-[Buy and download this product for only $5 on PacktPub.com](https://www.packtpub.com/)
------
-*The $5 campaign         runs from __December 15th 2020__ to __January 13th 2021.__*
+
+## [Buy and download this product for only $5 on PacktPub.com](https://www.packtpub.com/)
+
+_The $5 campaign runs from **December 15th 2020** to **January 13th 2021.**_
 
 # Introduction
 
-This repository contains the code of `An atypical .NET 5 Design Patterns book`.
+This repository contains the code of `An Atypical ASP.NET Core 5 Design Patterns Guide`.
 It also contains pointers to help you find your way around the repository.
 This repo is also there to rectify any mistake that could have been made in the book and missed during reviews.
 
@@ -38,9 +39,9 @@ You can even load their editor in Visual Studio Code using the [Draw.io Integrat
 
 # Getting Started
 
-1. You need a copy of `An atypical .NET 5 Design Patterns book` to make sense of the code projects as many projects start with bad code and get refactored into better ones.
+1. You need a copy of `An Atypical ASP.NET Core 5 Design Patterns Guide` to make sense of the code projects as many projects start with bad code and get refactored into better ones.
 
-    - <mark>TODO: add a link</mark>
+    - You can find [An Atypical ASP.NET Core 5 Design Patterns Guide](https://net5.link/buy) on Amazon.com
 
 1. You need an IDE/Text Editor like Visual Studio or Visual Studio Code, but you could do without (not recommended).
 
