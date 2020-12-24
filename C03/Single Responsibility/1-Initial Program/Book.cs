@@ -63,7 +63,7 @@ namespace SRP
             // Make sure it exist
             if (book == null)
             {
-                throw new Exception("This book does not exist in the ");
+                throw new Exception("This book does not exist.");
             }
 
             // Copy the book properties to the current object
