@@ -206,7 +206,7 @@ namespace DoorLock
     {
         /// <summary>
         /// Gets the key's signature.
-        /// This should be used by <see cref="ILock"/> to decide wheter or not the key matches the lock.
+        /// This should be used by <see cref="ILock"/> to decide whether or not the key matches the lock.
         /// </summary>
         string Signature { get; }
     }
