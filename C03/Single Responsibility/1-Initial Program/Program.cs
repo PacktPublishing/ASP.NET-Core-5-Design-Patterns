@@ -101,7 +101,7 @@ namespace SRP
 
         private static void DisplayTheBookSomewhereElse()
         {
-            Console.WriteLine("Oups! Can't do that, the Display method only write to the \"Console\".");
+            Console.WriteLine("Oops! Can't do that, the Display method only write to the \"Console\".");
         }
 
 
