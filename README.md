@@ -6,7 +6,7 @@ _The $5 campaign runs from **December 15th 2020** to **January 13th 2021.**_
 
 # An Atypical ASP.NET Core 5 Design Patterns Guide
 
-<a href="https://www.packtpub.com/product/an-atypical-asp-net-core-5-design-patterns-guide/9781789346091?utm_source=github&utm_medium=repository&utm_campaign=9781789346091"><img src="https://static.packt-cdn.com/products/9781789346091/cover/smaller" alt="An Atypical ASP.NET Core 5 Design Patterns Guide" height="256px" align="right"></a>
+<a href="https://www.packtpub.com/product/an-atypical-asp-net-core-5-design-patterns-guide/9781789346091?utm_source=github&utm_medium=repository&utm_campaign=9781789346091"><img src="https://github.com/PacktPublishing/ASP.NET-Core-5-Design-Patterns/blob/main/smaller.png?raw=true" alt="An Atypical ASP.NET Core 5 Design Patterns Guide" height="256px" align="right"></a>
 
 This is the code repository for [An Atypical ASP.NET Core 5 Design Patterns Guide](https://www.packtpub.com/product/an-atypical-asp-net-core-5-design-patterns-guide/9781789346091?utm_source=github&utm_medium=repository&utm_campaign=9781789346091), published by Packt.
 
