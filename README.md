@@ -13,36 +13,39 @@ This is the code repository for [An Atypical ASP.NET Core 5 Design Patterns Guid
 **A SOLID adventure into architectural principles, design patterns, .NET 5, and C#**
 
 ## What is this book about?
+
 Design patterns are a set of solutions to many of the common problems occurring in software development. Knowledge of these design patterns helps developers and professionals to craft software solutions of any scale.
 
-This book covers the following exciting features: 
-* Apply the SOLID principles for building flexible and maintainable software
-* Get to grips with .NET 5 dependency injection
-* Work with GoF design patterns such as strategy, decorator, and composite
-* Explore the MVC patterns for designing web APIs and web applications using Razor
-* Discover layering techniques and tenets of clean architecture
+This book covers the following exciting features:
+
+-   Apply the SOLID principles for building flexible and maintainable software
+-   Get to grips with .NET 5 dependency injection
+-   Work with GoF design patterns such as strategy, decorator, and composite
+-   Explore the MVC patterns for designing web APIs and web applications using Razor
+-   Discover layering techniques and tenets of clean architecture
 
 If you feel this book is for you, get your [copy](https://www.amazon.com/dp/1789346096) today!
 
 <a href="https://www.packtpub.com/?utm_source=github&utm_medium=banner&utm_campaign=GitHubBanner"><img src="https://raw.githubusercontent.com/PacktPublishing/GitHub/master/GitHub.png" 
 alt="https://www.packtpub.com/" border="5" /></a>
 
-
 ## Instructions and Navigations
+
 All of the code is organized into folders. For example, Chapter02.
 
 The code will look like the following:
-```
+
+```csharp
 public class InlineDataTest
 {
-[Theory]
-[InlineData(1, 1)]
-[InlineData(2, 2)]
-[InlineData(5, 5)]
-public void Should_be_equal(int value1, int value2)
-{
-Assert.Equal(value1, value2);
-}
+    [Theory]
+    [InlineData(1, 1)]
+    [InlineData(2, 2)]
+    [InlineData(5, 5)]
+    public void Should_be_equal(int value1, int value2)
+    {
+        Assert.Equal(value1, value2);
+    }
 }
 ```
 
@@ -54,14 +57,13 @@ With the following software and hardware list you can run all code files present
 
 ### Software and Hardware List
 
-| Chapter  | Software required                          | OS required                        |
-| -------- | ------------------------------------------ | -----------------------------------|
-| 1-18     |  .NET 5                                    | Windows, Mac OS X, and Linux (Any) |
-| 1-18     |  ASP.NET Core 5                            | Windows, Mac OS X, and Linux (Any) |
-| 1-18     |  C# 9.0                                    | Windows, Mac OS X, and Linux (Any) |
-| 1-18     |  xUnit                                     | Windows, Mac OS X, and Linux (Any) |
-| 1-18     |  Multiple other .NET open source libraries | Windows, Mac OS X, and Linux (Any) |
-
+| Chapter | Software required                         | OS required                        |
+| ------- | ----------------------------------------- | ---------------------------------- |
+| 1-18    | .NET 5                                    | Windows, Mac OS X, and Linux (Any) |
+| 1-18    | ASP.NET Core 5                            | Windows, Mac OS X, and Linux (Any) |
+| 1-18    | C# 9.0                                    | Windows, Mac OS X, and Linux (Any) |
+| 1-18    | xUnit                                     | Windows, Mac OS X, and Linux (Any) |
+| 1-18    | Multiple other .NET open source libraries | Windows, Mac OS X, and Linux (Any) |
 
 ### Introduction
 
@@ -91,10 +93,13 @@ If you think a request is missing or find an error, please open an issue to let 
 In the book, we have UML Class diagrams, UML Sequence Diagrams, and some non-UML diagrams.
 We assumed that most-developers would know about UML, so we decided not to add pages about it.
 
-The author used [diagrams.net (draw.io)](https://draw.io/) to draw the diagrams (which is free and open-source).
+The author used [diagrams.net (draw.io)](https://draw.io) to draw the diagrams (which is free and open-source).
 You can even load their editor in Visual Studio Code using the [Draw.io Integration](https://net5.link/w32e) extension.
 
-<mark>TODO: write a short article</mark>
+The following two articles should help you get started if you don't know UML:
+
+-   [UML class-diagrams](https://net5.link/UML1)
+-   [UML sequence-diagrams](https://net5.link/UML2)
 
 ### Getting Started
 
@@ -139,14 +144,14 @@ Please open an issue if you find some missing docs, errors in the source code, o
 
 For more information, check out the [Code of conduct](CODE_OF_CONDUCT.md).
 
-
 ### Related products <Other books you may enjoy>
-* ASP.NET Core 3 and React [[Packt]](https://www.packtpub.com/product/asp-net-core-3-and-react/9781789950229?utm_source=github&utm_medium=repository&utm_campaign=9781789950229) [[Amazon]](https://www.amazon.com/dp/1789950228)
 
-* Introducing .NET 5 - Architecture, Migration, and New Features [[Packt]](https://www.packtpub.com/product/introducing-net-5-architecture-migration-and-new-features/9781800560567?utm_source=github&utm_medium=repository&utm_campaign=9781800560567) [[Amazon]](https://www.amazon.com/dp/1800560567)
+-   ASP.NET Core 3 and React [[Packt]](https://www.packtpub.com/product/asp-net-core-3-and-react/9781789950229?utm_source=github&utm_medium=repository&utm_campaign=9781789950229) [[Amazon]](https://www.amazon.com/dp/1789950228)
+
+-   Introducing .NET 5 - Architecture, Migration, and New Features [[Packt]](https://www.packtpub.com/product/introducing-net-5-architecture-migration-and-new-features/9781800560567?utm_source=github&utm_medium=repository&utm_campaign=9781800560567) [[Amazon]](https://www.amazon.com/dp/1800560567)
 
 ## Get to Know the Author
+
 **Carl-Hugo Marcotte**
 has been developing, designing, and architecting web applications professionally since 2005. He wrote his first line of code at about 8 years old and has been a computer enthusiast since. He holds a Bachelor's degree in Computer Science from Université du Québec à Trois-Rivières. After working at a firm for a few years, he became an independent consultant, where he developed projects of different sizes for SMEs and educational institutions. He is passionate about software architecture, C#, ASP.NET Core, and the web.
 He loves to share his knowledge, which led him to teaching programming; blogging; and creating, maintaining, and contributing to multiple open source projects.
-
