@@ -130,13 +130,9 @@ The two commands that you will need are:
 
 ### Content/Code
 
-Throughout the book, there are many projects, and it may become confusing to know what code block relates to what file in the Git repository.
-Here we map the location of the code to its place in the book.
-If at any point you are not sure, please have a look here.
-
-1. <mark>TODO: map chapters and projects to code</mark>
-
-If you find something missing or erroneous, please open an issue and let us know.
+Throughout the book, there are many projects, and many are copies with a little update done to them, so they may look a lot alike.
+Here, we will build a list that maps harder to find code to its file or directory in the Git repository.
+If you find something missing, erroneous, or hard to find, please open an issue and let us know.
 
 ### Contribute
 
