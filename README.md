@@ -151,3 +151,7 @@ For more information, check out the [Code of conduct](CODE_OF_CONDUCT.md).
 **Carl-Hugo Marcotte**
 has been developing, designing, and architecting web applications professionally since 2005. He wrote his first line of code at about 8 years old and has been a computer enthusiast since. He holds a Bachelor's degree in Computer Science from Université du Québec à Trois-Rivières. After working at a firm for a few years, he became an independent consultant, where he developed projects of different sizes for SMEs and educational institutions. He is passionate about software architecture, C#, ASP.NET Core, and the web.
 He loves to share his knowledge, which led him to teaching programming; blogging; and creating, maintaining, and contributing to multiple open source projects.
+### Download a free PDF
+
+ <i>If you have already purchased a print or Kindle version of this book, you can get a DRM-free PDF version at no cost.<br>Simply click on the link to claim your free PDF.</i>
+<p align="center"> <a href="https://packt.link/free-ebook/9781789346091">https://packt.link/free-ebook/9781789346091 </a> </p>
